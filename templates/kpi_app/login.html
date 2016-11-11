@@ -1,0 +1,34 @@
+<!--login.html-->
+
+{# Load the tag library #}
+{% load bootstrap3 %}
+{% load staticfiles %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Log in</title>
+</head>
+<body style="background-color: #6c6c6c">
+
+
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			LOGO
+		</div>
+		<div class="panel-body">
+			<a href="/accounts/login/">Click here to login</a>
+		</div>
+	</div>
+
+
+	
+</body>
+</html>

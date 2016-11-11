@@ -15,7 +15,9 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from kpi_app import views
 
 urlpatterns = [
+	url(r'^$', views.login_page, name="login_page"),
     url(r'^admin/', admin.site.urls),
 ]
