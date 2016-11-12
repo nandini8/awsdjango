@@ -152,6 +152,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = {'http://127.0.0.1:8000/complete/google-oauth2/','https://serene-reef-39478.herokuapp.com/complete/google-oauth2/'}
 SOCIAL_AUTH_LOGIN_URL = '/'
+SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
 
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '760665739517-8on96qc4f61e3u6g79vgieq7fi34a5oi'
