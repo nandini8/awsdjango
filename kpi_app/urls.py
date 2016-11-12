@@ -18,8 +18,5 @@ from django.contrib import admin
 from kpi_app import views
 
 urlpatterns = [
-	url(r'^$', views.login_page, name="login_page"),
-    url(r'^admin/', admin.site.urls),
-    url('', include('social.apps.django_app.urls', namespace='social')),
-    url(r'^KPI/',include('kpi_app.urls')),
+	url(r'^home', views.home, name="home"),
 ]
