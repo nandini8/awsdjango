@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from social.apps.django_app.default.models import UserSocialAuth
 
 # Create your views here.
 
