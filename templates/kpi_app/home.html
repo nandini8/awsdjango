@@ -1,9 +1,5 @@
-{% load staticfiles %}
-
-<!--02_02.html
-creating grids -->
 <!DOCTYPE html>
-
+{% load staticfiles %}
 {# Load the tag library #}
 {% load bootstrap3 %}
 
@@ -46,6 +42,7 @@ creating grids -->
 				  <li role="presentation"><a href="">Annual Key Metrics: Trends</a></li>
 				  <li role="presentation"><a href="">TAB 4</a></li>
 				  <li role="presentation"><a href="">TAB 5</a></li>
+				  <li> {{ user.get_full_name }}!</li>
 				</ul>
 			</div>
 		  </div>
