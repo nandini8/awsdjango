@@ -22,5 +22,9 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url('', include('social.apps.django_app.urls', namespace='social')),
     url(r'^KPI/',include('kpi_app.urls')),
+<<<<<<< HEAD
     url(r'^logout/$', views.logout)
+=======
+    url(r'^logout/$', 'kpi_app.views.logout'),
+>>>>>>> d90bf8008d3515d478381253d8b50a866008c5ef
 ]
