@@ -23,8 +23,4 @@ urlpatterns = [
     url('', include('social.apps.django_app.urls', namespace='social')),
     url(r'^KPI/',include('kpi_app.urls')),
     url(r'^logout/$', views.logout),
-<<<<<<< HEAD
-    url(r'^logout/$', 'kpi_app.views.logout'),
-=======
->>>>>>> heroku
 ]
