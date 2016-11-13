@@ -10,6 +10,7 @@
 {# Display django.contrib.messages as Bootstrap alerts #}
 {% bootstrap_messages %}
 
+{% if user and not user.is_anonymous %}
 <html>
 	<head>
 		<title>
@@ -42,7 +43,6 @@
 				  <li role="presentation"><a href="">Annual Key Metrics: Trends</a></li>
 				  <li role="presentation"><a href="">TAB 4</a></li>
 				  <li role="presentation"><a href="">TAB 5</a></li>
-				  <li> {{ user.get_full_name }}!</li>
 				</ul>
 			</div>
 		  </div>
@@ -205,3 +205,4 @@
 		<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 	</body>	
 </html>
+{% endif %}

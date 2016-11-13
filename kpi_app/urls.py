@@ -18,5 +18,5 @@ from django.contrib import admin
 from kpi_app import views
 
 urlpatterns = [
-	url(r'^home', views.home, name="home"),
+	url(r'^home/', views.home, name="home"),
 ]

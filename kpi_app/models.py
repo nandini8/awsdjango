@@ -30,12 +30,20 @@ class Metrics(models.Model):
 	def __str__(self):
 		return self.metric_name
 
-class Dimension(models.Model):
+class DimensionParent(models.Model):
 	dim_type = models.CharField(max_length=50)
+	company_name = models.ForeignKey(Company)
+	created_at = models.DateTimeField(auto_now_add=True)
+	updated_at = models.DateTimeField(auto_now=True)
+
+	def __str__(self):
+		return self.dim_type
+
+class Dimension(models.Model):
+	dim_type_id = models.ForeignKey(DimensionParent)
+	parent = models.ForeignKey('self', null=True)
 	level = models.IntegerField(blank=False)
 	dim_name = models.CharField(max_length=50)
-	parent = models.ForeignKey('self', null=True)
-	company_name = models.ForeignKey(Company)
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
 
