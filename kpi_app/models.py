@@ -19,7 +19,7 @@ class User(models.Model):
 		return self.user_name
 
 
-class Metrics(models.Model):
+class Metric(models.Model):
 	metric_name = models.CharField(max_length=50)
 	metric_type = models.CharField(max_length=10)
 	company_name = models.ForeignKey(Company)
@@ -30,7 +30,7 @@ class Metrics(models.Model):
 	def __str__(self):
 		return self.metric_name
 
-class DimensionParent(models.Model):
+class Dimension(models.Model):
 	dim_type = models.CharField(max_length=50)
 	company_name = models.ForeignKey(Company)
 	created_at = models.DateTimeField(auto_now_add=True)
@@ -39,8 +39,8 @@ class DimensionParent(models.Model):
 	def __str__(self):
 		return self.dim_type
 
-class Dimension(models.Model):
-	dim_type_id = models.ForeignKey(DimensionParent)
+class DimensionValue(models.Model):
+	dim_type_id = models.ForeignKey(Dimension)
 	parent = models.ForeignKey('self', null=True)
 	level = models.IntegerField(blank=False)
 	dim_name = models.CharField(max_length=50)
@@ -52,14 +52,14 @@ class Dimension(models.Model):
 	
 
 class MetricData(models.Model):
-	dim_1 = models.ForeignKey(Dimension, related_name = 'dim_1')
-	#dim_2 = models.ForeignKey(Dimension, related_name = 'dim_2')
-	#dim_3 = models.ForeignKey(Dimension, related_name = 'dim_3')
+	dim_1 = models.ForeignKey(DimensionValue, related_name = 'dim_1')
+	#dim_2 = models.ForeignKey(DimensionValue, related_name = 'dim_2')
+	#dim_3 = models.ForeignKey(DimensionValue, related_name = 'dim_3')
 	attr_1 = models.CharField(max_length=50)
 	attr_2 = models.CharField(max_length=50)
 	attr_3 = models.CharField(max_length=50)
 	date_associated = models.DateField()
-	metric_id = models.ForeignKey(Metrics)
+	metric_id = models.ForeignKey(Metric)
 	numerator = models.IntegerField()
 	denominator = models.IntegerField()
 	company_name = models.ForeignKey(Company)
