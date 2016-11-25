@@ -20,8 +20,8 @@ def home(request):
 	if request.user.is_authenticated():
 		email = request.user.email
 		try:
-			#if User.objects.get(email=email):
-			return render(request,"kpi_app/home.html")
+			if User.objects.get(email=email):
+				return render(request,"kpi_app/home.html")
 		except ObjectDoesNotExist:
 			logout(request)
 			return redirect('/')
