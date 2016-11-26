@@ -32,3 +32,8 @@ def home(request):
 def logout(request):
     auth_logout(request)
     return redirect('/')
+
+
+def charts(request):
+	context_dict = {}
+	return render(request, "kpi_app/charts.html", context_dict)
