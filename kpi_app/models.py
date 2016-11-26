@@ -41,9 +41,9 @@ class Dimension(models.Model):
 
 class DimensionValue(models.Model):
 	dim_type_id = models.ForeignKey(Dimension)
+	dim_name = models.CharField(max_length=50)
 	parent = models.ForeignKey('self', null=True)
 	level = models.IntegerField(blank=False)
-	dim_name = models.CharField(max_length=50)
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
 
