@@ -5,7 +5,12 @@ from django.conf import settings
 
 class Company(models.Model):
 	company_name = models.CharField(max_length=50)
-	company_logo = models.ImageField(upload_to = settings.MEDIA_URL+'/kpi_app')
+	company_logo = models.ImageField(upload_to = settings.MEDIA_URL+'kpi_app')
+	tab3_name = models.CharField(max_length=15)
+	tab4_name = models.CharField(max_length=15)
+	filter1_dimValue = models.ForeignKey('DimensionValue', related_name="filter1")
+	filter2_dimValue = models.ForeignKey('DimensionValue', related_name="filter2")
+	filter3_dimValue = models.ForeignKey('DimensionValue', related_name="filter3")
 
 	def __str__(self):
 		return self.company_name
@@ -14,6 +19,7 @@ class User(models.Model):
 	user_name = models.CharField(max_length=25)
 	company_name = models.ForeignKey(Company)
 	email = models.EmailField(max_length=50)
+	user_role = models.CharField(max_length=50, default="Company User")	#The other values are "Company Admin" and "System Admin"
 
 	def __str__(self):
 		return self.user_name
@@ -72,8 +78,8 @@ class AttributeValue(models.Model):
 
 class MetricData(models.Model):
 	dim_1 = models.ForeignKey(DimensionValue, related_name = 'dim_1')
-	#dim_2 = models.ForeignKey(DimensionValue, related_name = 'dim_2')
-	#dim_3 = models.ForeignKey(DimensionValue, related_name = 'dim_3')
+	dim_2 = models.ForeignKey(DimensionValue, related_name = 'dim_2')
+	dim_3 = models.ForeignKey(DimensionValue, related_name = 'dim_3')
 	attr_1 = models.ForeignKey(AttributeValue, related_name = 'attr_1')
 	attr_2 = models.ForeignKey(AttributeValue, related_name = 'attr_2')
 	attr_3 = models.ForeignKey(AttributeValue, related_name = 'attr_3')
