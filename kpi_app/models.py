@@ -51,13 +51,32 @@ class DimensionValue(models.Model):
 		return self.dim_name
 	
 
+class Attribute(models.Model):
+	attr_type = models.CharField(max_length=50)
+	company_name = models.ForeignKey(Company)
+	created_at = models.DateTimeField(auto_now_add=True)
+	updated_at = models.DateTimeField(auto_now=True)
+
+	def __str__(self):
+		return self.attr_type
+
+class AttributeValue(models.Model):
+	attr_type_id = models.ForeignKey(Attribute)
+	attr_name = models.CharField(max_length=50)
+	created_at = models.DateTimeField(auto_now_add=True)
+	updated_at = models.DateTimeField(auto_now=True)
+
+	def __str__(self):
+		return self.attr_name
+
+
 class MetricData(models.Model):
 	dim_1 = models.ForeignKey(DimensionValue, related_name = 'dim_1')
 	#dim_2 = models.ForeignKey(DimensionValue, related_name = 'dim_2')
 	#dim_3 = models.ForeignKey(DimensionValue, related_name = 'dim_3')
-	attr_1 = models.CharField(max_length=50)
-	attr_2 = models.CharField(max_length=50)
-	attr_3 = models.CharField(max_length=50)
+	attr_1 = models.ForeignKey(AttributeValue, related_name = 'attr_1')
+	attr_2 = models.ForeignKey(AttributeValue, related_name = 'attr_2')
+	attr_3 = models.ForeignKey(AttributeValue, related_name = 'attr_3')
 	date_associated = models.DateField()
 	metric_id = models.ForeignKey(Metric)
 	numerator = models.IntegerField()
@@ -70,8 +89,3 @@ class MetricData(models.Model):
 
 	def __str__(self):
 		return self.attr_1
-
-
-
-
-

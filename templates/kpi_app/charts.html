@@ -14,53 +14,53 @@
 				<div class="panel panel-primary">
 					<div class="panel panel-heading"><b>Chart 1</b></div>
 					<div class="panel panel-body" id ="chart1">
-						 <!--Load the AJAX API-->
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
+						  <!--Load the AJAX API-->
+                <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                <script type="text/javascript">
 
 
-      // Load the Visualization API and the corechart package.
-      google.charts.load('current', {'packages':['corechart']});
+                  // Load the Visualization API and the corechart package.
+                  google.charts.load('current', {'packages':['corechart']});
 
-      // Set a callback to run when the Google Visualization API is loaded.
-      google.charts.setOnLoadCallback(drawChart);
+                  // Set a callback to run when the Google Visualization API is loaded.
+                  google.charts.setOnLoadCallback(drawChart);
 
-      // Callback that creates and populates a data table,
-      // instantiates the pie chart, passes in the data and
-      // draws it.
-      
-      function drawChart() {
+                  // Callback that creates and populates a data table,
+                  // instantiates the pie chart, passes in the data and
+                  // draws it.
+                  
+                  function drawChart() {
 
-        // Create the data table.
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'subject');
-        data.addColumn('number', 'Marks');
+                    // Create the data table.
+                    var data = new google.visualization.DataTable();
+                    data.addColumn('string', 'subject');
+                    data.addColumn('number', 'Marks');
 
-        //document.write(django_data);
+                    //document.write(django_data);
 
-        var result = '';
-        data.addRows([
-				  ['Mike',50], 
-				  ['Bob', 100],
-				  ['Alice',75],
-				  ['Frank',23],
-				  ['Floyd', 82],
-				  ['Fritz', 44]
-				]);
+                    var result = '';
+                    data.addRows([
+            				  ['Mike',50], 
+            				  ['Bob', 100],
+            				  ['Alice',75],
+            				  ['Frank',23],
+            				  ['Floyd', 82],
+            				  ['Fritz', 44]
+            				]);
 
 
-        
+                    
 
-        // Set chart options
-        var options = {'title':'Total Marks obtained by a student',
-                       'width':500,
-                       'height':500};
+                    // Set chart options
+                    var options = {'title':'Total Marks obtained by a student',
+                                   'width':500,
+                                   'height':500};
 
-        // Instantiate and draw our chart, passing in some options.
-        var chart = new google.visualization.ColumnChart(document.getElementById('chart1'));
-        chart.draw(data, options);
-      }
-    </script>
+                    // Instantiate and draw our chart, passing in some options.
+                    var chart = new google.visualization.ColumnChart(document.getElementById('chart1'));
+                    chart.draw(data, options);
+                  }
+              </script>
 					</div>
 				</div>
 			</div>
@@ -69,51 +69,51 @@
 				<div class="panel panel-primary">
 					<div class="panel panel-heading"><b>Chart 2</b></div>
 					<div class="panel panel-body " id ="chart2">
-						 <!--Load the AJAX API-->
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
+						<!--Load the AJAX API-->
+              <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+              <script type="text/javascript">
 
 
-      // Load the Visualization API and the corechart package.
-      google.charts.load('current', {'packages':['corechart']});
+                // Load the Visualization API and the corechart package.
+                google.charts.load('current', {'packages':['corechart']});
 
-      // Set a callback to run when the Google Visualization API is loaded.
-      google.charts.setOnLoadCallback(drawChart);
+                // Set a callback to run when the Google Visualization API is loaded.
+                google.charts.setOnLoadCallback(drawChart);
 
-      // Callback that creates and populates a data table,
-      // instantiates the pie chart, passes in the data and
-      // draws it.
-      
-      function drawChart() {
+                // Callback that creates and populates a data table,
+                // instantiates the pie chart, passes in the data and
+                // draws it.
+                
+                function drawChart() {
 
-        // Create the data table.
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Names');
-        data.addColumn('number', 'Marks');
+                  // Create the data table.
+                  var data = new google.visualization.DataTable();
+                  data.addColumn('string', 'Names');
+                  data.addColumn('number', 'Marks');
 
-        //document.write(django_data);
+                  //document.write(django_data);
 
-        var result = '';
+                  var result = '';
 
-       	data.addRows([
-				  ['Mike',50], // Example of specifying actual and formatted values.
-				  ['Bob', 100],                              // More typically this would be done using a
-				  ['Alice',75],                           // formatter.
-				  ['Frank',23],
-				  ['Floyd', 82],
-				  ['Fritz', 44],
-				]);
+                 	data.addRows([
+          				  ['Mike',50], // Example of specifying actual and formatted values.
+          				  ['Bob', 100],                              // More typically this would be done using a
+          				  ['Alice',75],                           // formatter.
+          				  ['Frank',23],
+          				  ['Floyd', 82],
+          				  ['Fritz', 44],
+          				]);
 
-        // Set chart options
-        var options = {'title':'Total Marks obtained by a student',
-                       'width':500,
-                       'height':500};
+                  // Set chart options
+                  var options = {'title':'Total Marks obtained by a student',
+                                 'width':500,
+                                 'height':500};
 
-        // Instantiate and draw our chart, passing in some options.
-        var chart = new google.visualization.ColumnChart(document.getElementById('chart2'));
-        chart.draw(data, options);
-      }
-    </script>
+                  // Instantiate and draw our chart, passing in some options.
+                  var chart = new google.visualization.ColumnChart(document.getElementById('chart2'));
+                  chart.draw(data, options);
+                }
+              </script>
 					</div>
 				</div>
 			
