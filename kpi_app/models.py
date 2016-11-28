@@ -5,12 +5,12 @@ from django.conf import settings
 
 class Company(models.Model):
 	company_name = models.CharField(max_length=50)
-	company_logo = models.ImageField(upload_to = settings.MEDIA_URL+'kpi_app')
+	company_logo = models.ImageField(upload_to = settings.MEDIA_URL+'kpi_app', default=None)
 	tab3_name = models.CharField(max_length=15)
 	tab4_name = models.CharField(max_length=15)
-	filter1_dimValue = models.ForeignKey('DimensionValue', related_name="filter1")
-	filter2_dimValue = models.ForeignKey('DimensionValue', related_name="filter2")
-	filter3_dimValue = models.ForeignKey('DimensionValue', related_name="filter3")
+	filter1_dimValue = models.CharField(max_length=20)
+	filter2_dimValue = models.CharField(max_length=20)
+	filter3_dimValue = models.CharField(max_length=20)
 
 	def __str__(self):
 		return self.company_name
