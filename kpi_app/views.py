@@ -42,9 +42,11 @@ def logout(request):
 def charts(request):
 	if request.user.is_authenticated():
 		email = request.user.email
+		user_obj = User.objects.get(email=email)
+		context_dict=getData(user_obj)
 		try:
 			if User.objects.get(email=email):
-				return render(request,"kpi_app/charts.html")
+				return render(request,"kpi_app/charts.html",context_dict)
 		except ObjectDoesNotExist:
 			logout(request)
 			return redirect('/')

@@ -35,10 +35,19 @@
 		  <div class="panel-heading ">
 		  	<div class="col-md-12">
 				<ul class="nav nav-tabs">
-				  <li role="presentation" class="active"><a href="">Executive Summary</a></li>
+				  <li role="presentation"><a href="/KPI/home/">Executive Summary</a></li>
 				  <li role="presentation"><a href="/KPI/charts/">Annual Key Metrics: Trends</a></li>
-				  <li role="presentation"><a href="">{{tab3}}</a></li>
-				  <li role="presentation"><a href="">{{tab4}}</a></li>
+				  <li role="presentation"><a href="">{{ tab3 }}</a></li>
+				  <li role="presentation"><a href="">{{ tab4 }}</a></li>
+				  
+				  <div class="dropdown pull-right">
+						  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+						    {{ user.email }}
+						  </button>
+						  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+						    <li ><a href="/logout/">Logout</a></li>
+						  </ul>
+					  </div>
 				</ul>
 			</div>
 		  </div>
