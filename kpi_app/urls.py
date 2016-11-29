@@ -20,5 +20,8 @@ from kpi_app import views
 urlpatterns = [
 	url(r'^home/', views.home, name="home"),
 	url(r'^charts/', views.charts, name="charts"),
-	url(r'^company/', views.companyCrud, name="company")
+	url(r'^company/', views.companyCrud, name="company"),
+	url(r'^user/', views.userCrud, name='user'),
+	url(r'dimension', views.dimensionCrud, name="dimension"),
+	url(r'dimensionValue', views.dimensionValueCrud, name="dimensionValue"),
 ]
