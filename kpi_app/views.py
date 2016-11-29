@@ -1,5 +1,5 @@
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, render_to_response
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.views import login
 from django.http import HttpResponse
@@ -7,6 +7,9 @@ from django.shortcuts import render,redirect
 from django.contrib.auth import logout as auth_logout
 from kpi_app.models import User, Company
 from django.core.exceptions import ObjectDoesNotExist
+from kpi_app.forms import CompanyForm
+from django.core.context_processors import csrf
+
 
 
 
@@ -48,6 +51,20 @@ def charts(request):
 	else:
 		return redirect('/')
 
+
+def companyCrud(request):
+	if request.method == 'POST':
+		form = CompanyForm(request.POST, request.FILES)
+		if form.is_valid():
+			form.save()
+			return HttpResponse('Data Saved')
+	else:
+		form = CompanyForm()
+	args = {}
+	args.update(csrf(request))
+	args['form'] = form
+	return render_to_response('kpi_app/company.html', args)
+	
 
 def getData(user_obj):
 	company_obj = Company.objects.get(id=user_obj.company_name.id)

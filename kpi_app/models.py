@@ -5,7 +5,7 @@ from django.conf import settings
 
 class Company(models.Model):
 	company_name = models.CharField(max_length=50)
-	company_logo = models.ImageField(upload_to = settings.MEDIA_URL+'kpi_app', default=None)
+	company_logo = models.ImageField(upload_to = 'kpi_app', default=None)
 	tab3_name = models.CharField(max_length=15)
 	tab4_name = models.CharField(max_length=15)
 	filter1_dimValue = models.CharField(max_length=20)
