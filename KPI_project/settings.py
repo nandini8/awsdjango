@@ -10,7 +10,7 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os, sys
-import urllib.parse
+#import urlparse
 import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -89,7 +89,7 @@ WSGI_APPLICATION = 'KPI_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
-'''DATABASES = {
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
@@ -99,9 +99,9 @@ WSGI_APPLICATION = 'KPI_project.wsgi.application'
         'HOST': 'localhost',
         'PORT': '3306',
     }
-}'''
+}
 # Register database schemes in URLs.
-parse.uses_netloc.append('mysql')
+'''urlparse.uses_netloc.append('mysql')
 
 try:
 
@@ -130,7 +130,7 @@ try:
         if url.scheme == 'mysql':
             DATABASES['default']['ENGINE'] = 'django.db.backends.mysql'
 except Exception:
-    print ('Unexpected error:', sys.exc_info())
+    print('Unexpected error:', sys.exc_info())'''
 
 AUTH_PASSWORD_VALIDATORS = [
     {
