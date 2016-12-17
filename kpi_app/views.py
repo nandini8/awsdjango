@@ -20,9 +20,7 @@ def login_page(request):
 	return render(request, "kpi_app/login.html", context_dict)
 
 def home(request):
-	if request.user.is_active:
-		print(request.user.email)
-	'''if request.user.is_authenticated():
+	if request.user.is_authenticated():
 		email = request.user.email
 		user_obj = User.objects.get(email=email)
 		try:
@@ -32,7 +30,6 @@ def home(request):
 		except ObjectDoesNotExist:
 			logout(request)
 			return redirect('/')
-	'''
 	else:
 		logout(request)
 		return redirect('/')
