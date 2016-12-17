@@ -190,7 +190,7 @@ STATICFILES_DIRS = [
 # https://warehouse.python.org/project/whitenoise/
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = ['http://127.0.0.1:8000/complete/google-oauth2/' , 'https://serene-reef-39478.herokuapp.com/complete/google-oauth2/']
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = ['http://127.0.0.1:8000/complete/google-oauth2/' , 'https://serene-reef-39478.herokuapp.com/complete/google-oauth2/', 'http://serene-reef-39478.herokuapp.com/complete/google-oauth2/']
 SOCIAL_AUTH_LOGIN_ERROR_URL = '/'
 #SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
 
