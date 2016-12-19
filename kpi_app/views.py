@@ -5,7 +5,7 @@ from django.contrib.auth.views import login
 from django.http import HttpResponse
 from django.shortcuts import render,redirect
 from django.contrib.auth import logout as auth_logout
-from kpi_app.models import User, Company
+from kpi_app.models import User, Company, Dimension, DimensionValue
 from django.core.exceptions import ObjectDoesNotExist
 from kpi_app.forms import CompanyForm, UserForm, DimensionValueForm, DimensionForm
 from django.core.context_processors import csrf
@@ -25,8 +25,10 @@ def home(request):
 		user_obj = User.objects.get(email=email)
 		try:
 			if user_obj:
-				context_dict = getData(user_obj)
-				return render(request,"kpi_app/home.html", context_dict)
+				context_dict_1 = getData(user_obj)
+				context_dict_2 = AllDegrees()
+
+				return render(request,"kpi_app/home.html", {'context_dict1' : context_dict_1, 'context_dict_2' : context_dict_2})
 		except ObjectDoesNotExist:
 			logout(request)
 			return redirect('/')
@@ -159,6 +161,23 @@ def getData(user_obj):
 					 'filter3': company_obj.filter3_dimValue, 'tab3': company_obj.tab3_name,
 					  'tab4': company_obj.tab4_name}
 	return context_dict
+
+def AllSems():
+	print('{:>4} {:<15} {:>10} {:>15} {:>15}'.format("Num","Sem","Marks","Max","Percentage"))
+
+	sem_list = Dimension.objects.raw('select id from rango_dimension where id in (select parent_id from rango_dimension where id in (select dim_1_id from rango_metricdata group by dim_1_id))')
+	for sem in sem_list:
+		m_list = MetricData.objects.raw('select  id, sum(numerator) as numerator , sum(denominator) as denominator,sum(numerator) * 100 / sum(denominator) as percentage from rango_metricdata where dim_1_id in (select id from rango_dimension where parent_id =' + str(sem.id) + ')')
+		id = 0
+		for m in m_list:
+			id += 1
+			print('{:>4} {:<15} {:>10} {:>15} {:13.2f}'.format(id, sem.dim_name, m.numerator, m.denominator , m.percentage))
+
+def AllDegrees():
+	#query
+	for degree in degree_list:
+		#query
+	return
 
 '''def userAuthentication(request):
 	if request.user.is_authenticated():

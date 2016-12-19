@@ -11,7 +11,7 @@ a {
 }
 .panel-footer{
 	height: 25px;
-	background-color: #1A6D92;
+	background-color: #337ab7;
 }
 .panel > .table-responsive > .table-default {
   border: 1px solid #ddd;
@@ -35,11 +35,11 @@ a {
 	padding-top: 1px;
 }
 
-.btn-default  {
+.btn-default ,#dropdownMenu1:hover {
 	border-color: #F39C12;
 	color: #F39C12;
-	width: 150px
+	width: 150px;
+	background-color: #ffffff;
 }
-
 
 

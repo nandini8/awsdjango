@@ -78,11 +78,11 @@ class AttributeValue(models.Model):
 
 class MetricData(models.Model):
 	dim_1 = models.ForeignKey(DimensionValue, related_name = 'dim_1')
-	dim_2 = models.ForeignKey(DimensionValue, related_name = 'dim_2')
-	dim_3 = models.ForeignKey(DimensionValue, related_name = 'dim_3')
+	#dim_2 = models.ForeignKey(DimensionValue, related_name = 'dim_2',default=None)
+	#dim_3 = models.ForeignKey(DimensionValue, related_name = 'dim_3',default=None)
 	attr_1 = models.ForeignKey(AttributeValue, related_name = 'attr_1')
 	attr_2 = models.ForeignKey(AttributeValue, related_name = 'attr_2')
-	attr_3 = models.ForeignKey(AttributeValue, related_name = 'attr_3')
+	#attr_3 = models.ForeignKey(AttributeValue, related_name = 'attr_3',default=None)
 	date_associated = models.DateField()
 	metric_id = models.ForeignKey(Metric)
 	numerator = models.IntegerField()
