@@ -26,9 +26,9 @@ def home(request):
 		try:
 			if user_obj:
 				context_dict_1 = getData(user_obj)
-				context_dict_2 = AllDegrees()
+				#context_dict_2 = AllDegrees()
 
-				return render(request,"kpi_app/home.html", {'context_dict1' : context_dict_1, 'context_dict_2' : context_dict_2})
+				return render(request,"kpi_app/home.html", {'context_dict1' : context_dict_1, })
 		except ObjectDoesNotExist:
 			logout(request)
 			return redirect('/')
@@ -173,11 +173,11 @@ def AllSems():
 			id += 1
 			print('{:>4} {:<15} {:>10} {:>15} {:13.2f}'.format(id, sem.dim_name, m.numerator, m.denominator , m.percentage))
 
-def AllDegrees():
-	#query
+'''def AllDegrees():
+	degree_list = DimensionValue.objects.raw('select id from kpi_app_')
 	for degree in degree_list:
 		#query
-	return
+		return'''
 
 '''def userAuthentication(request):
 	if request.user.is_authenticated():
@@ -187,3 +187,10 @@ def AllDegrees():
 	else:
 		return redirect('/')
 '''
+
+
+
+
+
+
+#select  id, sum(numerator) as numerator , sum(denominator) as denominator,sum(numerator) * 100 / sum(denominator) as percentage from kpi_app_metricdata where dim_1_id in (select id from kpi_app_dimensionvalue where parent_id in (select id from ))

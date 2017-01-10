@@ -94,4 +94,4 @@ class MetricData(models.Model):
 	loaded_by = models.CharField(max_length=50)
 
 	def __str__(self):
-		return self.attr_1
+		return self.attr_1.attr_name
