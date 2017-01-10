@@ -5,7 +5,7 @@ from django.contrib.auth.views import login
 from django.http import HttpResponse
 from django.shortcuts import render,redirect
 from django.contrib.auth import logout as auth_logout
-from kpi_app.models import User, Company, Dimension, DimensionValue
+from kpi_app.models import User, Company, Dimension, DimensionValue, Role, UserRole
 from django.core.exceptions import ObjectDoesNotExist
 from kpi_app.forms import CompanyForm, UserForm, DimensionValueForm, DimensionForm
 from django.core.context_processors import csrf
@@ -23,12 +23,15 @@ def home(request):
 	if request.user.is_authenticated():
 		email = request.user.email
 		user_obj = User.objects.get(email=email)
+		#role = Role.objects.raw('select id, role_name from kpi_app_role where id in (select role_id_id from kpi_app_userrole where user_id_id in (select id from kpi_app_user where email = "' + user_obj.email +'" ))')
+		role = Role.objects.filter(id=UserRole.objects.get(id=user_obj.id).id)
+		print(role)
 		try:
 			if user_obj:
 				context_dict_1 = getData(user_obj)
 				#context_dict_2 = AllDegrees()
 
-				return render(request,"kpi_app/home.html", {'context_dict1' : context_dict_1, })
+				return render(request,"kpi_app/home.html", {'context_dict1' : context_dict_1, 'role': role })
 		except ObjectDoesNotExist:
 			logout(request)
 			return redirect('/')
@@ -148,11 +151,6 @@ def dimensionCrud(request):
 	else:
 		logout(request)
 		return redirect('/')
-
-
-
-
-
 
 
 def getData(user_obj):

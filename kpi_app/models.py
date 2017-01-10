@@ -75,6 +75,44 @@ class AttributeValue(models.Model):
 	def __str__(self):
 		return self.attr_name
 
+class Role(models.Model):
+	company_name = models.ForeignKey(Company)
+	role_name = models.CharField(max_length=20)
+	created_at = models.DateTimeField(auto_now_add=True)
+	updated_at = models.DateTimeField(auto_now=True)
+
+	def __str__(self):
+		return self.role_name
+
+class Privilege(models.Model):
+	company_name = models.ForeignKey(Company)
+	privilege_name = models.CharField(max_length=20)
+	created_at = models.DateTimeField(auto_now_add=True)
+	updated_at = models.DateTimeField(auto_now=True)
+
+	def __str__(self):
+		return self.privilege_name
+
+class UserRole(models.Model):
+	user_id = models.ForeignKey(User, related_name='user_id')
+	role_id = models.ForeignKey(Role, related_name='role_id')
+	created_at = models.DateTimeField(auto_now_add=True)
+	updated_at = models.DateTimeField(auto_now=True)
+
+	def __str__(self):
+		return self.user_id
+
+class RolePrivilege(models.Model):
+	role_id = models.ForeignKey(Role, related_name='Role_id')
+	privilege_id = models.ForeignKey(User, related_name='privilege_id')
+	created_at = models.DateTimeField(auto_now_add=True)
+	updated_at = models.DateTimeField(auto_now=True)
+
+	def __str__(self):
+		return self.role_id
+
+
+
 
 class MetricData(models.Model):
 	dim_1 = models.ForeignKey(DimensionValue, related_name = 'dim_1')

@@ -42,14 +42,20 @@
 				  
 				  <div class="dropdown pull-right">
 						  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-						    {{ user.email }}  <span class="glyphicon glyphicon-chevron-down" ></span>
+						    {{ user.email}} <span class="glyphicon glyphicon-chevron-down" ></span>
 						  </button>
+						  {% for rol in role %}
 						  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
 						    <li ><a href="/logout/">Logout</a></li>
+						    {% if rol == "admin" %}
 						    <li><a href='/KPI/company/'>Company Setup</a></li>
 						    <li><a href='/KPI/user/'>User Setup</a></li>
 						    <li><a href='/KPI/dimension/'>Dimension Setup</a></li>
+						    {% else %}
+    						<li><a href='/KPI/dimension/'>Dimension Setup</a></li>
+						    {% endif %}
 						  </ul>
+						  {{rol}} {% endfor %}
 					  </div>
 				</ul>
 			</div>

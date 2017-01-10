@@ -21,7 +21,7 @@ def populate():
 
 	attr_obj = Attribute.objects.get(id=2)
 	students_list = AttributeValue.objects.filter(attr_type_id=attr_obj.id)
-	print(students_list[0])
+	#print(students_list[0])
 
 
 
