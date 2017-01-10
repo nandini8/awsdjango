@@ -23,3 +23,6 @@ class DimensionForm(forms.ModelForm):
 	class Meta:
 		model = Dimension
 		fields = '__all__'
+
+class UploadFileForm(forms.Form):
+	file = forms.FileField()

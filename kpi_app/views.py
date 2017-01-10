@@ -9,6 +9,7 @@ from kpi_app.models import User, Company, Dimension, DimensionValue, Role, UserR
 from django.core.exceptions import ObjectDoesNotExist
 from kpi_app.forms import CompanyForm, UserForm, DimensionValueForm, DimensionForm
 from django.core.context_processors import csrf
+from .forms import UploadFileForm
 
 
 
@@ -151,6 +152,27 @@ def dimensionCrud(request):
 	else:
 		logout(request)
 		return redirect('/')
+
+
+def uploadFile(request):
+	if request.method == 'POST':
+		form = UploadFileForm(request.POST, request.FILES)
+		if form.is_valid():
+			print(type(request.FILES['file']))
+			handle_uploaded_file(request.FILES['file'])
+			return HttpResponse('<b>Success</b>')
+	else:
+		form = UploadFileForm()
+	return render(request, 'kpi_app/uploadData.html', {'form': form})
+
+
+def handle_uploaded_file(f):
+	with open('templates/kpi_app/a.txt', 'wb+') as destination:
+		print("Hello")
+		for chunk in f.chunks():
+			print(chunk)
+			destination.write(chunk)
+
 
 
 def getData(user_obj):
