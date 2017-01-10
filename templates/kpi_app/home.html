@@ -47,16 +47,16 @@
 						  {% for rol in role %}
 						  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
 						    <li ><a href="/logout/">Logout</a></li>
-						    {% if rol == "admin" %}
+						    {% if "admin" == rol.role_name %}
 						    <li><a href='/KPI/company/'>Company Setup</a></li>
 						    <li><a href='/KPI/user/'>User Setup</a></li>
 						    <li><a href='/KPI/dimension/'>Dimension Setup</a></li>
-						    {% else %}
-    						<li><a href='/KPI/dimension/'>Dimension Setup</a></li>
-    						<li><a href="/KPI/upload-data/">Upload Data</a></li>
-						    {% endif %}
+	   						<li><a href='/KPI/dimension/'>Dimension Setup</a></li>
+    						{% elif "data_loader" == rol.role_name %}
+						  	<li><a href="/KPI/upload-data/">Upload Data</a></li>
+						  	{% endif %}
 						  </ul>
-						  {{rol}} {% endfor %}
+						  {% endfor %}
 					  </div>
 				</ul>
 			</div>
