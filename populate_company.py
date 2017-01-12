@@ -10,8 +10,8 @@ django.setup()
 from kpi_app.models import Company
 
 def populate():
-	company_data = [{'id': 1, 'company_name': 'xaviers', 'tab3':'Semester', 'tab4': 'Subject'},
-					{'id': 2, 'company_name': 'abc', 'tab3': 'x', 'tab4': 'y'}]
+	company_data = [{'id': 1, 'company_name': 'Xaviers', 'tab3':'Semester', 'tab4': 'Subject', 'filter1': 'Degree', 'filter2': 'Semester', 'filter3': 'Subject'}
+					]
 
 	Company.objects.all().delete()
 
@@ -21,6 +21,9 @@ def populate():
 		company_obj = Company.objects.get_or_create(id= x['id'], company_name=x['company_name'])[0]
 		company_obj.tab3_name = x['tab3']
 		company_obj.tab4_name = x['tab4']
+		company_obj.filter1_dimValue = x['filter1']
+		company_obj.filter2_dimValue = x['filter2']
+		company_obj.filter3_dimValue = x['filter3']
 
 
 		company_obj.save()

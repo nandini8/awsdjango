@@ -10,5 +10,9 @@ admin.site.register(Dimension)
 admin.site.register(DimensionValue)
 admin.site.register(Attribute)
 admin.site.register(AttributeValue)
+admin.site.register(Role)
+admin.site.register(UserRole)
+admin.site.register(Privilege)
+admin.site.register(RolePrivilege)
 
 

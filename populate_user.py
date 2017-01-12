@@ -16,7 +16,7 @@ def populate():
 				#{'name': 'NandiniSoni', 'email': 'nandini.soni8@gmail.com', 'company_obj':Company.objects.get(id=2)}
 				]
 	for x in user_data:
-		u = User.objects.get_or_create(id = x['id'], user_name=x['name'], company_name=x['company_obj'], email=x['email'])
+		u = User.objects.get_or_create(id = x['id'], user_name=x['name'], company_name=x['company_obj'], email=x['email'])[0]
 	
 if __name__ == '__main__':
 	print('Starting script')
