@@ -1,16 +1,47 @@
 <!DOCTYPE html>
+{% extends 'kpi_app/home.html' %}
+{% load staticfiles %}
+{# Load the tag library #}
+{% load bootstrap3 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
 <html>
 <head>
 	<title>Upload Data</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'kpi_app/css/kpi_app.css' %}">
 </head>
 <body>
-	<form action="" method="POST" enctype="multipart/form-data">
-		{% csrf_token %}
-		<table>
-			{{ form.as_table}}
-		</table>
-		<input type="Submit" name="Submit" value="Create"/>
-	</form>
+{% block data_loader %}
 
+	<div class="container">
+	<div class="panel panel-primary">
+	<div class="panel-heading text-center"><b>Upload Data</b>
+	</div>
+	<div class="panel-body">
+		<div class="row">
+			<div class="col-md-4"></div>
+			<div class="col-md-4" style="margin-left: 120px ">
+			<form action="" method="POST" enctype="multipart/form-data">
+				{% csrf_token %}
+				<table class="table">
+					{{form.file}}
+				</table>
+				<input class="btn btn-primary" type="Submit" name="Submit" value="Upload File"/>
+			</form>
+			</div>
+			<div class="col-md-4"></div>
+		</div>
+	</div>
+	<div class="panel-footer">
+	</div>
+	</div>
+	</div>
+{% endblock %}
 </body>
 </html>

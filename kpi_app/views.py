@@ -24,13 +24,12 @@ def home(request):
 	if request.user.is_authenticated():
 		email = request.user.email
 		user_obj = User.objects.get(email=email)
-		#role = Role.objects.raw('select id, role_name from kpi_app_role where id in (select role_id_id from kpi_app_userrole where user_id_id in (select id from kpi_app_user where email = "' + user_obj.email +'" ))')
 		role = Role.objects.filter(id=UserRole.objects.get(id=user_obj.id).id)
-		print(role)
 		try:
 			if user_obj:
 				context_dict_1 = getData(user_obj)
 				#context_dict_2 = AllDegrees()
+				print(context_dict_1)
 
 				return render(request,"kpi_app/home.html", {'context_dict1' : context_dict_1, 'role': role })
 		except ObjectDoesNotExist:
@@ -161,13 +160,15 @@ def uploadFile(request):
 			print(type(request.FILES['file']))
 			handle_uploaded_file(request.FILES['file'])
 			return HttpResponse('<b>Success</b>')
+		else:
+			return HttpResponse('<b>Failure</b>')
 	else:
 		form = UploadFileForm()
 	return render(request, 'kpi_app/uploadData.html', {'form': form})
 
 
 def handle_uploaded_file(f):
-	with open('templates/kpi_app/a.txt', 'wb+') as destination:
+	with open('templates/kpi_app/a.txt', 'wb') as destination:
 		print("Hello")
 		for chunk in f.chunks():
 			print(chunk)
@@ -180,8 +181,10 @@ def getData(user_obj):
 	context_dict = {'filter1': company_obj.filter1_dimValue, 'filter2': company_obj.filter2_dimValue,
 					 'filter3': company_obj.filter3_dimValue, 'tab3': company_obj.tab3_name,
 					  'tab4': company_obj.tab4_name}
+	print(context_dict)
 	return context_dict
 
+'''
 def AllSems():
 	print('{:>4} {:<15} {:>10} {:>15} {:>15}'.format("Num","Sem","Marks","Max","Percentage"))
 
@@ -192,14 +195,13 @@ def AllSems():
 		for m in m_list:
 			id += 1
 			print('{:>4} {:<15} {:>10} {:>15} {:13.2f}'.format(id, sem.dim_name, m.numerator, m.denominator , m.percentage))
-
-'''def AllDegrees():
+def AllDegrees():
 	degree_list = DimensionValue.objects.raw('select id from kpi_app_')
 	for degree in degree_list:
 		#query
-		return'''
+		return
 
-'''def userAuthentication(request):
+def userAuthentication(request):
 	if request.user.is_authenticated():
 		email = request.user.email
 		user_obj = User.objects.get(email=email)

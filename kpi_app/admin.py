@@ -6,7 +6,6 @@ from kpi_app.models import *
 admin.site.register(Company)
 admin.site.register(User)
 admin.site.register(Metric)
-admin.site.register(MetricData)
 admin.site.register(Dimension)
 admin.site.register(DimensionValue)
 admin.site.register(Attribute)

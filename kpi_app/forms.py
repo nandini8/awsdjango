@@ -25,4 +25,4 @@ class DimensionForm(forms.ModelForm):
 		fields = '__all__'
 
 class UploadFileForm(forms.Form):
-	file = forms.FileField()
+	file = forms.FileField(widget=forms.FileInput(attrs={'background-color':'red'}))

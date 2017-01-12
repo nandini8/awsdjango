@@ -12,6 +12,9 @@ class Company(models.Model):
 	filter2_dimValue = models.CharField(max_length=20)
 	filter3_dimValue = models.CharField(max_length=20)
 
+	class Meta():
+		verbose_name_plural = 'Companies'
+
 	def __str__(self):
 		return self.company_name
 
