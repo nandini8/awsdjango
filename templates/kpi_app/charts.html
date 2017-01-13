@@ -7,16 +7,6 @@
 	</head>
 	<body>
 
-  {%block email_id%}
-          <div class="dropdown pull-right">
-              <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                 Welcome, {{ user.first_name}}! <span class="glyphicon glyphicon-chevron-down" ></span>
-              </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li ><a href="/logout/">Logout</a></li>
-            </div>
-  {% endblock %}
-
 		{% block body %}
 		<div class="container">
 	 <section id="footer">

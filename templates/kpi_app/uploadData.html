@@ -17,13 +17,6 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'kpi_app/css/kpi_app.css' %}">
 </head>
 <body>-->
-{% block email_id %}
-<div class="dropdown pull-right">
-						  <button class="btn btn-primary dropdown-toggle" disabled="disabled" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-						    Welcome, {{ user.first_name}}!
-						  </button>
-</div>
-{% endblock %}
 {% block data_loader %}
 
 	<div class="container">
@@ -52,9 +45,8 @@
 					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 					<div class="alert alert-success text-center alert-dismissible" role="alert">File uploaded successfully</div>
 				{% else %}
-					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<div class="alert alert-warning text-center alert-dismissible" role="alert">File not uploaded</div>
-
+					<!--<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<div class="alert alert-warning text-center alert-dismissible" role="alert">File not uploaded</div>-->
 				{% endif %}
 			</div>
 			<div class="col-md-4"></div>
