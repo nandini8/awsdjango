@@ -49,7 +49,7 @@ def charts(request):
 	if request.user.is_authenticated():
 		email = request.user.email
 		user_obj = User.objects.get(email=email)
-		role = Role.objects.filter(id=UserRole.objects.get(id=user_obj.id).id)
+		role = Role.objects.filter(id=UserRole.objects.get(user_id=user_obj.id).role_id_id)
 		try:
 			context_dict1=getData(user_obj)
 			if user_obj:
@@ -158,7 +158,7 @@ def uploadFile(request):
 	email = request.user.email
 	user_obj = User.objects.get(email=email)
 	context_dict_1 = getData(user_obj)
-	role = Role.objects.filter(id=UserRole.objects.get(id=user_obj.id).id)
+	role = Role.objects.filter(id=UserRole.objects.get(user_id=user_obj.id).role_id_id)
 	if request.method == 'POST':
 		form = UploadFileForm(request.POST, request.FILES)
 		if form.is_valid():
