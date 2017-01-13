@@ -48,10 +48,11 @@ def charts(request):
 	if request.user.is_authenticated():
 		email = request.user.email
 		user_obj = User.objects.get(email=email)
+		role = Role.objects.filter(id=UserRole.objects.get(id=user_obj.id).id)
 		try:
 			context_dict1=getData(user_obj)
 			if user_obj:
-				return render(request,"kpi_app/charts.html", {'context_dict1': context_dict1})
+				return render(request,"kpi_app/charts.html", {'context_dict1': context_dict1, 'role':role})
 		except ObjectDoesNotExist:
 			logout(request)
 			return redirect('/')
@@ -156,16 +157,17 @@ def uploadFile(request):
 	email = request.user.email
 	user_obj = User.objects.get(email=email)
 	context_dict_1 = getData(user_obj)
+	role = Role.objects.filter(id=UserRole.objects.get(id=user_obj.id).id)
 	if request.method == 'POST':
 		form = UploadFileForm(request.POST, request.FILES)
 		if form.is_valid():
 			handle_uploaded_file(request.FILES['file'])
-			return HttpResponse('<b>Success</b>')
+			return render(request, 'kpi_app/uploadData.html', {'form': form, 'context_dict1': context_dict_1, 'role': role, 'success': True})
 		else:
-			return HttpResponse('<b>Failure</b>')
+			return render(request, 'kpi_app/uploadData.html', {'form': form, 'context_dict1': context_dict_1, 'role': role, 'success': False})
 	else:
 		form = UploadFileForm()
-	return render(request, 'kpi_app/uploadData.html', {'form': form, 'context_dict1': context_dict_1})
+	return render(request, 'kpi_app/uploadData.html', {'form': form, 'context_dict1': context_dict_1, 'role': role})
 
 
 def handle_uploaded_file(f):

@@ -51,17 +51,18 @@
 						  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 						     Welcome, {{ user.first_name}}! <span class="glyphicon glyphicon-chevron-down" ></span>
 						  </button>
-						  {% for rol in role %}
 						  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
 						    <li ><a href="/logout/">Logout</a></li>
+						     {% for rol in role %}
 						    {% if "admin" == rol.role_name %}
 						    <!--<li><a href='/KPI/company/'>Company Setup</a></li>
 						    <li><a href='/KPI/user/'>User Setup</a></li>
 						    <li><a href='/KPI/dimension/'>Dimension Setup</a></li>-->
 						    <li><a href='/admin/'>Setup</a></li>
 						  	{% endif %}
+						  	{% endfor %}
 						  </ul>
-						  {% endfor %}
+						  
 					  </div>
 				{% endblock %}
 				</ul>
