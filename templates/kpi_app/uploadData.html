@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 {% extends 'kpi_app/home.html' %}
-{% load staticfiles %}
+<!--{% load staticfiles %}
 {# Load the tag library #}
 {% load bootstrap3 %}
 
@@ -16,7 +16,14 @@
 	<title>Upload Data</title>
 	<link rel="stylesheet" type="text/css" href="{% static 'kpi_app/css/kpi_app.css' %}">
 </head>
-<body>
+<body>-->
+{% block email_id %}
+<div class="dropdown pull-right">
+						  <button class="btn btn-primary dropdown-toggle" disabled="disabled" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+						    Welcome, {{ user.first_name}}!
+						  </button>
+</div>
+{% endblock %}
 {% block data_loader %}
 
 	<div class="container">
@@ -43,5 +50,5 @@
 	</div>
 	</div>
 {% endblock %}
-</body>
-</html>
+<!--</body>
+</html>-->

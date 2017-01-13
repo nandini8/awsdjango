@@ -29,7 +29,6 @@ def home(request):
 			if user_obj:
 				context_dict_1 = getData(user_obj)
 				#context_dict_2 = AllDegrees()
-				print(context_dict_1)
 
 				return render(request,"kpi_app/home.html", {'context_dict1' : context_dict_1, 'role': role })
 		except ObjectDoesNotExist:
@@ -50,9 +49,9 @@ def charts(request):
 		email = request.user.email
 		user_obj = User.objects.get(email=email)
 		try:
-			context_dict=getData(user_obj)
+			context_dict1=getData(user_obj)
 			if user_obj:
-				return render(request,"kpi_app/charts.html",context_dict)
+				return render(request,"kpi_app/charts.html", {'context_dict1': context_dict1})
 		except ObjectDoesNotExist:
 			logout(request)
 			return redirect('/')
@@ -154,24 +153,24 @@ def dimensionCrud(request):
 
 
 def uploadFile(request):
+	email = request.user.email
+	user_obj = User.objects.get(email=email)
+	context_dict_1 = getData(user_obj)
 	if request.method == 'POST':
 		form = UploadFileForm(request.POST, request.FILES)
 		if form.is_valid():
-			print(type(request.FILES['file']))
 			handle_uploaded_file(request.FILES['file'])
 			return HttpResponse('<b>Success</b>')
 		else:
 			return HttpResponse('<b>Failure</b>')
 	else:
 		form = UploadFileForm()
-	return render(request, 'kpi_app/uploadData.html', {'form': form})
+	return render(request, 'kpi_app/uploadData.html', {'form': form, 'context_dict1': context_dict_1})
 
 
 def handle_uploaded_file(f):
 	with open('templates/kpi_app/a.txt', 'wb') as destination:
-		print("Hello")
 		for chunk in f.chunks():
-			print(chunk)
 			destination.write(chunk)
 
 
@@ -181,7 +180,6 @@ def getData(user_obj):
 	context_dict = {'filter1': company_obj.filter1_dimValue, 'filter2': company_obj.filter2_dimValue,
 					 'filter3': company_obj.filter3_dimValue, 'tab3': company_obj.tab3_name,
 					  'tab4': company_obj.tab4_name}
-	print(context_dict)
 	return context_dict
 
 '''
