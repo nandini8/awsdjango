@@ -24,13 +24,13 @@ def home(request):
 	if request.user.is_authenticated():
 		email = request.user.email
 		user_obj = User.objects.get(email=email)
-		role = Role.objects.filter(id=UserRole.objects.get(id=user_obj.id).id)
-		print(user_obj)
+		print(UserRole.objects.get(id=user_obj.id).id)
+		role = Role.objects.filter(id=UserRole.objects.get(user_id=user_obj.id).role_id_id)
 		try:
 			if user_obj:
 				context_dict_1 = getData(user_obj)
 				#context_dict_2 = AllDegrees()
-
+				print(role)
 				return render(request,"kpi_app/home.html", {'context_dict1' : context_dict_1, 'role': role })
 		except ObjectDoesNotExist:
 			logout(request)
