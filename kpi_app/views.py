@@ -25,6 +25,7 @@ def home(request):
 		email = request.user.email
 		user_obj = User.objects.get(email=email)
 		role = Role.objects.filter(id=UserRole.objects.get(id=user_obj.id).id)
+		print(user_obj)
 		try:
 			if user_obj:
 				context_dict_1 = getData(user_obj)
