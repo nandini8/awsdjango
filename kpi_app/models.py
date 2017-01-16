@@ -112,7 +112,7 @@ class UserRole(models.Model):
 	row_status = models.IntegerField(blank=False, default=1)
 
 	def __str__(self):
-		return self.role_id.role_name
+		return self.user_id.user_name
 
 class RolePrivilege(models.Model):
 	role_id = models.ForeignKey(Role, related_name='Role_id')

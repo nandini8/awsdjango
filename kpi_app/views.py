@@ -10,6 +10,9 @@ from django.core.exceptions import ObjectDoesNotExist
 from kpi_app.forms import CompanyForm, UserForm, DimensionValueForm, DimensionForm
 from django.core.context_processors import csrf
 from .forms import UploadFileForm
+from django.contrib.auth.decorators import login_required
+import csv
+from kpi_app import upload_data
 
 
 
@@ -17,54 +20,45 @@ from .forms import UploadFileForm
 # Create your views here.
 
 def login_page(request):
-	context_dict = {}
-	return render(request, "kpi_app/login.html", context_dict)
-
-def home(request):
 	if request.user.is_authenticated():
-		email = request.user.email
-		user_obj = User.objects.get(email=email)
-		print(UserRole.objects.get(id=user_obj.id).id)
-		role = Role.objects.filter(id=UserRole.objects.get(user_id=user_obj.id).role_id_id)
-		try:
-			if user_obj:
-				context_dict_1 = getData(user_obj)
-				#context_dict_2 = AllDegrees()
-				print(role)
-				return render(request,"kpi_app/home.html", {'context_dict1' : context_dict_1, 'role': role })
-		except ObjectDoesNotExist:
-			logout(request)
-			return redirect('/')
-	else:
+		logout(request)
+	return render(request, "kpi_app/login.html")
+
+@login_required(login_url='/')	
+def home(request):
+	email = request.user.email
+	user_obj = User.objects.get(email=email)
+	role = Role.objects.filter(id=UserRole.objects.get(user_id=user_obj.id).role_id_id)
+	try:
+		if user_obj:
+			context_dict_1 = getData(user_obj)
+			#context_dict_2 = AllDegrees()
+			print(role)
+			return render(request,"kpi_app/home.html", {'context_dict1' : context_dict_1, 'role': role })
+	except ObjectDoesNotExist:
 		logout(request)
 		return redirect('/')
-
 
 def logout(request):
     auth_logout(request)
     return redirect('/')
 
-
+@login_required(login_url='/')	
 def charts(request):
-	if request.user.is_authenticated():
-		email = request.user.email
-		user_obj = User.objects.get(email=email)
-		role = Role.objects.filter(id=UserRole.objects.get(user_id=user_obj.id).role_id_id)
-		try:
-			context_dict1=getData(user_obj)
-			if user_obj:
-				return render(request,"kpi_app/charts.html", {'context_dict1': context_dict1, 'role':role})
-		except ObjectDoesNotExist:
-			logout(request)
-			return redirect('/')
-	else:
+	email = request.user.email
+	user_obj = User.objects.get(email=email)
+	role = Role.objects.filter(id=UserRole.objects.get(user_id=user_obj.id).role_id_id)
+	try:
+		context_dict1=getData(user_obj)
+		if user_obj:
+			return render(request,"kpi_app/charts.html", {'context_dict1': context_dict1, 'role':role})
+	except ObjectDoesNotExist:
 		logout(request)
 		return redirect('/')
 
-
-
+@login_required(login_url='/')
 def companyCrud(request):
-	if request.user.is_authenticated():
+	
 		email = request.user.email
 		user_obj = User.objects.get(email=email)
 
@@ -80,13 +74,8 @@ def companyCrud(request):
 		args['form'] = form
 		return render_to_response('kpi_app/company.html', args)
 
-	else:
-		logout(request)
-		return redirect('/')
-	
-
+@login_required(login_url='/')
 def userCrud(request):
-	if request.user.is_authenticated():
 		email = request.user.email
 		user_obj = User.objects.get(email=email)
 
@@ -103,13 +92,8 @@ def userCrud(request):
 		args['form'] = form
 		return render_to_response('kpi_app/user.html', args)
 
-	else:
-		logout(request)
-		return redirect('/')
-
-
+@login_required(login_url='/')	
 def dimensionValueCrud(request):
-	if request.user.is_authenticated():
 		email = request.user.email
 		user_obj = User.objects.get(email=email)
 
@@ -126,13 +110,8 @@ def dimensionValueCrud(request):
 		return render_to_response('kpi_app/dimensionValue.html', args)
 
 
-	else:
-		logout(request)
-		return redirect('/')
-
-
+@login_required(login_url='/')
 def dimensionCrud(request):
-	if request.user.is_authenticated():
 		email = request.user.email
 		user_obj = User.objects.get(email=email)
 
@@ -148,12 +127,7 @@ def dimensionCrud(request):
 		args['form'] = form
 		return render_to_response('kpi_app/dimension.html', args)
 
-
-	else:
-		logout(request)
-		return redirect('/')
-
-
+@login_required(login_url='/')
 def uploadFile(request):
 	email = request.user.email
 	user_obj = User.objects.get(email=email)
@@ -162,7 +136,7 @@ def uploadFile(request):
 	if request.method == 'POST':
 		form = UploadFileForm(request.POST, request.FILES)
 		if form.is_valid():
-			handle_uploaded_file(request.FILES['file'])
+			upload_data.handle_uploaded_file(request.FILES['file'], user_obj)
 			return render(request, 'kpi_app/uploadData.html', {'form': form, 'context_dict1': context_dict_1, 'role': role, 'success': True})
 		else:
 			return render(request, 'kpi_app/uploadData.html', {'form': form, 'context_dict1': context_dict_1, 'role': role, 'success': False})
@@ -171,10 +145,6 @@ def uploadFile(request):
 	return render(request, 'kpi_app/uploadData.html', {'form': form, 'context_dict1': context_dict_1, 'role': role})
 
 
-def handle_uploaded_file(f):
-	with open('templates/kpi_app/a.txt', 'wb') as destination:
-		for chunk in f.chunks():
-			destination.write(chunk)
 
 
 
