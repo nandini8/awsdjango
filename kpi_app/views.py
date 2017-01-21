@@ -32,9 +32,10 @@ def home(request):
 	try:
 		if user_obj:
 			context_dict_1 = getData(user_obj)
+
 			#context_dict_2 = AllDegrees()
 			print(role)
-			return render(request,"kpi_app/home.html", {'context_dict1' : context_dict_1, 'role': role })
+			return render(request,"kpi_app/home.html", {'context_dict1' : context_dict_1[0], 'role': role , 'filtervalues' :context_dict_1[1] })
 	except ObjectDoesNotExist:
 		logout(request)
 		return redirect('/')
@@ -150,10 +151,19 @@ def uploadFile(request):
 
 def getData(user_obj):
 	company_obj = Company.objects.get(id=user_obj.company_name.id)
+	print(company_obj.id)
+	dim_obj = Dimension.objects.filter(company_name_id=company_obj.id)
+	unique_dim_value=dict()
+	for d in dim_obj:
+		l = list()
+		for i in DimensionValue.objects.filter(dim_type_id=d.id):
+			l.append(i.dim_name)
+		unique_dim_value.update({d.dim_type : l})
+	print(unique_dim_value)
 	context_dict = {'filter1': company_obj.filter1_dimValue, 'filter2': company_obj.filter2_dimValue,
 					 'filter3': company_obj.filter3_dimValue, 'tab3': company_obj.tab3_name,
 					  'tab4': company_obj.tab4_name}
-	return context_dict
+	return context_dict,unique_dim_value
 
 '''
 def AllSems():

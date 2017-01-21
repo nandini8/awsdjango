@@ -83,11 +83,13 @@
 						    <span class="caret"></span>
 						  </button>
 						  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-						    <li><a href="#">Action</a></li>
-						    <li><a href="#">Another action</a></li>
-						    <li><a href="#">Something else here</a></li>
-						    <li role="separator" class="divider"></li>
-						    <li><a href="#">Separated link</a></li>
+						  {% for key,value in filtervalues.items %}
+						  {% if key == context_dict1.filter1 %}
+						  {% for v in value %}
+						   <li><a href="#">{{v}}</a></li>
+						  {% endfor %}
+						  {% endif %}
+						  {% endfor %}
 						  </ul>
 					  </div>
 				  </div>
@@ -98,11 +100,13 @@
 						    <span class="caret"></span>
 						  </button>
 						  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-						    <li><a href="#">Action</a></li>
-						    <li><a href="#">Another action</a></li>
-						    <li><a href="#">Something else here</a></li>
-						    <li role="separator" class="divider"></li>
-						    <li><a href="#">Separated link</a></li>
+						    {% for key,value in filtervalues.items %}
+						  {% if key == context_dict1.filter2 %}
+						  {% for v in value %}
+						   <li><a href="#">{{v}}</a></li>
+						  {% endfor %}
+						  {% endif %}
+						  {% endfor %}
 						  </ul>
 					  </div>
 				  </div>
@@ -113,11 +117,13 @@
 						    <span class="caret"></span>
 						  </button>
 						  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-						    <li><a href="#">Action</a></li>
-						    <li><a href="#">Another action</a></li>
-						    <li><a href="#">Something else here</a></li>
-						    <li role="separator" class="divider"></li>
-						    <li><a href="#">Separated link</a></li>
+						    {% for key,value in filtervalues.items %}
+						  {% if key == context_dict1.filter3 %}
+						  {% for v in value %}
+						   <li><a href="#">{{v}}</a></li>
+						  {% endfor %}
+						  {% endif %}
+						  {% endfor %}
 						  </ul>
 					  </div>
 				  </div>
