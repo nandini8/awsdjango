@@ -1,4 +1,5 @@
 DimId,Dimension,Level,DimName,ParentId
+1,RocheDim,0,Root,None
 2,RocheDim,1,Biologics,1
 3,RocheDim,1,Other,1
 4,RocheDim,1,Small Molecules,1
