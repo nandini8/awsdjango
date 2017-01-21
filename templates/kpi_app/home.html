@@ -83,12 +83,15 @@
 						    <span class="caret"></span>
 						  </button>
 						  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-						  {% for key,value in filtervalues.items %}
+						  <!--{% for key,value in filtervalues.items %}
 						  {% if key == context_dict1.filter1 %}
 						  {% for v in value %}
 						   <li><a href="#">{{v}}</a></li>
 						  {% endfor %}
 						  {% endif %}
+						  {% endfor %}-->
+						  {% for items in context_dict1.combo1 %}
+						  <li><a href="#">{{ items }}</a></li>
 						  {% endfor %}
 						  </ul>
 					  </div>
@@ -100,14 +103,19 @@
 						    <span class="caret"></span>
 						  </button>
 						  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-						    {% for key,value in filtervalues.items %}
+						   <!--{% for key,value in filtervalues.items %}
 						  {% if key == context_dict1.filter2 %}
 						  {% for v in value %}
 						   <li><a href="#">{{v}}</a></li>
 						  {% endfor %}
 						  {% endif %}
+						  {% endfor %}-->
+						   {% for items in context_dict1.combo2 %}
+						  <li><a href="#">{{ items }}</a></li>
 						  {% endfor %}
 						  </ul>
+						  </ul>
+
 					  </div>
 				  </div>
 				  <div class="col-md-2">
@@ -117,13 +125,18 @@
 						    <span class="caret"></span>
 						  </button>
 						  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-						    {% for key,value in filtervalues.items %}
+						   <!-- {% for key,value in filtervalues.items %}
 						  {% if key == context_dict1.filter3 %}
 						  {% for v in value %}
 						   <li><a href="#">{{v}}</a></li>
 						  {% endfor %}
 						  {% endif %}
+						  {% endfor %}-->
+
+						   {% for items in context_dict1.combo3 %}
+						  <li><a href="#">{{ items }}</a></li>
 						  {% endfor %}
+						  </ul>
 						  </ul>
 					  </div>
 				  </div>

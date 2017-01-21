@@ -35,7 +35,7 @@ def home(request):
 
 			#context_dict_2 = AllDegrees()
 			print(role)
-			return render(request,"kpi_app/home.html", {'context_dict1' : context_dict_1[0], 'role': role , 'filtervalues' :context_dict_1[1] })
+			return render(request,"kpi_app/home.html", {'context_dict1' : context_dict_1, 'role': role })
 	except ObjectDoesNotExist:
 		logout(request)
 		return redirect('/')
@@ -151,19 +151,34 @@ def uploadFile(request):
 
 def getData(user_obj):
 	company_obj = Company.objects.get(id=user_obj.company_name.id)
-	print(company_obj.id)
 	dim_obj = Dimension.objects.filter(company_name_id=company_obj.id)
-	unique_dim_value=dict()
+	'''unique_dim_value=dict()
 	for d in dim_obj:
 		l = list()
 		for i in DimensionValue.objects.filter(dim_type_id=d.id):
 			l.append(i.dim_name)
 		unique_dim_value.update({d.dim_type : l})
-	print(unique_dim_value)
+	print(unique_dim_value)'''
+	dimval_obj_level1 = DimensionValue.objects.filter(parent_id = DimensionValue.objects.get(dim_name= "root"))
+	dimval_obj_level2 = DimensionValue.objects.filter(parent_id__in = dimval_obj_level1)
+	dimval_obj_level3 = DimensionValue.objects.filter(parent_id__in = dimval_obj_level2)
+	c1,c2,c3 = (list(),list(),list())
+	for i in dimval_obj_level1:
+		if i.dim_name not in c1:
+			c1.append(i.dim_name)
+
+	for i in dimval_obj_level2:
+		if i.dim_name not in c2:
+			c2.append(i.dim_name)
+			print(i)
+
+	for i in dimval_obj_level3:
+		if i.dim_name not in c3:
+			c3.append(i.dim_name)
 	context_dict = {'filter1': company_obj.filter1_dimValue, 'filter2': company_obj.filter2_dimValue,
 					 'filter3': company_obj.filter3_dimValue, 'tab3': company_obj.tab3_name,
-					  'tab4': company_obj.tab4_name}
-	return context_dict,unique_dim_value
+					  'tab4': company_obj.tab4_name, 'combo1' : c1, 'combo2': c2,'combo3' : c3}
+	return context_dict
 
 '''
 def AllSems():
