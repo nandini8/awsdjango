@@ -2,14 +2,13 @@ from django.contrib import admin
 from kpi_app.models import *
 # Register your models here.
 
-class CompanyAdmin(admin.ModelAdmin):
+'''class CompanyAdmin(admin.ModelAdmin):
 	def has_delete_permission(self, request, obj=None):
 		return False
 class UserAdmin(admin.ModelAdmin):
 	list_display = ('user_name', 'company_name')
 	def has_delete_permission(self, request, obj=None):
 		return False
-
 class MetricAdmin(admin.ModelAdmin):
 	list_display = ('metric_name', 'company_name')
 	def has_delete_permission(self, request, obj=None):
@@ -45,19 +44,19 @@ class PrivilegeAdmin(admin.ModelAdmin):
 class RolePrivilegeAdmin(admin.ModelAdmin):
 	list_display = ('role_id', 'privilege_id')
 	def has_delete_permission(self, request, obj=None):
-		return False
+		return False'''
 
 
-admin.site.register(Company, CompanyAdmin)
-admin.site.register(User, UserAdmin)
-admin.site.register(Metric, MetricAdmin)
-admin.site.register(Dimension, DimensionAdmin)
-admin.site.register(DimensionValue, DimensionValueAdmin)
-admin.site.register(Attribute, AttributeAdmin)
-admin.site.register(AttributeValue, AttributeValueAdmin)
-admin.site.register(Role, RoleAdmin)
-admin.site.register(UserRole, UserRoleAdmin)
-admin.site.register(Privilege, PrivilegeAdmin)
-admin.site.register(RolePrivilege, RolePrivilegeAdmin)
+admin.site.register(Company)#, CompanyAdmin)
+admin.site.register(User)#, UserAdmin)
+admin.site.register(Metric)#, MetricAdmin)
+admin.site.register(Dimension)#, DimensionAdmin)
+admin.site.register(DimensionValue)#, DimensionValueAdmin)
+admin.site.register(Attribute)#, AttributeAdmin)
+admin.site.register(AttributeValue)#, AttributeValueAdmin)
+admin.site.register(Role)#, RoleAdmin)
+admin.site.register(UserRole)#, UserRoleAdmin)
+admin.site.register(Privilege)#, PrivilegeAdmin)
+admin.site.register(RolePrivilege)#, RolePrivilegeAdmin)
 admin.site.site_title = 'KPI'
 admin.site.site_header = 'KPI Admin'

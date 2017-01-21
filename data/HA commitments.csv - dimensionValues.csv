@@ -1,0 +1,73 @@
+DimId,Dimension,Level,DimName,ParentId
+2,RocheDim,1,Biologics,1
+3,RocheDim,1,Other,1
+4,RocheDim,1,Small Molecules,1
+5,RocheDim,2,Basel Biologics DP,2
+6,RocheDim,2,Basel Biologics DS,2
+7,RocheDim,2,Hillsboro,2
+8,RocheDim,2,Kaiseraugst,2
+9,RocheDim,2,Mannheim Biologics,2
+10,RocheDim,2,Oceanside,2
+11,RocheDim,2,Penzberg,2
+12,RocheDim,2,Singapore,2
+13,RocheDim,2,South San Francisco,2
+14,RocheDim,2,Vacaville,2
+15,RocheDim,2,CMO OU,3
+16,RocheDim,2,Grenzach,3
+17,RocheDim,2,Kentucky,3
+18,RocheDim,2,Basel Small Molecules (DP),4
+19,RocheDim,2,Basel Small Molecules (DS),4
+20,RocheDim,2,Clarecastle,4
+21,RocheDim,2,Florence,4
+22,RocheDim,2,Leganes,4
+23,RocheDim,2,Nutley,4
+24,RocheDim,2,Rio de Janeiro,4
+25,RocheDim,2,Segrate,4
+26,RocheDim,2,Shanghai,4
+27,RocheDim,2,Toluca,4
+28,RocheDim,2,Basel Biologics DP,2
+29,RocheDim,2,Basel Biologics DS,2
+30,RocheDim,2,Hillsboro,2
+31,RocheDim,2,Kaiseraugst,2
+32,RocheDim,2,Mannheim Biologics,2
+33,RocheDim,2,Oceanside,2
+34,RocheDim,2,Penzberg,2
+35,RocheDim,2,Singapore,2
+36,RocheDim,2,South San Francisco,2
+37,RocheDim,2,Vacaville,2
+38,RocheDim,2,CMO OU,3
+39,RocheDim,2,Grenzach,3
+40,RocheDim,2,Kentucky,3
+41,RocheDim,2,Basel Small Molecules (DP),4
+42,RocheDim,2,Basel Small Molecules (DS),4
+43,RocheDim,2,Clarecastle,4
+44,RocheDim,2,Florence,4
+45,RocheDim,2,Leganes,4
+46,RocheDim,2,Nutley,4
+47,RocheDim,2,Rio de Janeiro,4
+48,RocheDim,2,Segrate,4
+49,RocheDim,2,Shanghai,4
+50,RocheDim,2,Toluca,4
+51,RocheDim,2,Basel Biologics DP,2
+52,RocheDim,2,Basel Biologics DS,2
+53,RocheDim,2,Hillsboro,2
+54,RocheDim,2,Kaiseraugst,2
+55,RocheDim,2,Mannheim Biologics,2
+56,RocheDim,2,Oceanside,2
+57,RocheDim,2,Penzberg,2
+58,RocheDim,2,Singapore,2
+59,RocheDim,2,South San Francisco,2
+60,RocheDim,2,Vacaville,2
+61,RocheDim,2,CMO OU,3
+62,RocheDim,2,Grenzach,3
+63,RocheDim,2,Kentucky,3
+64,RocheDim,2,Basel Small Molecules (DP),4
+65,RocheDim,2,Basel Small Molecules (DS),4
+66,RocheDim,2,Clarecastle,4
+67,RocheDim,2,Florence,4
+68,RocheDim,2,Leganes,4
+69,RocheDim,2,Nutley,4
+70,RocheDim,2,Rio de Janeiro,4
+71,RocheDim,2,Segrate,4
+72,RocheDim,2,Shanghai,4
+73,RocheDim,2,Toluca,4
