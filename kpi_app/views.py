@@ -159,9 +159,9 @@ def getData(user_obj):
 			l.append(i.dim_name)
 		unique_dim_value.update({d.dim_type : l})
 	print(unique_dim_value)'''
-	dimval_obj_level1 = DimensionValue.objects.filter(parent_id = DimensionValue.objects.get(dim_name= "root"))
-	dimval_obj_level2 = DimensionValue.objects.filter(parent_id__in = dimval_obj_level1)
-	dimval_obj_level3 = DimensionValue.objects.filter(parent_id__in = dimval_obj_level2)
+	dimval_obj_level1 = DimensionValue.objects.filter(parent_id = DimensionValue.objects.get(dim_name= "root"), dim_type_id=dim_obj)
+	dimval_obj_level2 = DimensionValue.objects.filter(parent_id__in = dimval_obj_level1, dim_type_id=dim_obj )
+	dimval_obj_level3 = DimensionValue.objects.filter(parent_id__in = dimval_obj_level2,  dim_type_id=dim_obj)
 	c1,c2,c3 = (list(),list(),list())
 	for i in dimval_obj_level1:
 		if i.dim_name not in c1:
