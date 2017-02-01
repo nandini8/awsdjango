@@ -1,5 +1,5 @@
 #populate_user.py
-
+import quickstart
 import os, csv
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'KPI_project.settings')
 
@@ -28,6 +28,18 @@ def populate():
 			dim_value_obj.level = row['Level']
 
 			dim_value_obj.save()
+
+	values = quickstart.main()
+
+	dimensions= ['Hackerrank Algorithm Score','Hackerrank Python Score','Hackerrank Data Structure Score','Project Euler - Number of problems solved','Rosalind Info - Number of problems solved']
+	dim_root= DimensionValue.objects.get(dim_name='Root')
+	dim_obj = Dimension.objects.get(id=9)
+	for x in values:
+		dv_obj = DimensionValue.objects.create(dim_type_id=dim_obj, dim_name= x[2], parent=dim_root, level=1)
+		for y in dimensions:
+			DimensionValue.objects.create(dim_type_id=dim_obj, dim_name=y, parent=dv_obj, level=2)
+
+
 
 if __name__== '__main__':
 	print("Populating dimension values")
