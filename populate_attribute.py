@@ -12,10 +12,10 @@ def populate_attribute():
 	company_obj = Company.objects.get(id=3)
 	attribute_data = [{'id': 1, 'attr_type': 'exam_type', 'company_obj':Company.objects.get(id=1)},
 				{'id': 2, 'attr_type': 'student', 'company_obj':Company.objects.get(id=1)},
+				{'id': 3, 'attr_type': 'score', 'company_obj':Company.objects.get(id=3)},
 				]
 	for x in attribute_data:
 		u = Attribute.objects.get_or_create(id = x['id'], attr_type=x['attr_type'], company_name=x['company_obj'])
-	Attribute.objects.get_or_create(id =8 , attr_type= "Student", company_name=company_obj)
 
 def populate_attributeValue():
 	AttributeValue.objects.all().delete()
@@ -38,13 +38,13 @@ def populate_attributeValue():
 
 	for x in attr_value_data:
 		u = AttributeValue.objects.get_or_create(id = x['id'], attr_type_id=x['attr_type_id'], attr_name=x['attr_name'])
-	values = quickstart.main()
-	attr_obj = Attribute.objects.get(id=8) 
-	for x in values:
-		u = AttributeValue.objects.get_or_create(attr_type_id=attr_obj, attr_name=x[2])
+
+	attribute1 = ['Hackerrank Algorithm Score','Hackerrank Python Score','Hackerrank Data Structure Score','Project Euler - Number of problems solved','Rosalind Info - Number of problems solved']
+	attr_obj = Attribute.objects.get(id=3) 
+	for x in attribute1:
+		u = AttributeValue.objects.get_or_create(attr_type_id=attr_obj, attr_name=x)
 
 if __name__ == '__main__':
 	print('Starting script')
 	populate_attribute()
 	populate_attributeValue()
-	#populate_metric()
