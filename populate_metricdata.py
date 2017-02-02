@@ -25,8 +25,8 @@ def populate():
 	#print(students_list[0])
 
 
-
-	metric_obj = Metric.objects.get(id=1)
+	metric_obj = Metric.objects.get_or_create(id=2,metric_name='marks', metric_type='ratio', company_name=Company.objects.get(company_name='Xaviers'))[0]
+	metric_obj = Metric.objects.get(id=2)
 
 	bca_obj = DimensionValue.objects.filter(dim_name='BCA')[0]
 	semesters = DimensionValue.objects.filter(parent=bca_obj)
@@ -97,5 +97,5 @@ def populate_pythonClass():
 
 if __name__ == '__main__':
 	print("Starting to populate data")
-	#populate()
-	populate_pythonClass()
+	populate()
+	#populate_pythonClass()

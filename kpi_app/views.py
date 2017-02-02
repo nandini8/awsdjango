@@ -32,11 +32,12 @@ def home(request):
 	try:
 		if user_obj:
 			context_dict_1 = getData(user_obj)
-
+			print(context_dict_1)
 			#context_dict_2 = AllDegrees()
 			print(role)
 			return render(request,"kpi_app/home.html", {'context_dict1' : context_dict_1, 'role': role })
 	except ObjectDoesNotExist:
+		print("a")
 		logout(request)
 		return redirect('/')
 
@@ -170,7 +171,6 @@ def getData(user_obj):
 	for i in dimval_obj_level2:
 		if i.dim_name not in c2:
 			c2.append(i.dim_name)
-			print(i)
 
 	for i in dimval_obj_level3:
 		if i.dim_name not in c3:
