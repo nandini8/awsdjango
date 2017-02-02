@@ -39,10 +39,21 @@ def populate_attributeValue():
 	for x in attr_value_data:
 		u = AttributeValue.objects.get_or_create(id = x['id'], attr_type_id=x['attr_type_id'], attr_name=x['attr_name'])
 
-	attribute1 = ['Hackerrank Algorithm Score','Hackerrank Python Score','Hackerrank Data Structure Score','Project Euler - Number of problems solved','Rosalind Info - Number of problems solved']
+	'''attribute1 = ['Hackerrank Algorithm Score','Hackerrank Python Score','Hackerrank Data Structure Score','Project Euler - Number of problems solved','Rosalind Info - Number of problems solved']
 	attr_obj = Attribute.objects.get(id=3) 
 	for x in attribute1:
-		u = AttributeValue.objects.get_or_create(attr_type_id=attr_obj, attr_name=x)
+		u = AttributeValue.objects.get_or_create(attr_type_id=attr_obj, attr_name=x)'''
+	values = quickstart.main()
+
+	attr_obj = Attribute.objects.get(id=3)
+	l = list()
+	for x in values:
+		l.append(x[1])
+	s = set(l)
+
+	for x in s:
+		AttributeValue.objects.create(attr_type_id=attr_obj, attr_name=x)
+		print(x)
 
 if __name__ == '__main__':
 	print('Starting script')
