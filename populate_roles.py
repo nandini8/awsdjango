@@ -22,7 +22,8 @@ def populate_user_role():
 	UserRole.objects.all().delete()
 	user_role_data = [
 						{'id': 1, 'user_id': User.objects.get(id=1), 'role_id':Role.objects.get(id=1) },
-						{'id': 2, 'user_id': User.objects.get(id=2), 'role_id':Role.objects.get(id=2) }
+						{'id': 2, 'user_id': User.objects.get(id=2), 'role_id':Role.objects.get(id=2) },
+						{'id': 3, 'user_id': User.objects.get(id=3), 'role_id':Role.objects.get(id=1) }
 					]
 
 	for x in user_role_data:
