@@ -76,7 +76,6 @@ def populate_pythonClass():
 	dim_obj = Dimension.objects.get(company_name=company_obj)
 	attr1_values = AttributeValue.objects.filter(attr_type_id=Attribute.objects.get(attr_type='score'))
 	values = quickstart.main()
-
 	for x in values:
 		dim1_obj = DimensionValue.objects.get(dim_name=x[2])
 		num=0
