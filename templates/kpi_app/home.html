@@ -29,7 +29,7 @@
 
 	</head>
 	<body>
-<form meth="POST">
+
 <div class="container">
 		<div class="panel panel-primary">
 		  <div class="panel-heading ">
@@ -45,6 +45,8 @@
 				  <li role="presentation"><a href="/KPI/upload-data/">Upload data</a></li>
 				{% endif %}
 				{% endfor %}
+
+
 
 				  <div class="dropdown pull-right">
 						  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -74,71 +76,29 @@
 				<div class="col-md-2">Year</div>
 				<div class="col-md-2">Month</div>
 			</div>
-			<div class="row container" id="combo">
-				
+
+
+			<div class="row container" id="combo">				
 				  <div class="col-md-2">
-					  <div class="dropdown">
-						  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-						    SELECT
-						    <span class="caret"></span>
-						  </button>
-						  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-						  <!--{% for key,value in filtervalues.items %}
-						  {% if key == context_dict1.filter1 %}
-						  {% for v in value %}
-						   <li><a href="#">{{v}}</a></li>
-						  {% endfor %}
-						  {% endif %}
-						  {% endfor %}-->
+					  	<select class="selectpicker" width="100px">
 						  {% for items in context_dict1.combo1 %}
-						  <li><a href="#">{{ items }}</a></li>
+						 	<option>{{ items }}</option>
 						  {% endfor %}
-						  </ul>
-					  </div>
+						</select>
 				  </div>
 				  <div class="col-md-2">
-				  	<div class="dropdown">
-						  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-						    SELECT
-						    <span class="caret"></span>
-						  </button>
-						  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-						   <!--{% for key,value in filtervalues.items %}
-						  {% if key == context_dict1.filter2 %}
-						  {% for v in value %}
-						   <li><a href="#">{{v}}</a></li>
+				  	<select class="selectpicker">
+						  {% for items in context_dict1.combo2 %}
+						 	<option>{{ items }}</option>
 						  {% endfor %}
-						  {% endif %}
-						  {% endfor %}-->
-						   {% for items in context_dict1.combo2 %}
-						  <li><a href="#">{{ items }}</a></li>
-						  {% endfor %}
-						  </ul>
-						  </ul>
-
-					  </div>
+						</select>
 				  </div>
 				  <div class="col-md-2">
-				  	<div class="dropdown">
-						  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-						    SELECT
-						    <span class="caret"></span>
-						  </button>
-						  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-						   <!-- {% for key,value in filtervalues.items %}
-						  {% if key == context_dict1.filter3 %}
-						  {% for v in value %}
-						   <li><a href="#">{{v}}</a></li>
+				  	<select class="selectpicker">
+						  {% for items in context_dict1.combo3 %}
+						 	<option>{{ items }}</option>
 						  {% endfor %}
-						  {% endif %}
-						  {% endfor %}-->
-
-						   {% for items in context_dict1.combo3 %}
-						  <li><a href="#">{{ items }}</a></li>
-						  {% endfor %}
-						  </ul>
-						  </ul>
-					  </div>
+						</select>
 				  </div>
 				  <div class="col-md-2">
 				  	<div class="dropdown">
@@ -265,7 +225,6 @@
 	</section>
 </div>
 {% endblock %}
-</form>
 
 <div class="container">
 		<script type="text/javascript" src="//code.jquery.com/jquery-latest.min.js"></script>
