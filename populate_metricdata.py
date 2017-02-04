@@ -72,29 +72,39 @@ def populate_pythonClass():
 	MetricData.objects.all().delete()
 	metric_obj = Metric.objects.get_or_create(id=1,metric_name='Score', metric_type='count', company_name=Company.objects.get(company_name='Python Class'))[0]
 
-	company_obj = Company.objects.get(id=3)
+	company_obj = Company.objects.get(company_name='Python class')
+	print(company_obj)
 	dim_obj = Dimension.objects.get(company_name=company_obj)
-	attr1_values = AttributeValue.objects.filter(attr_type_id=Attribute.objects.get(attr_type='score'))
+	dim1_obj = DimensionValue.objects.filter(dim_type_id=dim_obj, level=1)
+	attr1_obj = Attribute.objects.get(company_name=company_obj)
+	attr1_values = AttributeValue.objects.filter(attr_type_id=attr1_obj)
+	print(type(Attribute.objects.get(company_name=company_obj)))
+	print(attr1_values)
 	values = quickstart.main()
 	for x in values:
-		dim1_obj = DimensionValue.objects.get(dim_name=x[2])
-		num=0
-		for y in attr1_values:
-			if y.attr_name == 'Hackerrank Algorithm Score':
-				num = x[7]
-			elif y.attr_name == 'Hackerrank Python Score':
-				num = x[8]
-			elif y.attr_name == 'Hackerrank Data Structure Score':
-				num = x[9]
-			elif y.attr_name == 'Project Euler - Number of problems solved':
-				num = x[10]
-			elif y.attr_name == 'Rosalind Info - Number of problems solved':
-				num = x[11]
-			print(y, num)
-			metric_data_obj = MetricData.objects.get_or_create(dim_1=dim1_obj, attr_1=y, metric_id=metric_obj, company_name=company_obj, date_associated=timezone.now(), numerator=num)[0]
-			print(metric_data_obj)
+		#print("m")
+		for y in dim1_obj:
+			#print(y)
+			for z in attr1_values:
+				print(z)
+				if x[1] == z.attr_name:
+					num=0
+					print(num)
+					if y.dim_name == 'Hackerrank Algorithm Score':
+						num = x[7]
+					elif y.dim_name == 'Hackerrank Python Score':
+						num = x[8]
+					elif y.dim_name == 'Hackerrank Data Structure Score':
+						num = x[9]
+					elif y.dim_name == 'Project Euler - Number of problems solved':
+						num = x[10]
+					elif y.dim_name == 'Rosalind Info - Number of problems solved':
+						num = x[11]
+					print(y, num)
+					metric_data_obj = MetricData.objects.get_or_create(dim_1=y, attr_1=z, metric_id=metric_obj, company_name=company_obj, date_associated=timezone.now(), numerator=num)[0]
+					print(metric_data_obj)
 
 if __name__ == '__main__':
 	print("Starting to populate data")
-	populate()
-	#populate_pythonClass()
+	#populate()
+	populate_pythonClass()

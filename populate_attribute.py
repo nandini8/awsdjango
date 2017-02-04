@@ -12,7 +12,7 @@ def populate_attribute():
 	company_obj = Company.objects.get(id=3)
 	attribute_data = [{'id': 1, 'attr_type': 'exam_type', 'company_obj':Company.objects.get(id=1)},
 				{'id': 2, 'attr_type': 'student', 'company_obj':Company.objects.get(id=1)},
-				{'id': 3, 'attr_type': 'score', 'company_obj':Company.objects.get(id=3)},
+				{'id': 3, 'attr_type': 'students', 'company_obj':Company.objects.get(id=3)},
 				]
 	for x in attribute_data:
 		u = Attribute.objects.get_or_create(id = x['id'], attr_type=x['attr_type'], company_name=x['company_obj'])
@@ -42,7 +42,7 @@ def populate_attributeValue():
 	'''attribute1 = ['Hackerrank Algorithm Score','Hackerrank Python Score','Hackerrank Data Structure Score','Project Euler - Number of problems solved','Rosalind Info - Number of problems solved']
 	attr_obj = Attribute.objects.get(id=3) 
 	for x in attribute1:
-		u = AttributeValue.objects.get_or_create(attr_type_id=attr_obj, attr_name=x)'''
+		u = AttributeValue.objects.get_or_create(attr_type_id=attr_obj, attr_name=x)
 	values = quickstart.main()
 
 	attr_obj = Attribute.objects.get(id=3)
@@ -53,8 +53,19 @@ def populate_attributeValue():
 
 	for x in s:
 		AttributeValue.objects.create(attr_type_id=attr_obj, attr_name=x)
-		print(x)
+		print(x)'''
 
+	attr_obj = Attribute.objects.get(id=3)
+	with open('data/pythonStudents.csv', 'r') as csvfile:
+		students = csv.DictReader(csvfile)
+		for row in students:
+			print(row)
+			attr_value_obj = AttributeValue()
+			attr_value_obj.attr_type_id = attr_obj
+			attr_value_obj.attr_name = row['Email Address']
+
+			attr_value_obj.save()
+			
 if __name__ == '__main__':
 	print('Starting script')
 	populate_attribute()
