@@ -65,7 +65,7 @@ def main():
                               discoveryServiceUrl=discoveryUrl)
 
     spreadsheetId = '1avGyyhx_TT-LdrfjPAUiMAU38jJfdt882xnr1vjc-eY'
-    rangeName = 'Form Responses 1!A2:N'
+    rangeName = 'Form Responses 1!A1:N'
     result = service.spreadsheets().values().get(
         spreadsheetId=spreadsheetId, range=rangeName).execute()
     values = result.get('values', [])
@@ -73,7 +73,7 @@ def main():
     if not values:
         print('No data found.')
     else:
-        #print('Name, Major:')
+        #print(values)
         return values
 
 if __name__ == '__main__':
