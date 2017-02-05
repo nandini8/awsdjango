@@ -103,4 +103,4 @@ def populate_pythonClass():
 if __name__ == '__main__':
 	print("Starting to populate data")
 	populate()
-	#populate_pythonClass()
+	populate_pythonClass()
