@@ -97,10 +97,10 @@ def populate_pythonClass():
 						num = x[10]
 					elif y.dim_name == 'Rosalind Info - Number of problems solved':
 						num = x[11]
-					metric_data_obj = MetricData.objects.get_or_create(dim_1=y, attr_1=z, metric_id=metric_obj, company_name=company_obj, date_associated=timezone.now(), numerator=num)[0]
+					metric_data_obj = MetricData.objects.get_or_create(dim_1=y, attr_1=z, metric_id=metric_obj, company_name=company_obj, date_associated=x[3], numerator=num)[0]
 					print(metric_data_obj)
 
 if __name__ == '__main__':
 	print("Starting to populate data")
-	populate()
+	#populate()
 	populate_pythonClass()
