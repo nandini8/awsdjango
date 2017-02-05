@@ -31,11 +31,12 @@ def get_credentials():
     """
     home_dir = os.path.expanduser('~')
     credential_dir = os.path.join(home_dir, '.credentials')
+    print(credential_dir)
     if not os.path.exists(credential_dir):
         os.makedirs(credential_dir)
     credential_path = os.path.join(credential_dir,
                                    'sheets.googleapis.com-python-quickstart.json')
-
+    print(credential_path)
     store = Storage(credential_path)
     credentials = store.get()
     if not credentials or credentials.invalid:
@@ -49,6 +50,7 @@ def get_credentials():
     return credentials
 
 def main():
+    #print("a")
     """Shows basic usage of the Sheets API.
 
     Creates a Sheets API service object and prints the names and majors of
@@ -67,9 +69,12 @@ def main():
     result = service.spreadsheets().values().get(
         spreadsheetId=spreadsheetId, range=rangeName).execute()
     values = result.get('values', [])
-
+    #print(values)
     if not values:
         print('No data found.')
     else:
         #print('Name, Major:')
         return values
+
+if __name__ == '__main__':
+    main()
