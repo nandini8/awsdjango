@@ -82,11 +82,8 @@ def populate_pythonClass():
 	print(attr1_values)
 	values = quickstart.main()
 	for x in values:
-		#print("m")
 		for y in dim1_obj:
-			#print(y)
 			for z in attr1_values:
-				print(z)
 				if x[1] == z.attr_name:
 					num=0
 					print(num)
@@ -100,11 +97,10 @@ def populate_pythonClass():
 						num = x[10]
 					elif y.dim_name == 'Rosalind Info - Number of problems solved':
 						num = x[11]
-					print(y, num)
 					metric_data_obj = MetricData.objects.get_or_create(dim_1=y, attr_1=z, metric_id=metric_obj, company_name=company_obj, date_associated=timezone.now(), numerator=num)[0]
 					print(metric_data_obj)
 
 if __name__ == '__main__':
 	print("Starting to populate data")
-	#populate()
+	populate()
 	populate_pythonClass()
