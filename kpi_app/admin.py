@@ -58,5 +58,6 @@ admin.site.register(Role)#, RoleAdmin)
 admin.site.register(UserRole)#, UserRoleAdmin)
 admin.site.register(Privilege)#, PrivilegeAdmin)
 admin.site.register(RolePrivilege)#, RolePrivilegeAdmin)
+admin.site.register(MetricData)
 admin.site.site_title = 'KPI'
 admin.site.site_header = 'KPI Admin'

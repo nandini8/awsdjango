@@ -32,7 +32,8 @@ def home(request):
 	try:
 		if user_obj:
 			context_dict_1 = getData(user_obj)
-			print(context_dict_1)
+			#print(context_dict_1)
+			report_dict = getreports(user_obj)
 			#context_dict_2 = AllDegrees()
 			print(role)
 			return render(request,"kpi_app/home.html", {'context_dict1' : context_dict_1, 'role': role })
@@ -179,6 +180,16 @@ def getData(user_obj):
 					 'filter3': company_obj.filter3_dimValue, 'tab3': company_obj.tab3_name,
 					  'tab4': company_obj.tab4_name, 'combo1' : c1, 'combo2': c2,'combo3' : c3}
 	return context_dict
+
+
+def getreports(user_obj):
+	company_obj = Company.objects.get(id=user_obj.company_name.id)
+	dim_obj = Dimension.objects.filter(company_name_id=company_obj.id)
+	dimv_obj = DimensionValue.objects.filter(dim_type_id=dim_obj)
+	c1,c2,c3 = (list(),list(),list())
+	for i in dimv_obj:
+		if i.dim_name not in c1:
+			c1.append(i.dim_name)
 
 '''
 def AllSems():
