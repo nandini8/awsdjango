@@ -144,21 +144,17 @@
 					<div class="panel panel-heading"><b>Annual Summary</b></div>
 					<div class="panel panel-body table-responsive">
 						<table class="table table-default table-hover table-default table-striped">
-							<th></th>
-							{% for x in report_dict.Scores %}
-						 		<th>{{ x }}</th>
+						<th></th>
+							{% for x in list.values %}
+						 		<th>{{x}}</th>
 						  	{% endfor %}
 						  	<tr>
-						  	{% for key, value in report_dict %}
+						  	{% for value in report_dict %}
 						 		<tr>
 						 		<td>{{ value }}</td>
-						 			
 						 		</tr>
-						 			
-						 		
 						  	{% endfor %}
-							
-							
+							</tr>
 						</table>
 					</div>
 				</div>

@@ -14,6 +14,7 @@ from django.contrib.auth.decorators import login_required
 import csv
 from kpi_app import upload_data
 from django.db.models import Max
+from django.template import RequestContext
 
 
 
@@ -33,10 +34,11 @@ def home(request):
 		if user_obj:
 			context_dict_1 = getData(user_obj)
 			#print(context_dict_1)
-			report_dict = getreports(user_obj)
+			#report_dict = getreports(user_obj)
 			#context_dict_2 = AllDegrees()
 			print(role)
-			return render(request,"kpi_app/home.html", {'context_dict1' : context_dict_1, 'role': role, 'report_dict': report_dict })
+			#return render(request,"kpi_app/home.html", {'context_dict1' : context_dict_1, 'role': role, 'report_dict': report_dict })
+			return render_to_response("kpi_app/home.html",{'context_dict1' : context_dict_1, 'role': role,} ,context_instance=RequestContext(request))
 	except ObjectDoesNotExist:
 		print("a")
 		logout(request)
@@ -202,23 +204,26 @@ def getreports(user_obj):
 		#report_data['Name'] = x.attr_name
 		name = x.attr_name
 		for y in MetricData_obj:
-			#print(y.attr_1)
+			print("name",y.attr_1)
 			temp_av = AttributeValue.objects.get(attr_name = y.attr_1)
-			#print(temp_av.attr_name)
+			print(y.attr_1,temp_av.attr_name)
 			if temp_av.attr_name == name:
+				print("jhfskjfdhkjdshkd")
 				temp_dv = DimensionValue.objects.get(id=y.dim_1_id)
+				print("temp_dv",temp_dv)
 				if temp_dv and int(y.numerator) > 0 :
 					l[temp_dv.dim_name]= int(y.numerator)
 				else:
-					#print(temp_av.attr_name,temp_dv.dim_name, y.numerator)
+					print(temp_av.attr_name,temp_dv.dim_name, y.numerator)
 					m_obj = MetricData.objects.filter(attr_1_id = temp_av.id, dim_1_id = temp_dv.id).aggregate(Max('numerator'))
 					l[temp_dv.dim_name] = int(m_obj['numerator__max'])
 					#l.append(int(y.numerator))
 					#print(temp_av.attr_name,temp_dv.dim_name,y.numerator)
-		
+			else:
+				print('names')
 		report_data.update({'Name' : x.attr_name,'Scores': l})
-		#print(report_data)
-		return(report_data)
+		print(report_data)
+	#	return(report_data)
 
 
 '''
