@@ -68,8 +68,7 @@ def populate():
 
 
 def populate_pythonClass():
-	Metric.objects.all().delete()
-	MetricData.objects.all().delete()
+	'''MetricData.objects.all().delete()
 	metric_obj = Metric.objects.get_or_create(id=1,metric_name='Score', metric_type='count', company_name=Company.objects.get(company_name='Python Class'))[0]
 
 	company_obj = Company.objects.get(company_name='Python class')
@@ -105,7 +104,27 @@ def populate_pythonClass():
 						num = x[11]
 					#metric_data_obj = MetricData.objects.get_or_create(dim_1=y, attr_1=z, metric_id=metric_obj, company_name=company_obj, date_associated=x[3], numerator=num)[0]
 					metric_data_obj = MetricData.objects.get_or_create(dim_1=y, attr_1=z, metric_id=metric_obj, company_name=company_obj, date_associated=date_obj, numerator=num)[0]
-					#print(metric_data_obj)
+					#print(metric_data_obj)'''
+	Metric.objects.all().delete()
+	metric_obj = Metric.objects.get_or_create(id=1,metric_name='Score', metric_type='count', company_name=Company.objects.get(company_name='Python Class'))[0]
+	company_obj = Company.objects.get(id =3)
+	dim_obj = Dimension.objects.get(company_name=company_obj)
+	dim1_obj = DimensionValue.objects.filter(dim_type_id=dim_obj, level=1)
+	with open('names.csv', 'r') as csvfile:
+		dimension = csv.DictReader(csvfile)
+		for row in dimension:
+			email = row['Email Address']
+			attrv_obj = AttributeValue.objects.get(attr_name = email)
+			for x in dim1_obj:
+				#print(x.dim_name)
+				if '/' in row['Date for Saturday class']:
+						date_obj = datetime.datetime.strptime(row['Date for Saturday class'], '%m/%d/%Y')
+				else:
+					date = row['Date for Saturday class'].replace('th', "")
+					date_obj = datetime.datetime.strptime(date, '%b %d %Y')
+				metric_data_obj = MetricData.objects.get_or_create(dim_1=x, attr_1=attrv_obj, metric_id=metric_obj, company_name=company_obj, date_associated=date_obj, numerator=row[x.dim_name])[0]
+				print(attrv_obj,x.dim_name)
+			
 
 if __name__ == '__main__':
 	print("Starting to populate data")
