@@ -11,7 +11,7 @@ from kpi_app.forms import CompanyForm, UserForm, DimensionValueForm, DimensionFo
 from django.core.context_processors import csrf
 from .forms import UploadFileForm
 from django.contrib.auth.decorators import login_required
-import csv
+import csv, json
 from kpi_app import upload_data
 from django.db.models import Max
 
@@ -53,8 +53,11 @@ def charts(request):
 	role = Role.objects.filter(id=UserRole.objects.get(user_id=user_obj.id).role_id_id)
 	try:
 		context_dict1=getData(user_obj)
+		report_dict = getreports(user_obj)
+		report_data = json.dumps(report_dict[0])
+		header_data = json.dumps(report_dict[1])
 		if user_obj:
-			return render(request,"kpi_app/charts.html", {'context_dict1': context_dict1, 'role':role})
+			return render(request,"kpi_app/charts.html", {'context_dict1': context_dict1, 'role':role, 'reports': report_data, 'headers': header_data})
 	except ObjectDoesNotExist:
 		logout(request)
 		return redirect('/')
@@ -189,8 +192,8 @@ def getreports(user_obj):
 	MetricData_obj = MetricData.objects.raw('select * from kpi_app_metricdata where date_associated = (select max(date_associated) from kpi_app_metricdata) and company_name_id = ' + str(company_obj.id))
 	report_data = list()
 	for x in attrv_obj:
-		l = dict()
-		l.update({ 'Name': "", 'Attendance': 0,'Hackerrank Algorithm Score':0,
+		scores = dict()
+		scores.update({ 'Name': "", 'Attendance': 0,'Hackerrank Algorithm Score':0,
 					'Hackerrank Python Score':0,
 					'Hackerrank Data Structure Score':0,
 					'Project Euler - Number of problems solved':0,
@@ -200,17 +203,14 @@ def getreports(user_obj):
 		for y in MetricData_obj:
 			temp_av = AttributeValue.objects.get(attr_name = y.attr_1)
 			if temp_av.attr_name == name:
-				l['Name'] = name
+				scores['Name'] = name
 				temp_dv = DimensionValue.objects.get(id=y.dim_1_id)
 				if temp_dv and int(y.numerator) > 0 :
-					l[temp_dv.dim_name]= int(y.numerator)
+					scores[temp_dv.dim_name]= int(y.numerator)
 				else:
-					#print(temp_av.attr_name,temp_dv.dim_name, y.numerator)
 					m_obj = MetricData.objects.filter(attr_1_id = temp_av.id, dim_1_id = temp_dv.id).aggregate(Max('numerator'))
-					l[temp_dv.dim_name] = int(m_obj['numerator__max'])
-					#l.append(int(y.numerator))
-					#print(temp_av.attr_name,temp_dv.dim_name,y.numerator)
-		report_data.append(l)
+					scores[temp_dv.dim_name] = int(m_obj['numerator__max'])
+		report_data.append(scores)
 	for z in report_data:
 		print(z)
 	headers = [ 'Name', 'Attendance','Hackerrank Algorithm Score',
