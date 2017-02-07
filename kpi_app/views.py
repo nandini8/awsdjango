@@ -14,7 +14,6 @@ from django.contrib.auth.decorators import login_required
 import csv
 from kpi_app import upload_data
 from django.db.models import Max
-from django.template import RequestContext
 
 
 
@@ -34,15 +33,10 @@ def home(request):
 		if user_obj:
 			context_dict_1 = getData(user_obj)
 			#print(context_dict_1)
-			#report_dict = getreports(user_obj)
+			report_dict = getreports(user_obj)
 			#context_dict_2 = AllDegrees()
 			print(role)
-<<<<<<< HEAD
 			return render(request,"kpi_app/home.html", {'context_dict1' : context_dict_1, 'role': role, 'report_dict': report_dict[0], 'headers': report_dict[1] })
-=======
-			#return render(request,"kpi_app/home.html", {'context_dict1' : context_dict_1, 'role': role, 'report_dict': report_dict })
-			return render_to_response("kpi_app/home.html",{'context_dict1' : context_dict_1, 'role': role,} ,context_instance=RequestContext(request))
->>>>>>> 2b13b871e62c0524de852ba091e960b9c1721800
 	except ObjectDoesNotExist:
 		print("a")
 		logout(request)
@@ -204,28 +198,18 @@ def getreports(user_obj):
 					})
 		name = x.attr_name
 		for y in MetricData_obj:
-<<<<<<< HEAD
 			temp_av = AttributeValue.objects.get(attr_name = y.attr_1)
 			if temp_av.attr_name == name:
 				l['Name'] = name
-=======
-			print("name",y.attr_1)
-			temp_av = AttributeValue.objects.get(attr_name = y.attr_1)
-			print(y.attr_1,temp_av.attr_name)
-			if temp_av.attr_name == name:
-				print("jhfskjfdhkjdshkd")
->>>>>>> 2b13b871e62c0524de852ba091e960b9c1721800
 				temp_dv = DimensionValue.objects.get(id=y.dim_1_id)
-				print("temp_dv",temp_dv)
 				if temp_dv and int(y.numerator) > 0 :
 					l[temp_dv.dim_name]= int(y.numerator)
 				else:
-					print(temp_av.attr_name,temp_dv.dim_name, y.numerator)
+					#print(temp_av.attr_name,temp_dv.dim_name, y.numerator)
 					m_obj = MetricData.objects.filter(attr_1_id = temp_av.id, dim_1_id = temp_dv.id).aggregate(Max('numerator'))
 					l[temp_dv.dim_name] = int(m_obj['numerator__max'])
 					#l.append(int(y.numerator))
 					#print(temp_av.attr_name,temp_dv.dim_name,y.numerator)
-<<<<<<< HEAD
 		report_data.append(l)
 	for z in report_data:
 		print(z)
@@ -236,13 +220,6 @@ def getreports(user_obj):
 					'Rosalind Info - Number of problems solved'
 					]
 	return(report_data, headers)
-=======
-			else:
-				print('names')
-		report_data.update({'Name' : x.attr_name,'Scores': l})
-		print(report_data)
-	#	return(report_data)
->>>>>>> 2b13b871e62c0524de852ba091e960b9c1721800
 
 
 '''

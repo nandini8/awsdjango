@@ -144,39 +144,20 @@
 					<div class="panel panel-heading"><b>Annual Summary</b></div>
 					<div class="panel panel-body table-responsive">
 						<table class="table table-default table-hover table-default table-striped">
-<<<<<<< HEAD
 							<th></th>
 							{% for x in headers %}
 						 		<th>{{ x }}</th>
 						  	{% endfor %}
 						  	
 						  	{% for value in report_dict %}
-						  		<tr>
-						  			<td></td>
-						  			{% for x in value.values%}
-						  			<td>{{x}}</td>
-						  			{% endfor %}
-						  		</tr>
-						 		<!--<tr>
-						 		{% for values in value %}
-						 		<td>{{ values }}</td>
-						 		{% endfor %}
-						 		</tr>-->
-						  	{% endfor %}
-							
-=======
-						<th></th>
-							{% for x in list.values %}
-						 		<th>{{x}}</th>
-						  	{% endfor %}
-						  	<tr>
-						  	{% for value in report_dict %}
 						 		<tr>
-						 		<td>{{ value }}</td>
+						 		<td></td>
+						 		{% for x in value.values %}
+						 		<td>{{ x }}</td>
+						 		{% endfor %}
 						 		</tr>
 						  	{% endfor %}
-							</tr>
->>>>>>> 2b13b871e62c0524de852ba091e960b9c1721800
+							
 						</table>
 					</div>
 				</div>
