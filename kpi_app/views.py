@@ -36,7 +36,7 @@ def home(request):
 			report_dict = getreports(user_obj)
 			#context_dict_2 = AllDegrees()
 			print(role)
-			return render(request,"kpi_app/home.html", {'context_dict1' : context_dict_1, 'role': role, 'report_dict': report_dict })
+			return render(request,"kpi_app/home.html", {'context_dict1' : context_dict_1, 'role': role, 'report_dict': report_dict[0], 'headers': report_dict[1] })
 	except ObjectDoesNotExist:
 		print("a")
 		logout(request)
@@ -184,28 +184,23 @@ def getData(user_obj):
 
 def getreports(user_obj):
 	company_obj = Company.objects.get(id=user_obj.company_name.id)
-	dim_obj = Dimension.objects.get(company_name_id=company_obj.id)
 	attr_obj = Attribute.objects.get(company_name_id=company_obj)
 	attrv_obj = AttributeValue.objects.filter(attr_type_id = attr_obj)
-	dimv_obj = DimensionValue.objects.filter(dim_type_id=dim_obj)
-	MetricData_obj = MetricData.objects.raw('select * from kpi_app_metricdata where date_associated = (select max(date_associated) from kpi_app_metricdata)')
-	report_data = dict()
-	
+	MetricData_obj = MetricData.objects.raw('select * from kpi_app_metricdata where date_associated = (select max(date_associated) from kpi_app_metricdata) and company_name_id = ' + str(company_obj.id))
+	report_data = list()
 	for x in attrv_obj:
 		l = dict()
-		l.update({'Attendance': 0,'Hackerrank Algorithm Score':0,
+		l.update({ 'Name': "", 'Attendance': 0,'Hackerrank Algorithm Score':0,
 					'Hackerrank Python Score':0,
 					'Hackerrank Data Structure Score':0,
 					'Project Euler - Number of problems solved':0,
 					'Rosalind Info - Number of problems solved':0
 					})
-		#report_data['Name'] = x.attr_name
 		name = x.attr_name
 		for y in MetricData_obj:
-			#print(y.attr_1)
 			temp_av = AttributeValue.objects.get(attr_name = y.attr_1)
-			#print(temp_av.attr_name)
 			if temp_av.attr_name == name:
+				l['Name'] = name
 				temp_dv = DimensionValue.objects.get(id=y.dim_1_id)
 				if temp_dv and int(y.numerator) > 0 :
 					l[temp_dv.dim_name]= int(y.numerator)
@@ -215,10 +210,16 @@ def getreports(user_obj):
 					l[temp_dv.dim_name] = int(m_obj['numerator__max'])
 					#l.append(int(y.numerator))
 					#print(temp_av.attr_name,temp_dv.dim_name,y.numerator)
-		
-		report_data.update({'Name' : x.attr_name,'Scores': l})
-		#print(report_data)
-		return(report_data)
+		report_data.append(l)
+	for z in report_data:
+		print(z)
+	headers = [ 'Name', 'Attendance','Hackerrank Algorithm Score',
+					'Hackerrank Python Score',
+					'Hackerrank Data Structure Score',
+					'Project Euler - Number of problems solved',
+					'Rosalind Info - Number of problems solved'
+					]
+	return(report_data, headers)
 
 
 '''

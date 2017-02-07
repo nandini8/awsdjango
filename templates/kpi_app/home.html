@@ -145,19 +145,23 @@
 					<div class="panel panel-body table-responsive">
 						<table class="table table-default table-hover table-default table-striped">
 							<th></th>
-							{% for x in report_dict.Scores %}
+							{% for x in headers %}
 						 		<th>{{ x }}</th>
 						  	{% endfor %}
-						  	<tr>
-						  	{% for key, value in report_dict %}
-						 		<tr>
-						 		<td>{{ value }}</td>
-						 			
-						 		</tr>
-						 			
-						 		
+						  	
+						  	{% for value in report_dict %}
+						  		<tr>
+						  			<td></td>
+						  			{% for x in value.values%}
+						  			<td>{{x}}</td>
+						  			{% endfor %}
+						  		</tr>
+						 		<!--<tr>
+						 		{% for values in value %}
+						 		<td>{{ values }}</td>
+						 		{% endfor %}
+						 		</tr>-->
 						  	{% endfor %}
-							
 							
 						</table>
 					</div>
