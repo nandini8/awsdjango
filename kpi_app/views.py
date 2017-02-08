@@ -187,7 +187,7 @@ def getData(user_obj):
 
 def getreports(user_obj):
 	company_obj = Company.objects.get(id=user_obj.company_name.id)
-	attr_obj = Attribute.objects.get(company_name_id=company_obj)
+	attr_obj = Attribute.objects.filter(company_name_id=company_obj)[0]
 	attrv_obj = AttributeValue.objects.filter(attr_type_id = attr_obj)
 	MetricData_obj = MetricData.objects.raw('select * from kpi_app_metricdata where date_associated = (select max(date_associated) from kpi_app_metricdata) and company_name_id = ' + str(company_obj.id))
 	report_data = list()

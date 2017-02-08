@@ -2,6 +2,9 @@
 
 import os, django, csv, datetime, random, quickstart
 from django.utils import timezone
+from collections import Counter
+from itertools import chain, groupby
+import copy
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'KPI_project.settings' )
 django.setup()
 
@@ -68,18 +71,51 @@ def populate():
 
 
 def populate_pythonClass():
-	'''MetricData.objects.all().delete()
+	MetricData.objects.all().delete()
 	metric_obj = Metric.objects.get_or_create(id=1,metric_name='Score', metric_type='count', company_name=Company.objects.get(company_name='Python Class'))[0]
 
 	company_obj = Company.objects.get(company_name='Python class')
-	print(company_obj)
 	dim_obj = Dimension.objects.get(company_name=company_obj)
 	dim1_obj = DimensionValue.objects.filter(dim_type_id=dim_obj, level=1)
 	attr1_obj = Attribute.objects.get(company_name=company_obj)
 	attr1_values = AttributeValue.objects.filter(attr_type_id=attr1_obj)
-	print(type(Attribute.objects.get(company_name=company_obj)))
-	print(attr1_values)
-	values = quickstart.main()
+	with open('names.csv', 'r') as csvfile:
+		records_from_file = csv.DictReader(csvfile)
+		records = list(records_from_file)
+		for row in records:
+			if '/' in row['Date for Saturday class']:
+					row['Date for Saturday class'] = datetime.datetime.strptime(row['Date for Saturday class'], '%m/%d/%Y')
+			else:
+				date = row['Date for Saturday class'].replace('th', "")
+				row['Date for Saturday class'] = datetime.datetime.strptime(date, '%b %d %Y')
+
+		sortedRecords =  sorted(records, key=lambda k: [k['Email Address'], k['Date for Saturday class'] ])
+		number_of_days = sorted(set(record['Date for Saturday class'] for record in sortedRecords))
+
+		list_to_be_entered = list()
+		for key, group in groupby(sortedRecords, lambda x: x['Email Address']):
+			individual_student = [x for x in group]
+			number_of_days_entered = sorted(set(record['Date for Saturday class'] for record in individual_student))
+			if len(individual_student) < len(number_of_days):
+				missing_days = sorted(set(number_of_days).difference(set(number_of_days_entered)))
+				#print(missing_days)
+				for i in missing_days:
+					rec = copy.copy(individual_student[-1])
+					rec['Date for Saturday class'] = i
+					individual_student.append(rec)
+				#print(individual_student[-1]['Date for Saturday class'])
+			#print(individual_student)
+			list_to_be_entered.append(individual_student)
+
+		for rows in list_to_be_entered:
+			for row in rows:
+				attrv_obj = AttributeValue.objects.get(attr_name = row['Email Address'])
+				for x in dim1_obj:
+					metric_data_obj = MetricData.objects.get_or_create(dim_1=x, attr_1=attrv_obj, metric_id=metric_obj, company_name=company_obj, date_associated=row['Date for Saturday class'], numerator=row[x.dim_name])[0]
+					print(attrv_obj,x.dim_name)
+	#print(type(Attribute.objects.get(company_name=company_obj)))
+	#print(attr1_values)
+	'''values = quickstart.main()
 	for x in values:
 		for y in dim1_obj:
 			for z in attr1_values:
@@ -104,26 +140,30 @@ def populate_pythonClass():
 						num = x[11]
 					#metric_data_obj = MetricData.objects.get_or_create(dim_1=y, attr_1=z, metric_id=metric_obj, company_name=company_obj, date_associated=x[3], numerator=num)[0]
 					metric_data_obj = MetricData.objects.get_or_create(dim_1=y, attr_1=z, metric_id=metric_obj, company_name=company_obj, date_associated=date_obj, numerator=num)[0]
-					#print(metric_data_obj)'''
+					#print(metric_data_obj)
 	Metric.objects.all().delete()
 	metric_obj = Metric.objects.get_or_create(id=1,metric_name='Score', metric_type='count', company_name=Company.objects.get(company_name='Python Class'))[0]
-	company_obj = Company.objects.get(id =3)
+	company_obj = Company.objects.get(company_name = 'Python Class')
 	dim_obj = Dimension.objects.get(company_name=company_obj)
-	dim1_obj = DimensionValue.objects.filter(dim_type_id=dim_obj, level=1)
-	with open('names.csv', 'r') as csvfile:
-		dimension = csv.DictReader(csvfile)
-		for row in dimension:
-			email = row['Email Address']
-			attrv_obj = AttributeValue.objects.get(attr_name = email)
-			for x in dim1_obj:
-				#print(x.dim_name)
-				if '/' in row['Date for Saturday class']:
-						date_obj = datetime.datetime.strptime(row['Date for Saturday class'], '%m/%d/%Y')
-				else:
-					date = row['Date for Saturday class'].replace('th', "")
-					date_obj = datetime.datetime.strptime(date, '%b %d %Y')
-				metric_data_obj = MetricData.objects.get_or_create(dim_1=x, attr_1=attrv_obj, metric_id=metric_obj, company_name=company_obj, date_associated=date_obj, numerator=row[x.dim_name])[0]
-				print(attrv_obj,x.dim_name)
+	dim1_obj = DimensionValue.objects.filter(dim_type_id=dim_obj, level=1)'''
+	
+
+		#for x in list_to_be_entered:
+			#for y in x:
+				#print(y["Email Address"], y["Date for Saturday class"])
+			#print(len(x))
+
+		#print(number_of_days)
+		#print(number_of_records_entered, number_of_days)
+		#for records in sortedRecords:
+			#if records['Date for Saturday class'] in number_of_days:
+				#print(records['Email Address'])
+			#print(record, number_of_records_entered[record])
+			#my_item = next((item for item in sortedRecords if item['Email Address'] == record and item['Date for Saturday class'] == max(number_of_days)), None)
+
+
+		
+
 			
 
 if __name__ == '__main__':
