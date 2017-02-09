@@ -211,8 +211,8 @@ def getreports(user_obj):
 					m_obj = MetricData.objects.filter(attr_1_id = temp_av.id, dim_1_id = temp_dv.id).aggregate(Max('numerator'))
 					scores[temp_dv.dim_name] = int(m_obj['numerator__max'])
 		report_data.append(scores)
-	for z in report_data:
-		print(z)
+	#for z in report_data:
+		#print(z)
 	headers = [ 'Name', 'Attendance','Hackerrank Algorithm Score',
 					'Hackerrank Python Score',
 					'Hackerrank Data Structure Score',

@@ -11,7 +11,7 @@
 		<div class="container">
 	 <section id="footer">
 		<div class="row text-center">
-			<div class="col-lg-8 col-md-6 col-sm-6 col-xs-6">
+			<div class="col-lg-12 col-md-12 col-sm-12">
 				<div class="panel panel-primary">
 					<div class="panel panel-heading"><b> Hackerrank Algorithm Score</b></div>
 					<div class="panel panel-body" id ="chart1">
@@ -58,8 +58,9 @@
                     var options = {title:'Hackerrank Algorithm Score',
                                     curveType: 'none',
                                     legend:{ position: 'bottom' },
-                                   'width':700,
-                                   'height':300};
+                                   'width':1000,
+                                   'height':300,
+                                    chartArea : {left: 200},};
 
                     // Instantiate and draw our chart, passing in some options.
                     var chart = new google.visualization.ColumnChart(document.getElementById('chart1'));
@@ -69,8 +70,9 @@
 					</div>
 				</div>
 			</div>
-
-      <div class="col-lg-8 col-md-6 col-sm-6 col-xs-6">
+      </div>
+      <div class="row text-center">
+      <div class="col-lg-12 col-md-12 col-sm-12">
         <div class="panel panel-primary">
           <div class="panel panel-heading"><b>Project Euler - Number of problems solved</b></div>
           <div class="panel panel-body" id ="chart4">
@@ -117,8 +119,9 @@
                     var options = {title:'Project Euler - Number of problems solved',
                                     curveType: 'none',
                                     legend:{ position: 'bottom' },
-                                   'width':700,
-                                   'height':300};
+                                   'width':1000,
+                                   'height':300,
+                                    chartArea : {left: 200},};
 
                     // Instantiate and draw our chart, passing in some options.
                     var chart = new google.visualization.LineChart(document.getElementById('chart4'));
@@ -131,7 +134,7 @@
       </div>
 
       <div class="row text-center">
-			<div class="col-lg-8 col-md-6 col-sm-6 col-xs-6">
+			<div class="col-lg-12 col-md-12 col-sm-12">
 				<div class="panel panel-primary">
 					<div class="panel panel-heading"><b>Hackerrank Data Structure Score</b></div>
 					<div class="panel panel-body " id ="chart2">
@@ -179,8 +182,9 @@
                     var options = {title:'Hackerrank Data Structue Score',
                                     curveType: 'function',
                                     legend:{ position: 'bottom' },
-                                   'width':700,
-                                   'height':300};
+                                   'width':1000,
+                                   'height':300,
+                                    chartArea : {left: 200},};
 
                     // Instantiate and draw our chart, passing in some options.
                     var chart = new google.visualization.LineChart(document.getElementById('chart2'));
@@ -196,7 +200,7 @@
 
 
     <div class="row text-center">
-      <div class="col-lg-8 col-md-6 col-sm-6 col-xs-6">
+      <div class="col-lg-12 col-md-12 col-sm-12">
         <div class="panel panel-primary">
           <div class="panel panel-heading"><b> Hackerrank Python Score</b></div>
           <div class="panel panel-body" id ="chart3">
@@ -243,8 +247,9 @@
                     var options = {title:'Hackerrank Python Score',
                                     curveType: 'none',
                                     legend:{ position: 'bottom' },
-                                   'width':700,
-                                   'height':300};
+                                   'width':1000,
+                                   'height':300,
+                                    chartArea : {left: 200},};
 
                     // Instantiate and draw our chart, passing in some options.
                     var chart = new google.visualization.AreaChart(document.getElementById('chart3'));
@@ -254,7 +259,7 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-8 col-md-6 col-sm-6 col-xs-6">
+      <div class="col-lg-12 col-md-12 col-sm-12">
         <div class="panel panel-primary">
           <div class="panel panel-heading"><b>Rosalind Info - Number of problems solved</b></div>
           <div class="panel panel-body" id ="chart5">
@@ -298,11 +303,12 @@
                     
 
                     // Set chart options
-                    var options = {title:'Hackerrank Python Score',
+                    var options = {title:'Rosalind Info - Number of problems solved',
                                     curveType: 'none',
                                     legend:{ position: 'bottom' },
-                                   'width':700,
-                                   'height':300};
+                                   'width':1000,
+                                   'height':300,
+                                    chartArea : {left: 200},};
 
                     // Instantiate and draw our chart, passing in some options.
                     var chart = new google.visualization.ColumnChart(document.getElementById('chart5'));
