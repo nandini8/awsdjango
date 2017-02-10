@@ -26,25 +26,29 @@ def login_page(request):
 
 @login_required(login_url='/')	
 def home(request):
-	email = request.user.email
-	user_obj = User.objects.get(email=email)
-	role = Role.objects.filter(id=UserRole.objects.get(user_id=user_obj.id).role_id_id)
-	try:
-		if user_obj:
-			context_dict_1 = getData(user_obj)
-			#print(context_dict_1)
-			report_dict = getreports(user_obj)
-			#context_dict_2 = AllDegrees()
-			print(role)
-			return render(request,"kpi_app/home.html", {'context_dict1' : context_dict_1, 'role': role, 'report_dict': report_dict[0], 'headers': report_dict[1] })
-	except ObjectDoesNotExist:
-		print("a")
-		logout(request)
-		return redirect('/')
+	if request.method == 'POST':
+		#my = request.POST['c1']
+		return HttpResponse(request.POST['c1'])
+	else:
+		email = request.user.email
+		user_obj = User.objects.get(email=email)
+		role = Role.objects.filter(id=UserRole.objects.get(user_id=user_obj.id).role_id_id)
+		try:
+			if user_obj:
+				context_dict_1 = getData(user_obj)
+				#print(context_dict_1)
+				report_dict = getreports(user_obj)
+				#context_dict_2 = AllDegrees()
+				print(role)
+				return render(request,"kpi_app/home.html", {'context_dict1' : context_dict_1, 'role': role, 'report_dict': report_dict[0], 'headers': report_dict[1] })
+		except ObjectDoesNotExist:
+			print("a")
+			logout(request)
+			return redirect('/')
 
 def logout(request):
-    auth_logout(request)
-    return redirect('/')
+	auth_logout(request)
+	return redirect('/')
 
 @login_required(login_url='/')	
 def charts(request):
