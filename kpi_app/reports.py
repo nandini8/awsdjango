@@ -11,7 +11,6 @@ def filter(request):
 	filter2_option = request.POST['filter2']
 	filter3_option = request.POST['filter3']
 	return (filter1_option, filter2_option, filter3_option)
-	#return HttpResponse(filter1_option + ',' + filter2_option + ',' + filter3_option)
 
 def getreports(user_obj, request):
 	filter1_option, filter2_option, filter3_option = filter(request)
@@ -25,7 +24,6 @@ def getreports(user_obj, request):
 		dimv_obj = DimensionValue.objects.get(dim_name = filter1_option)
 		MetricData_obj = MetricData.objects.raw('select id, attr_1_id, numerator from kpi_app_metricdata where date_associated = (select max(date_associated) from kpi_app_metricdata) and company_name_id = ' + str(company_obj.id) +' and dim_1_id = "' + str(dimv_obj.id) + '";')
 
-	#' and  dim_2_id = '+ filter2_option +' and dim_3_id = '+ filter3_option +
 	report_data = list()
 	for x in attrv_obj:
 		scores = dict()
@@ -47,8 +45,7 @@ def getreports(user_obj, request):
 					m_obj = MetricData.objects.filter(attr_1_id = temp_av.id, dim_1_id = temp_dv.id).aggregate(Max('numerator'))
 					scores[temp_dv.dim_name] = int(m_obj['numerator__max'])
 		report_data.append(scores)
-	#for z in report_data:
-		#print(z)
+		
 	headers = [ 'Name', 'Attendance','Hackerrank Algorithm Score',
 					'Hackerrank Python Score',
 					'Hackerrank Data Structure Score',

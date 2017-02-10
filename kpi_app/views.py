@@ -31,20 +31,20 @@ def home(request):
 	user_obj = User.objects.get(email=email)
 	role = Role.objects.filter(id=UserRole.objects.get(user_id=user_obj.id).role_id_id)
 	#report_dict = reports.getreports(user_obj, request)
+	context_dict_1 = getData(user_obj)
 	if request.method == 'POST':
 		report_dict = reports.getreports(user_obj, request)
-		context_dict_1 = getData(user_obj)
+		#context_dict_1 = getData(user_obj)
 	else:
 		#email = request.user.email
 		#user_obj = User.objects.get(email=email)
 		#role = Role.objects.filter(id=UserRole.objects.get(user_id=user_obj.id).role_id_id)
 		try:
 			if user_obj:
-				context_dict_1 = getData(user_obj)
+				#context_dict_1 = getData(user_obj)
 				#report_dict = reports.getreports(user_obj, request)
 				return render(request,"kpi_app/home.html", {'context_dict1' : context_dict_1, 'role': role}) #, 'report_dict': report_dict[0], 'headers': report_dict[1] })
 		except ObjectDoesNotExist:
-			print("a")
 			logout(request)
 			return redirect('/')
 	return render(request,"kpi_app/home.html", {'context_dict1' : context_dict_1, 'role': role, 'report_dict': report_dict[0], 'headers': report_dict[1] })
@@ -58,16 +58,21 @@ def charts(request):
 	email = request.user.email
 	user_obj = User.objects.get(email=email)
 	role = Role.objects.filter(id=UserRole.objects.get(user_id=user_obj.id).role_id_id)
-	try:
-		context_dict1=getData(user_obj)
-		report_dict = getreports(user_obj)
+	context_dict1=getData(user_obj)
+	if request.method == 'POST':
+		#context_dict1=getData(user_obj)
+		report_dict = reports.getreports(user_obj, request)
 		report_data = json.dumps(report_dict[0])
 		header_data = json.dumps(report_dict[1])
-		if user_obj:
-			return render(request,"kpi_app/charts.html", {'context_dict1': context_dict1, 'role':role, 'reports': report_data, 'headers': header_data})
-	except ObjectDoesNotExist:
-		logout(request)
-		return redirect('/')
+	else:
+		try:
+			#context_dict1=getData(user_obj)
+			if user_obj:
+				return render(request,"kpi_app/charts.html", {'context_dict1': context_dict1, 'role':role}) #, 'reports': report_data, 'headers': header_data})
+		except ObjectDoesNotExist:
+			logout(request)
+			return redirect('/')
+	return render(request,"kpi_app/charts.html", {'context_dict1': context_dict1, 'role':role, 'reports': report_data, 'headers': header_data})
 
 '''@login_required(login_url='/')
 def companyCrud(request):
