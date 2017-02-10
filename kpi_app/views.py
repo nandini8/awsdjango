@@ -12,7 +12,7 @@ from django.core.context_processors import csrf
 from .forms import UploadFileForm
 from django.contrib.auth.decorators import login_required
 import csv, json
-from kpi_app import upload_data
+from kpi_app import upload_data , reports
 from django.db.models import Max
 
 
@@ -26,25 +26,28 @@ def login_page(request):
 
 @login_required(login_url='/')	
 def home(request):
+	#context_dict_1, report_dict, role = dict(), dict(), list()
+	email = request.user.email
+	user_obj = User.objects.get(email=email)
+	role = Role.objects.filter(id=UserRole.objects.get(user_id=user_obj.id).role_id_id)
+	#report_dict = reports.getreports(user_obj, request)
 	if request.method == 'POST':
-		#my = request.POST['c1']
-		return HttpResponse(request.POST['c1'])
+		report_dict = reports.getreports(user_obj, request)
+		context_dict_1 = getData(user_obj)
 	else:
-		email = request.user.email
-		user_obj = User.objects.get(email=email)
-		role = Role.objects.filter(id=UserRole.objects.get(user_id=user_obj.id).role_id_id)
+		#email = request.user.email
+		#user_obj = User.objects.get(email=email)
+		#role = Role.objects.filter(id=UserRole.objects.get(user_id=user_obj.id).role_id_id)
 		try:
 			if user_obj:
 				context_dict_1 = getData(user_obj)
-				#print(context_dict_1)
-				report_dict = getreports(user_obj)
-				#context_dict_2 = AllDegrees()
-				print(role)
-				return render(request,"kpi_app/home.html", {'context_dict1' : context_dict_1, 'role': role, 'report_dict': report_dict[0], 'headers': report_dict[1] })
+				#report_dict = reports.getreports(user_obj, request)
+				return render(request,"kpi_app/home.html", {'context_dict1' : context_dict_1, 'role': role}) #, 'report_dict': report_dict[0], 'headers': report_dict[1] })
 		except ObjectDoesNotExist:
 			print("a")
 			logout(request)
 			return redirect('/')
+	return render(request,"kpi_app/home.html", {'context_dict1' : context_dict_1, 'role': role, 'report_dict': report_dict[0], 'headers': report_dict[1] })
 
 def logout(request):
 	auth_logout(request)
@@ -66,7 +69,7 @@ def charts(request):
 		logout(request)
 		return redirect('/')
 
-@login_required(login_url='/')
+'''@login_required(login_url='/')
 def companyCrud(request):
 	
 		email = request.user.email
@@ -136,6 +139,7 @@ def dimensionCrud(request):
 		args.update(csrf(request))
 		args['form'] = form
 		return render_to_response('kpi_app/dimension.html', args)
+'''
 
 @login_required(login_url='/')
 def uploadFile(request):
@@ -153,8 +157,6 @@ def uploadFile(request):
 	else:
 		form = UploadFileForm()
 	return render(request, 'kpi_app/uploadData.html', {'form': form, 'context_dict1': context_dict_1, 'role': role})
-
-
 
 
 
@@ -189,7 +191,10 @@ def getData(user_obj):
 	return context_dict
 
 
-def getreports(user_obj):
+
+
+
+'''def getreports(user_obj):
 	company_obj = Company.objects.get(id=user_obj.company_name.id)
 	attr_obj = Attribute.objects.filter(company_name_id=company_obj)[0]
 	attrv_obj = AttributeValue.objects.filter(attr_type_id = attr_obj)
@@ -223,7 +228,7 @@ def getreports(user_obj):
 					'Project Euler - Number of problems solved',
 					'Rosalind Info - Number of problems solved'
 					]
-	return(report_data, headers)
+	return(report_data, headers)'''
 
 
 '''

@@ -82,48 +82,48 @@
 
 			<div class="row container" id="combo">				
 				  <div class="col-md-2">
-					  	<select class="selectpicker" id="c1" data-width="150px">
-					  	<option>ALL</option>
+					  	<select class="selectpicker" id="filterID1" name='filter1' data-width="150px">
+					  	<option value="all" selected>ALL</option>
 						  {% for items in context_dict1.combo1 %}
-						 	<option>{{ items }}</option>
+						 	<option value='{{items}}'>{{ items }}</option>
 						  {% endfor %}
 						</select>
 				  </div>
 				  <div class="col-md-2">
-				  	<select class="selectpicker"  data-width="150px">
-				  	<option>ALL</option>
+				  	<select class="selectpicker" id="filterID2" name='filter2' data-width="150px">
+				  	<option value="all" selected>ALL</option>
 						  {% for items in context_dict1.combo2 %}
-						 	<option>{{ items }}</option>
+						 	<option value='{{items}}'>{{ items }}</option>
 						  {% endfor %}
 						</select>
 				  </div>
 				  <div class="col-md-2">
-				  	<select class="selectpicker" data-width="150px">
-				  	<option>ALL</option>
+				  	<select class="selectpicker" id="filterID3" name='filter3' data-width="150px">
+				  	<option value="all" selected>ALL</option>
 						  {% for items in context_dict1.combo3 %}
-						 	<option>{{ items }}</option>
+						 	<option value='{{items}}'>{{ items }}</option>
 						  {% endfor %}
 						</select>
 				  </div>
 				  <div class="col-md-2">
-				  	<select class="selectpicker" data-width="150px">
-				  	<option>ALL</option>
+				  	<select class="selectpicker" id="filterID4" name='filter4' data-width="150px">
+				  	<option value="all" selected>ALL</option>
 						  {% for items in context_dict1.combo %}
-						 	<option>{{ items }}</option>
+						 	<option value='{{items}}'>{{ items }}</option>
 						  {% endfor %}
 						</select>
 				  </div>
 				  <div class="col-md-2">
-				  	<select class="selectpicker" data-width="150px">
-				  	<option>ALL</option>
+				  	<select class="selectpicker" id="filterID5" name='filter5' data-width="150px">
+				  	<option value="all" selected>ALL</option>
 						  {% for items in context_dict1.combo %}
-						 	<option>{{ items }}</option>
+						 	<option value='{{items}}'>{{ items }}</option>
 						  {% endfor %}
 						</select>
 				  </div>
 				  <div class="col-md-2">
 				  	
-				  	<button class="btn btn-warning">Apply</button>
+				  	<button class="btn btn-warning" name='applybtn'>Apply</button>
 				  </div>
 
 			</div>
