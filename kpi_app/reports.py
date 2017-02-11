@@ -1,7 +1,8 @@
 #reports.py
 from kpi_app import views
 from django.http import HttpResponse
-from django.db.models import Max
+from django.db.models import Max, Sum
+from django.db import connection
 
 from kpi_app.models import Company, Attribute, AttributeValue, MetricData, DimensionValue
 
@@ -38,6 +39,7 @@ def getreports(user_obj, request):
 			temp_av = AttributeValue.objects.get(attr_name = y.attr_1)
 			if temp_av.attr_name == name:
 				scores['Name'] = name
+				get_attendance(name)
 				temp_dv = DimensionValue.objects.get(id=y.dim_1_id)
 				if temp_dv and int(y.numerator) > 0 :
 					scores[temp_dv.dim_name]= int(y.numerator)
@@ -54,3 +56,10 @@ def getreports(user_obj, request):
 					]
 	return(report_data, headers)
 
+def get_attendance(name):
+	#attendance = MetricData.objects.filter(dim_1_id = 384).values('attr_1_id').annotate(total =Sum('numerator'))
+	#attendance = MetricData.objects.raw('select sum(numerator)from kpi_app_metricdata where dim_1_id = 384 group by attr_1_id')
+	c = connection.cursor()
+	c.execute('select sum(numerator), attr_1_id from kpi_app_metricdata where dim_1_id = 384 group by attr_1_id;')
+	rows = c.fetchall()
+	print(rows)
