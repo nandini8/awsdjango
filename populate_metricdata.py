@@ -102,9 +102,10 @@ def populate_pythonClass():
 				for i in missing_days:
 					rec = copy.copy(individual_student[-1])
 					rec['Date for Saturday class'] = i
+					rec['Did you attend the class?'] = 'No'
 					individual_student.append(rec)
 				#print(individual_student[-1]['Date for Saturday class'])
-			#print(individual_student)
+			print(individual_student)
 			list_to_be_entered.append(individual_student)
 
 		for rows in list_to_be_entered:

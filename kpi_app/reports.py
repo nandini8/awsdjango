@@ -11,10 +11,12 @@ def filter(request):
 	filter1_option = request.POST['filter1']
 	filter2_option = request.POST['filter2']
 	filter3_option = request.POST['filter3']
-	return (filter1_option, filter2_option, filter3_option)
+	filter4_option = request.POST['filter4']
+	filter5_option = request.POST['filter5']
+	return (filter1_option, filter2_option, filter3_option, filter4_option, filter5_option)
 
 def getreports(user_obj, request):
-	filter1_option, filter2_option, filter3_option = filter(request)
+	filter1_option, filter2_option, filter3_option, filter4_option, filter5_option = filter(request)
 	company_obj = Company.objects.get(id=user_obj.company_name.id)
 	attr_obj = Attribute.objects.filter(company_name_id=company_obj)[0]
 	attrv_obj = AttributeValue.objects.filter(attr_type_id = attr_obj)
@@ -39,13 +41,14 @@ def getreports(user_obj, request):
 			temp_av = AttributeValue.objects.get(attr_name = y.attr_1)
 			if temp_av.attr_name == name:
 				scores['Name'] = name
-				get_attendance(name)
+				attendance = get_attendance(temp_av)
 				temp_dv = DimensionValue.objects.get(id=y.dim_1_id)
-				if temp_dv and int(y.numerator) > 0 :
-					scores[temp_dv.dim_name]= int(y.numerator)
+				if temp_dv.dim_name == 'Attendance': # and int(y.numerator) > 0 :
+					scores[temp_dv.dim_name]= int(attendance)
 				else:
-					m_obj = MetricData.objects.filter(attr_1_id = temp_av.id, dim_1_id = temp_dv.id).aggregate(Max('numerator'))
-					scores[temp_dv.dim_name] = int(m_obj['numerator__max'])
+					scores[temp_dv.dim_name]= int(y.numerator)
+					#m_obj = MetricData.objects.filter(attr_1_id = temp_av.id, dim_1_id = temp_dv.id).aggregate(Max('numerator'))
+					#scores[temp_dv.dim_name] = int(m_obj['numerator__max'])
 		report_data.append(scores)
 		
 	headers = [ 'Name', 'Attendance','Hackerrank Algorithm Score',
@@ -56,10 +59,8 @@ def getreports(user_obj, request):
 					]
 	return(report_data, headers)
 
-def get_attendance(name):
-	#attendance = MetricData.objects.filter(dim_1_id = 384).values('attr_1_id').annotate(total =Sum('numerator'))
-	#attendance = MetricData.objects.raw('select sum(numerator)from kpi_app_metricdata where dim_1_id = 384 group by attr_1_id')
+def get_attendance(temp_av):
 	c = connection.cursor()
-	c.execute('select sum(numerator), attr_1_id from kpi_app_metricdata where dim_1_id = 384 group by attr_1_id;')
-	rows = c.fetchall()
-	print(rows)
+	c.execute('select sum(numerator) from kpi_app_metricdata where dim_1_id in (select id from kpi_app_dimensionvalue where dim_name = "Attendance" ) and attr_1_id = ' + str(temp_av.id))
+	rows = c.fetchone()[0]
+	return rows

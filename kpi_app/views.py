@@ -192,7 +192,7 @@ def getData(user_obj):
 			c3.append(i.dim_name)
 	context_dict = {'filter1': company_obj.filter1_dimValue, 'filter2': company_obj.filter2_dimValue,
 					 'filter3': company_obj.filter3_dimValue, 'tab3': company_obj.tab3_name,
-					  'tab4': company_obj.tab4_name, 'combo1' : c1, 'combo2': c2,'combo3' : c3}
+					  'tab4': company_obj.tab4_name, 'combo1' : c1, 'combo2': c2,'combo3' : c3, 'years': range(2016,2018), 'months': range(1,13)}
 	return context_dict
 
 
