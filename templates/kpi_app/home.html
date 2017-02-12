@@ -75,8 +75,7 @@
 				<div class="col-md-2">{{context_dict1.filter1}}</div>
 				<div class="col-md-2">{{context_dict1.filter2}}</div>
 				<div class="col-md-2">{{context_dict1.filter3}}</div>
-				<div class="col-md-2">Year</div>
-				<div class="col-md-2">Month</div>
+				<div class="col-md-2">Date</div>
 			</div>
 
 
@@ -109,14 +108,6 @@
 				  	<select class="selectpicker" id="filterID4" name='filter4' data-width="150px">
 				  	<option value="all" selected>ALL</option>
 						  {% for items in context_dict1.years %}
-						 	<option value='{{items}}'>{{ items }}</option>
-						  {% endfor %}
-						</select>
-				  </div>
-				  <div class="col-md-2">
-				  	<select class="selectpicker" id="filterID5" name='filter5' data-width="150px">
-				  	<option value="all" selected>ALL</option>
-						  {% for items in context_dict1.months %}
 						 	<option value='{{items}}'>{{ items }}</option>
 						  {% endfor %}
 						</select>

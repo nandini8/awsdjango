@@ -178,7 +178,8 @@ def getData(user_obj):
 	dimval_obj_level1 = DimensionValue.objects.filter(parent_id = DimensionValue.objects.get(dim_name= "root"), dim_type_id=dim_obj)
 	dimval_obj_level2 = DimensionValue.objects.filter(parent_id__in = dimval_obj_level1, dim_type_id=dim_obj )
 	dimval_obj_level3 = DimensionValue.objects.filter(parent_id__in = dimval_obj_level2,  dim_type_id=dim_obj)
-	c1,c2,c3 = (list(),list(),list())
+	MetricData_obj = MetricData.objects.order_by().values('date_associated').distinct()
+	c1,c2,c3,c4 = (list(),list(),list(),list())
 	for i in dimval_obj_level1:
 		if i.dim_name not in c1:
 			c1.append(i.dim_name)
@@ -190,9 +191,13 @@ def getData(user_obj):
 	for i in dimval_obj_level3:
 		if i.dim_name not in c3:
 			c3.append(i.dim_name)
+
+	for i in MetricData_obj:
+		z = i['date_associated'].strftime("%Y-%m-%d")
+		c4.append(z)
 	context_dict = {'filter1': company_obj.filter1_dimValue, 'filter2': company_obj.filter2_dimValue,
 					 'filter3': company_obj.filter3_dimValue, 'tab3': company_obj.tab3_name,
-					  'tab4': company_obj.tab4_name, 'combo1' : c1, 'combo2': c2,'combo3' : c3, 'years': range(2016,2018), 'months': range(1,13)}
+					  'tab4': company_obj.tab4_name, 'combo1' : c1, 'combo2': c2, 'combo3' : c3, 'years': c4}
 	return context_dict
 
 
