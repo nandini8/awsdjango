@@ -19,6 +19,7 @@ from kpi_app import views
 
 urlpatterns = [
 	url(r'^home/', views.home, name="home"),
+    url(r'^tab3/', views.tab3, name="home"),
 	url(r'^charts/', views.charts, name="charts"),
     url(r'upload-data/', views.uploadFile, name='uploadDataCrud'), 
     #url(r'^company/', views.companyCrud, name="company"),

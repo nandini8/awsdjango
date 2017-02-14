@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.db.models import Max, Sum
 from django.db import connection
 
-from kpi_app.models import Company, Attribute, AttributeValue, MetricData, DimensionValue
+from kpi_app.models import *
 
 
 def filter(request):
@@ -64,3 +64,16 @@ def get_attendance(temp_av):
 	c.execute('select sum(numerator) from kpi_app_metricdata where dim_1_id in (select id from kpi_app_dimensionvalue where dim_name = "Attendance" ) and attr_1_id = ' + str(temp_av.id))
 	rows = c.fetchone()[0]
 	return rows
+
+def get_avg(user_obj,request):
+	company_obj = Company.objects.get(id=user_obj.company_name.id)
+	dim_obj = Dimension.objects.filter(company_name_id=company_obj.id)
+	dimv_obj = DimensionValue.objects.filter(dim_type_id=dim_obj)
+	c = connection.cursor()
+	l = list()
+	for x in dimv_obj:
+		c.execute('select avg(numerator) from kpi_app_metricdata where date_associated = (select max(date_associated) from kpi_app_metricdata) and dim_1_id= ' + str(x.id))
+		rows = c.fetchone()[0]
+		#print(round(int(rows)),x.dim_name)
+		l.append({x.dim_name:round(int(rows))})
+	return(l)
