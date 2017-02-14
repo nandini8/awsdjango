@@ -12,21 +12,30 @@ def filter(request):
 	filter2_option = request.POST['filter2']
 	filter3_option = request.POST['filter3']
 	filter4_option = request.POST['filter4']
-	#filter5_option = request.POST['filter5']
-	return (filter1_option, filter2_option, filter3_option, filter4_option)
+	filter5_option = request.POST['filter5']
+	return (filter1_option, filter2_option, filter3_option, filter4_option, filter5_option)
 
 def getreports(user_obj, request):
-	filter1_option, filter2_option, filter3_option, filter4_option = filter(request)
+	filter1_option, filter2_option, filter3_option, filter4_option, filter5_option = filter(request)
 	company_obj = Company.objects.get(id=user_obj.company_name.id)
 	attr_obj = Attribute.objects.filter(company_name_id=company_obj)[0]
 	attrv_obj = AttributeValue.objects.filter(attr_type_id = attr_obj)
 
 	if filter1_option == 'all':
-				MetricData_obj = MetricData.objects.raw('select * from kpi_app_metricdata where date_associated = (select max(date_associated) from kpi_app_metricdata) and company_name_id = ' + str(company_obj.id))
+				MetricData_obj = MetricData.objects.raw('select id, attr_1_id, numerator from kpi_app_metricdata where date_associated = (select max(date_associated) from kpi_app_metricdata) and company_name_id = ' + str(company_obj.id))
 	else:
 		dimv_obj = DimensionValue.objects.get(dim_name = filter1_option)
-		#MetricData_obj = MetricData.objects.raw('select id, attr_1_id, numerator from kpi_app_metricdata where date_associated = (select max(date_associated) from kpi_app_metricdata) and company_name_id = ' + str(company_obj.id) +' and dim_1_id = "' + str(dimv_obj.id) + '";')
-		MetricData_obj = MetricData.objects.raw('select id, attr_1_id, numerator from kpi_app_metricdata where date_associated = "'+ filter4_option +'" and company_name_id = ' + str(company_obj.id) +' and dim_1_id = "' + str(dimv_obj.id) + '"; ')
+		MetricData_obj = MetricData.objects.raw('select id, attr_1_id, numerator from kpi_app_metricdata where month(date_associated) = if("'+ filter5_option +'", "'+filter5_option+'", month(date_associated)) and company_name_id = ' + str(company_obj.id) +' and dim_1_id = "' + str(dimv_obj.id) + '"; ')
+
+
+	#General query not completed yet
+	'''MetricData_obj = MetricData.objects.raw(
+										'select id, attr_1_id, numerator from kpi_app_metricdata where\
+										 month(date_associated) = if("'+ filter5_option +'", "'+filter5_option+'", month(date_associated))\
+										and dim_1_id = if("'+ filter1_option +'", "'+filter1_option+'", dim_1_id)\
+										and dim_2_id = if("'+ filter2_option +'", "'+filter2_option+'", dim_2_id)\
+										and dim_3_id = if("'+ filter3_option +'", "'+filter3_option+'", dim_3_id)')''' 
+
 	report_data = list()
 	for x in attrv_obj:
 		scores = dict()

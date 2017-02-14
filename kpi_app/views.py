@@ -197,18 +197,11 @@ def uploadFile(request):
 def getData(user_obj):
 	company_obj = Company.objects.get(id=user_obj.company_name.id)
 	dim_obj = Dimension.objects.filter(company_name_id=company_obj.id)
-	'''unique_dim_value=dict()
-	for d in dim_obj:
-		l = list()
-		for i in DimensionValue.objects.filter(dim_type_id=d.id):
-			l.append(i.dim_name)
-		unique_dim_value.update({d.dim_type : l})
-	print(unique_dim_value)'''
 	dimval_obj_level1 = DimensionValue.objects.filter(parent_id = DimensionValue.objects.get(dim_name= "root"), dim_type_id=dim_obj)
 	dimval_obj_level2 = DimensionValue.objects.filter(parent_id__in = dimval_obj_level1, dim_type_id=dim_obj )
 	dimval_obj_level3 = DimensionValue.objects.filter(parent_id__in = dimval_obj_level2,  dim_type_id=dim_obj)
-	MetricData_obj = MetricData.objects.order_by().values('date_associated').distinct()
-	c1,c2,c3,c4 = (list(),list(),list(),list())
+	MetricData_date_obj = MetricData.objects.all().aggregate(Max('date_associated'))
+	c1,c2,c3 = (list(),list(),list())
 	for i in dimval_obj_level1:
 		if i.dim_name not in c1:
 			c1.append(i.dim_name)
@@ -221,12 +214,11 @@ def getData(user_obj):
 		if i.dim_name not in c3:
 			c3.append(i.dim_name)
 
-	for i in MetricData_obj:
-		z = i['date_associated'].strftime("%Y-%m-%d")
-		c4.append(z)
+	date = MetricData_date_obj['date_associated__max']
+
 	context_dict = {'filter1': company_obj.filter1_dimValue, 'filter2': company_obj.filter2_dimValue,
 					 'filter3': company_obj.filter3_dimValue, 'tab3': company_obj.tab3_name,
-					  'tab4': company_obj.tab4_name, 'combo1' : c1, 'combo2': c2, 'combo3' : c3, 'years': c4}
+					  'tab4': company_obj.tab4_name, 'combo1' : c1, 'combo2': c2, 'combo3' : c3, 'years': range(2017, date.year+1), 'months' : range(1,date.month + 1) }
 	return context_dict
 
 
