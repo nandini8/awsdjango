@@ -61,6 +61,7 @@ def getreports(user_obj, request):
 			if temp_av.attr_name == name:
 				scores['Name'] = name
 				attendance = get_attendance(temp_av, dimv_obj_dict['month'])
+				print(attendance)
 				temp_dv = DimensionValue.objects.get(id=y.dim_1_id)
 				#if temp_dv.dim_name == 'Attendance': # and int(y.numerator) > 0 :
 					#scores[temp_dv.dim_name]= int(attendance)
@@ -80,8 +81,10 @@ def getreports(user_obj, request):
 	return(report_data, headers)
 
 def get_attendance(temp_av, month):
+	str1 = 'select sum(numerator) from kpi_app_metricdata where dim_1_id in (select id from kpi_app_dimensionvalue where dim_name = "Attendance" ) and attr_1_id = ' + str(temp_av.id) + ' and month(date_associated) = if("'+ month +'", "'+ month +'", month(date_associated))'
+	print(str1)
 	c = connection.cursor()
-	c.execute('select sum(numerator) from kpi_app_metricdata where dim_1_id in (select id from kpi_app_dimensionvalue where dim_name = "Attendance" ) and attr_1_id = ' + str(temp_av.id) + ' and month(date_associated) = if("'+ month +'", "'+ month +'", month(date_associated))')
+	c.execute(str1)
 	rows = c.fetchone()[0]
 	return rows
 
