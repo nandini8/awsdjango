@@ -60,11 +60,14 @@ def tab3(request):
 	role = Role.objects.filter(id=UserRole.objects.get(user_id=user_obj.id).role_id_id)
 	#report_dict = reports.getreports(user_obj, request)
 	#getavg = reports.get_avg(user_obj,request)
-	context_dict_1 = getData(user_obj)
+	context_dict1 = getData(user_obj)
 	if request.method == 'POST':
 		report_dict = reports.getreports(user_obj, request)
-		getavg = reports.get_avg(user_obj,request)
+		getavg = json.dumps(reports.get_avg(user_obj,request))
+		report_data = json.dumps(report_dict[0])
+		header_data = json.dumps(report_dict[1])
 		#context_dict_1 = getData(user_obj)
+		#print(getavg)
 	else:
 		#email = request.user.email
 		#user_obj = User.objects.get(email=email)
@@ -73,11 +76,11 @@ def tab3(request):
 			if user_obj:
 				#context_dict_1 = getData(user_obj)
 				#report_dict = reports.getreports(user_obj, request)
-				return render(request,"kpi_app/tab3.html", {'context_dict1' : context_dict_1, 'role': role}) #, 'report_dict': report_dict[0], 'headers': report_dict[1] })
+				return render(request,"kpi_app/tab3.html", {'context_dict1' : context_dict1, 'role': role}) #, 'report_dict': report_dict[0], 'headers': report_dict[1] })
 		except ObjectDoesNotExist:
 			logout(request)
 			return redirect('/')
-	return render(request,"kpi_app/tab3.html", {'context_dict1' : context_dict_1, 'role': role,'avg': getavg ,'report_dict': report_dict[0], 'headers': report_dict[1] })
+	return render(request,"kpi_app/tab3.html", {'context_dict1': context_dict1, 'role':role, 'reports': report_data, 'headers': header_data, 'average' : getavg})
 
 
 

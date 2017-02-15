@@ -93,10 +93,11 @@ def get_avg(user_obj,request):
 	dim_obj = Dimension.objects.filter(company_name_id=company_obj.id)
 	dimv_obj = DimensionValue.objects.filter(dim_type_id=dim_obj)
 	c = connection.cursor()
-	l = list()
+	l = dict()
 	for x in dimv_obj:
 		c.execute('select avg(numerator) from kpi_app_metricdata where date_associated = (select max(date_associated) from kpi_app_metricdata) and dim_1_id= ' + str(x.id))
 		rows = c.fetchone()[0]
 		#print(round(int(rows)),x.dim_name)
-		l.append({x.dim_name:round(int(rows))})
+		l.update({x.dim_name:round(int(rows))})
 	return(l)
+

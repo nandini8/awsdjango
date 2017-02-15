@@ -79,8 +79,7 @@
           <div class="panel panel-body" id ="chart4">
               <!--Load the AJAX API-->
                 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-                <script type="text/javascript">
-
+               <script type="text/javascript">
 
                   // Load the Visualization API and the corechart package.
                   google.charts.load('current', {'packages':['corechart']});
@@ -117,18 +116,18 @@
                     
 
                     // Set chart options
-                    var options = {title:'Project Euler - Number of problems solved',
-                                    curveType: 'none',
+                    var options = {title:'Hackerrank Data Structue Score',
+                                    curveType: 'function',
                                     legend:{ position: 'bottom' },
                                    'width':1000,
                                    'height':300,
                                     chartArea : {left: 200},};
 
                     // Instantiate and draw our chart, passing in some options.
-                    var chart = new google.visualization.LineChart(document.getElementById('chart4'));
+                    var chart = new google.visualization.LineChart(document.getElementById('chart2'));
                     chart.draw(data, options);
                   }
-              </script>
+    </script>
           </div>
         </div>
       </div>
