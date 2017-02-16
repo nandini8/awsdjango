@@ -62,10 +62,10 @@ def tab3(request):
 	#getavg = reports.get_avg(user_obj,request)
 	context_dict1 = getData(user_obj)
 	if request.method == 'POST':
-		report_dict = reports.getreports(user_obj, request)
+		report_dict, header_dict = reports.getreports(user_obj, request)
 		getavg = json.dumps(reports.get_avg(user_obj,request))
-		report_data = json.dumps(report_dict[0])
-		header_data = json.dumps(report_dict[1])
+		report_data = json.dumps(report_dict)
+		header_data = json.dumps(header_dict)
 		#context_dict_1 = getData(user_obj)
 		#print(getavg)
 	else:
@@ -82,6 +82,29 @@ def tab3(request):
 			return redirect('/')
 	return render(request,"kpi_app/tab3.html", {'context_dict1': context_dict1, 'role':role, 'reports': report_data, 'headers': header_data, 'average' : getavg})
 
+
+@login_required(login_url='/')
+def tab4(request):
+	email = request.user.email
+	user_obj = User.objects.get(email=email)
+	role = Role.objects.filter(id=UserRole.objects.get(user_id=user_obj.id).role_id_id)
+
+	context_dict1 = getData(user_obj)
+	if request.method == 'POST':
+		report_dict, header_dict = reports.getreports(user_obj, request)
+		attendance_dict, header_data = list(), list()
+		for attendance in report_dict:
+			attendance_dict.append({'Name':attendance['Name'], 'Attendance':attendance['Attendance']})
+		attendance_data = json.dumps(attendance_dict)
+
+	else:
+		try:
+			if user_obj:
+				return render(request,"kpi_app/tab4.html", {'context_dict1' : context_dict1, 'role': role}) #, 'report_dict': report_dict[0], 'headers': report_dict[1] })
+		except ObjectDoesNotExist:
+			logout(request)
+			return redirect('/')
+	return render(request,"kpi_app/tab4.html", {'context_dict1': context_dict1, 'role':role, 'reports': attendance_dict, 'reports_chart':attendance_data})
 
 
 

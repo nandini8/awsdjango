@@ -1,0 +1,102 @@
+{% extends "kpi_app/home.html" %}
+
+
+{% block body %}	
+	<div class="container">
+		 <section id="footer">
+			<div class="row text-center" >
+			<div class="col-lg-2 col-md-6 col-sm-6 col-xs-6"></div>
+				<div class="col-lg-8 col-md-6 col-sm-6 col-xs-6">
+					<div class="panel panel-primary">
+						<div class="panel panel-heading"><b>Attendance</b></div>
+						<div class="panel panel-body table-responsive">
+							<table class="table table-hover table-default table-striped" style="width:700px">
+							<tr>
+								<td><b>Name</b></td>
+								<td colspan="3"><b>Attendance<br>(%)</b></td>
+							</tr> 
+							{% for elements in reports %}
+									<tr>
+										{% for value in elements.values %}
+										<td>{{value}}<td>
+										{% endfor %}
+									</tr>
+								{% endfor %}
+
+							</table>
+						</div>
+					</div>
+				</div>
+			<div class="col-lg-2 col-md-6 col-sm-6 col-xs-6"></div>
+			</div>
+		</section>
+	</div>
+
+
+<div class="container">
+	 <section id="footer">
+		<div class="row text-center">
+			<div class="col-lg-12 col-md-12 col-sm-12">
+				<div class="panel panel-primary">
+					<div class="panel panel-heading"><b>Attendance<br>(%)</b></div>
+					<div class="panel panel-body" id ="chart1">
+						  <!--Load the AJAX API-->
+                <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                <script type="text/javascript">
+
+
+                  // Load the Visualization API and the corechart package.
+                  google.charts.load('current', {'packages':['corechart']});
+
+                  // Set a callback to run when the Google Visualization API is loaded.
+                  google.charts.setOnLoadCallback(drawChart);
+
+                  // Callback that creates and populates a data table,
+                  // instantiates the pie chart, passes in the data and
+                  // draws it.
+                  
+                  function drawChart() {
+
+                    // Create the data table.
+                    var records = {{reports_chart|safe}};
+                    //document.write(records);
+                    var data = new google.visualization.DataTable();
+                    data.addColumn('string', 'students');
+                    data.addColumn('number', 'Attendance');
+
+
+                    var result = '';
+                    var x = 1;
+                    /*for (x in records.keys())
+                    {
+                      document.write(records[x]);
+                    }*/
+
+                    for ( var i= 0; i < records.length; i++)
+                    {
+                      data.addRow([records[i]['Name'], records[i]['Attendance']]);
+                    }
+
+                    
+
+                    // Set chart options
+                    var options = {title:'Attendance',
+                                    curveType: 'none',
+                                    legend:{ position: 'bottom' },
+                                   'width':1000,
+                                   'height':300,
+                                    chartArea : {left: 200},};
+
+                    // Instantiate and draw our chart, passing in some options.
+                    var chart = new google.visualization.LineChart(document.getElementById('chart1'));
+                    chart.draw(data, options);
+                  }
+              </script>
+					</div>
+				</div>
+			</div>
+      </div>
+      </section>
+      </div>
+{% endblock %}
+

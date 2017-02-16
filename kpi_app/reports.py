@@ -3,7 +3,6 @@ from kpi_app import views
 from django.http import HttpResponse
 from django.db.models import Max, Sum
 from django.db import connection
-
 from kpi_app.models import *
 from django.db.models import Q
 
@@ -28,6 +27,7 @@ def filter(request):
 	#return (filter1_option, filter2_option, filter3_option, filter4_option, filter5_option)
 
 def getreports(user_obj, request):
+	print()
 	dimv_obj_dict = filter(request)
 	print(dimv_obj_dict)
 	company_obj = Company.objects.get(id=user_obj.company_name.id)
@@ -43,7 +43,7 @@ def getreports(user_obj, request):
 
 	#General query not completed yet
 	str1 = 'select id, attr_1_id, numerator from kpi_app_metricdata where month(date_associated) = if("'+ dimv_obj_dict['month'] +'", "'+dimv_obj_dict['month']+'", month(date_associated)) and dim_1_id = if("'+ dimv_obj_dict['dim_1'] +'", "'+dimv_obj_dict['dim_1']+'", dim_1_id) or dim_2_id = if("'+ dimv_obj_dict['dim_2'] +'", "'+dimv_obj_dict['dim_2']+'", dim_2_id) or dim_3_id = if("'+ dimv_obj_dict['dim_3'] +'", "'+dimv_obj_dict['dim_3']+'", dim_3_id)'
-	#print(str1)
+	print(str1)
 	MetricData_obj = MetricData.objects.raw(str1)
 
 	report_data = list()
@@ -60,17 +60,19 @@ def getreports(user_obj, request):
 			temp_av = AttributeValue.objects.get(attr_name = y.attr_1)
 			if temp_av.attr_name == name:
 				scores['Name'] = name
-				attendance = get_attendance(temp_av, dimv_obj_dict['month'])
-				print(attendance)
+				#print(attendance)
 				temp_dv = DimensionValue.objects.get(id=y.dim_1_id)
-				#if temp_dv.dim_name == 'Attendance': # and int(y.numerator) > 0 :
-					#scores[temp_dv.dim_name]= int(attendance)
-				#else:
-				scores['Attendance'] = int(attendance)
-				scores[temp_dv.dim_name]= int(y.numerator)
+				if temp_dv.dim_name == 'Attendance': # and int(y.numerator) > 0 :
+					attendance = get_attendance(temp_av, dimv_obj_dict['month'])
+					scores[temp_dv.dim_name]= int(attendance)
+				else:
+					#scores['Attendance'] = int(attendance)
+					#print(scores['Name'],scores['Attendance'])
+					scores[temp_dv.dim_name]= int(y.numerator)
 					#m_obj = MetricData.objects.filter(attr_1_id = temp_av.id, dim_1_id = temp_dv.id).aggregate(Max('numerator'))
 					#scores[temp_dv.dim_name] = int(m_obj['numerator__max'])
 		report_data.append(scores)
+	#print(report_data)
 		
 	headers = [ 'Name', 'Attendance','Hackerrank Algorithm Score',
 					'Hackerrank Python Score',
@@ -78,15 +80,20 @@ def getreports(user_obj, request):
 					'Project Euler - Number of problems solved',
 					'Rosalind Info - Number of problems solved'
 					]
-	return(report_data, headers)
+	return report_data, headers
 
 def get_attendance(temp_av, month):
 	str1 = 'select sum(numerator) from kpi_app_metricdata where dim_1_id in (select id from kpi_app_dimensionvalue where dim_name = "Attendance" ) and attr_1_id = ' + str(temp_av.id) + ' and month(date_associated) = if("'+ month +'", "'+ month +'", month(date_associated))'
-	print(str1)
+	#print(str1)
+	str2 = 'select count(distinct(date_associated)) from kpi_app_metricdata'
+	b = connection.cursor()
+	b.execute(str2)
+	max_date = b.fetchone()[0]
 	c = connection.cursor()
 	c.execute(str1)
 	rows = c.fetchone()[0]
-	return rows
+	#print(rows)
+	return rows * 100 / max_date
 
 def get_avg(user_obj,request):
 	company_obj = Company.objects.get(id=user_obj.company_name.id)
@@ -100,4 +107,6 @@ def get_avg(user_obj,request):
 		#print(round(int(rows)),x.dim_name)
 		l.update({x.dim_name:round(int(rows))})
 	return(l)
+
+
 
