@@ -1,2 +1,2 @@
-web: gunicorn KPI_project.wsgi --timeout 100 --keep-alive 5 --log-level debug
+web: gunicorn KPI_project.wsgi --timeout 15 --keep-alive 5 --log-level debug
 
