@@ -29,6 +29,7 @@ def home(request):
 	#context_dict_1, report_dict, role = dict(), dict(), list()
 	email = request.user.email
 	user_obj = User.objects.get(email=email)
+	print("User id",user_obj.id)
 	role = Role.objects.filter(id=UserRole.objects.get(user_id=user_obj.id).role_id_id)
 	#report_dict = reports.getreports(user_obj, request)
 	context_dict_1 = getData(user_obj)
