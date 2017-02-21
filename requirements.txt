@@ -23,4 +23,6 @@ requests-oauthlib==0.7.0
 rsa==3.4.2
 six==1.10.0
 uritemplate==3.0.0
+waitress==1.0.2
 whitenoise==3.2.2
+

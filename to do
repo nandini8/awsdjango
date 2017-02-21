@@ -16,3 +16,5 @@ company logo and organizations' logo
 						 		</tr>
 						  	{% endfor %}
 							</tr>
+web: gunicorn KPI_project.wsgi --timeout 15 --keep-alive 5 --log-level debug
+

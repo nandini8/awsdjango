@@ -1,2 +1,1 @@
-web: gunicorn KPI_project.wsgi --timeout 15 --keep-alive 5 --log-level debug
-
+web: waitress-serve --port=$PORT KPI_project.wsgi:application
