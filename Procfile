@@ -1,1 +1,1 @@
-web: gunicorn KPI_project.wsgi
+web: gunicorn KPI_project.wsgi --timeout 100
