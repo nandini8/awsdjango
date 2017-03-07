@@ -1,5 +1,5 @@
 #reports.py
-from kpi_app import views
+#from kpi_app import views
 from django.http import HttpResponse
 from django.db.models import Max, Sum
 from django.db import connection
