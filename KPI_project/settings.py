@@ -89,6 +89,7 @@ WSGI_APPLICATION = 'KPI_project.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
+<<<<<<< HEAD
 if 'RDS_HOSTNAME' in os.environ:
     DATABASES = {
         'default': {
@@ -112,6 +113,20 @@ else:
             'PORT': '3306',
         }
     }
+=======
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': 'kpi_database',
+        'USER': 'root',
+        'PASSWORD': 'mysql',
+        'HOST': 'localhost',
+        'PORT': '3306',
+    }
+}
+>>>>>>> db71b40e222c985e03330d9e0d2b84c995602be9
 # Register database schemes in URLs.
 '''urlparse.uses_netloc.append('mysql')
 
