@@ -1,0 +1,341 @@
+{% extends "kpi_app/home.html" %}
+
+<html>
+	<head>
+		<title>
+		</title>
+	</head>
+	<body>
+<form method="POST">
+{% csrf_token %}
+		{% block body %}
+		<div class="container">
+	 <section id="footer">
+		<div class="row text-center">
+			<div class="col-lg-12 col-md-12 col-sm-12">
+				<div class="panel panel-primary">
+					<div class="panel panel-heading"><b> Hackerrank Algorithm Score</b></div>
+					<div class="panel panel-body" id ="chart1">
+						  <!--Load the AJAX API-->
+                <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                <script type="text/javascript">
+
+
+                  // Load the Visualization API and the corechart package.
+                  google.charts.load('current', {'packages':['corechart']});
+
+                  // Set a callback to run when the Google Visualization API is loaded.
+                  google.charts.setOnLoadCallback(drawChart);
+
+                  // Callback that creates and populates a data table,
+                  // instantiates the pie chart, passes in the data and
+                  // draws it.
+                  
+                  function drawChart() {
+
+                    // Create the data table.
+                    var records = {{reports|safe}};
+                    //document.write(records);
+                    var data = new google.visualization.DataTable();
+                    data.addColumn('string', 'students');
+                    data.addColumn('number', 'Score');
+
+
+                    var result = '';
+                    var x = 1;
+                    /*for (x in records.keys())
+                    {
+                      document.write(records[x]);
+                    }*/
+
+                    for ( var i= 0; i < records.length; i++)
+                    {
+                      data.addRow([records[i].Name, records[i]['Hackerrank Algorithm Score']]);
+                    }
+
+                    
+
+                    // Set chart options
+                    var options = {title:'Hackerrank Algorithm Score',
+                                    curveType: 'none',
+                                    legend:{ position: 'bottom' },
+                                    colors: ['black','green','pink','blue','cyan'],
+                                   'width':1000,
+                                   'height':300,
+                                    chartArea : {left: 200},};
+
+                    // Instantiate and draw our chart, passing in some options.
+                    var chart = new google.visualization.ColumnChart(document.getElementById('chart1'));
+                    chart.draw(data, options);
+                  }
+              </script>
+					</div>
+				</div>
+			</div>
+      </div>
+      <div class="row text-center">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="panel panel-primary">
+          <div class="panel panel-heading"><b>Project Euler - Number of problems solved</b></div>
+          <div class="panel panel-body" id ="chart2">
+              <!--Load the AJAX API-->
+                <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+               <script type="text/javascript">
+
+                  // Load the Visualization API and the corechart package.
+                  google.charts.load('current', {'packages':['corechart']});
+
+                  // Set a callback to run when the Google Visualization API is loaded.
+                  google.charts.setOnLoadCallback(drawChart);
+
+                  // Callback that creates and populates a data table,
+                  // instantiates the pie chart, passes in the data and
+                  // draws it.
+                  
+                  function drawChart() {
+
+                    // Create the data table.
+                    var records = {{reports|safe}};
+                    //document.write(records);
+                    var data = new google.visualization.DataTable();
+                    data.addColumn('string', 'students');
+                    data.addColumn('number', 'Score');
+
+
+                    var result = '';
+                    var x = 1;
+                    /*for (x in records.keys())
+                    {
+                      document.write(records[x]);
+                    }*/
+
+                    for ( var i= 0; i < records.length; i++)
+                    {
+                      data.addRow([records[i].Name, records[i]['Project Euler - Number of problems solved']]);
+                    }
+
+                    
+
+                    // Set chart options
+                    var options = {title:'Hackerrank Data Structue Score',
+                                    curveType: 'none',
+                                    legend:{ position: 'bottom' },
+                                    colors: ['black','green','pink','blue','cyan'],
+                                   'width':1000,
+                                   'height':300,
+                                    chartArea : {left: 200},};
+
+                    // Instantiate and draw our chart, passing in some options.
+                    var chart = new google.visualization.LineChart(document.getElementById('chart2'));
+                    chart.draw(data, options);
+                  }
+    </script>
+          </div>
+        </div>
+      </div>
+      </div>
+
+      <div class="row text-center">
+			<div class="col-lg-12 col-md-12 col-sm-12">
+				<div class="panel panel-primary">
+					<div class="panel panel-heading"><b>Hackerrank Data Structure Score</b></div>
+					<div class="panel panel-body " id ="chart3">
+
+						<!--Load the AJAX API-->
+              <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+              <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+            <script type="text/javascript">
+
+                  // Load the Visualization API and the corechart package.
+                  google.charts.load('current', {'packages':['corechart']});
+
+                  // Set a callback to run when the Google Visualization API is loaded.
+                  google.charts.setOnLoadCallback(drawChart);
+
+                  // Callback that creates and populates a data table,
+                  // instantiates the pie chart, passes in the data and
+                  // draws it.
+                  
+                  function drawChart() {
+
+                    // Create the data table.
+                    var records = {{reports|safe}};
+                    //document.write(records);
+                    var data = new google.visualization.DataTable();
+                    data.addColumn('string', 'students');
+                    data.addColumn('number', 'Score');
+
+
+                    var result = '';
+                    var x = 1;
+                    /*for (x in records.keys())
+                    {
+                      document.write(records[x]);
+                    }*/
+
+                    for ( var i= 0; i < records.length; i++)
+                    {
+                      data.addRow([records[i].Name, records[i]['Hackerrank Data Structure Score']]);
+                    }
+
+                    
+
+                    // Set chart options
+                    var options = {title:'Hackerrank Data Structue Score',
+                                    curveType: 'none',
+                                    legend:{ position: 'bottom' },
+                                    colors: ['black','green','pink','blue','cyan'],
+                                   'width':1000,
+                                   'height':300,
+                                    chartArea : {left: 200},};
+
+                    // Instantiate and draw our chart, passing in some options.
+                    var chart = new google.visualization.LineChart(document.getElementById('chart3'));
+                    chart.draw(data, options);
+                  }
+    </script>
+					</div>
+				</div>
+			
+			</div>
+		</div>
+
+
+
+    <div class="row text-center">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="panel panel-primary">
+          <div class="panel panel-heading"><b> Hackerrank Python Score</b></div>
+          <div class="panel panel-body" id ="chart4">
+              <!--Load the AJAX API-->
+                <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                <script type="text/javascript">
+
+
+                  // Load the Visualization API and the corechart package.
+                  google.charts.load('current', {'packages':['corechart']});
+
+                  // Set a callback to run when the Google Visualization API is loaded.
+                  google.charts.setOnLoadCallback(drawChart);
+
+                  // Callback that creates and populates a data table,
+                  // instantiates the pie chart, passes in the data and
+                  // draws it.
+                  
+                  function drawChart() {
+
+                    // Create the data table.
+                    var records = {{reports|safe}};
+                    //document.write(records);
+                    var data = new google.visualization.DataTable();
+                    data.addColumn('string', 'students');
+                    data.addColumn('number', 'Score');
+
+
+                    var result = '';
+                    var x = 1;
+                    /*for (x in records.keys())
+                    {
+                      document.write(records[x]);
+                    }*/
+
+                    for ( var i= 0; i < records.length; i++)
+                    {
+                      data.addRow([records[i].Name, records[i]['Hackerrank Python Score']]);
+                    }
+
+                    
+
+                    // Set chart options
+                    var options = {title:'Hackerrank Python Score',
+                                    curveType: 'none',
+                                    legend:{ position: 'bottom' },
+                                    colors: ['black','green','pink','blue','cyan'],
+                                   'width':1000,
+                                   'height':300,
+                                    chartArea : {left: 200},};
+
+                    // Instantiate and draw our chart, passing in some options.
+                    var chart = new google.visualization.AreaChart(document.getElementById('chart4'));
+                    chart.draw(data, options);
+                  }
+              </script>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="panel panel-primary">
+          <div class="panel panel-heading"><b>Rosalind Info - Number of problems solved</b></div>
+          <div class="panel panel-body" id ="chart5">
+              <!--Load the AJAX API-->
+                <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                <script type="text/javascript">
+
+
+                  // Load the Visualization API and the corechart package.
+                  google.charts.load('current', {'packages':['corechart']});
+
+                  // Set a callback to run when the Google Visualization API is loaded.
+                  google.charts.setOnLoadCallback(drawChart);
+
+                  // Callback that creates and populates a data table,
+                  // instantiates the pie chart, passes in the data and
+                  // draws it.
+                  
+                  function drawChart() {
+
+                    // Create the data table.
+                    var records = {{reports|safe}};
+                    //document.write(records);
+                    var data = new google.visualization.DataTable();
+                    data.addColumn('string', 'students');
+                    data.addColumn('number', 'Score');
+
+
+                    var result = '';
+                    var x = 1;
+                    /*for (x in records.keys())
+                    {
+                      document.write(records[x]);
+                    }*/
+
+                    for ( var i= 0; i < records.length; i++)
+                    {
+                      data.addRow([records[i].Name, records[i]['Rosalind Info - Number of problems solved']]);
+                    }
+
+                    
+
+                    // Set chart options
+                    var options = {title:'Rosalind Info - Number of problems solved',
+                                    curveType: 'none',
+                                    legend:{ position: 'bottom' },
+                                    colors: ['black','green','pink','blue','cyan'],
+                                   'width':1000,
+                                   'height':300,
+                                    chartArea : {left: 200},};
+
+                    // Instantiate and draw our chart, passing in some options.
+                    var chart = new google.visualization.ColumnChart(document.getElementById('chart5'));
+                    chart.draw(data, options);
+                  }
+              </script>
+          </div>
+        </div>
+      </div>
+    </div>
+	</section>
+</div>
+		{% endblock %}
+    <div class="container">
+    <script type="text/javascript" src="//code.jquery.com/jquery-latest.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/i18n/defaults-*.min.js"></script>
+
+</div>
+</form>
+	</body>
+</html>

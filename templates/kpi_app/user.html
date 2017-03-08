@@ -1,0 +1,17 @@
+<!--user.html-->
+<!DOCTYPE html>
+<html>
+<head>
+	<title>User Profile</title>
+</head>
+<body>
+		{% csrf_token %}
+	<form action="" method="POST" enctype="multipart/form-data">
+
+		<table>
+			{{form.as_table}}
+		</table>
+		<input type="Submit" name="Submit" value="Create"/>
+	</form>
+</body>
+</html>

@@ -1,0 +1,312 @@
+{% extends "kpi_app/home.html" %}
+
+<html>
+	<head>
+		<title>
+		</title>
+	</head>
+	<body>
+<form method="POST">
+{% csrf_token %}
+		{% block body %}
+		<div class="container">
+		 <section id="footer">
+		<div class="row text-center">
+		<div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="panel panel-primary">
+          <div class="panel panel-heading"><b>Hackerrank Algorithm Score</b></div>
+          <div class="panel panel-body" id ="chart_div">
+              <!--Load the AJAX API-->
+                <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                <script type="text/javascript">
+                  google.charts.load('current', {'packages':['corechart']});
+                  google.charts.setOnLoadCallback(drawVisualization);
+
+
+                  function drawVisualization() {
+                    // Some raw data (not necessarily accurate)
+                     // Create the data table.
+                    var records = {{reports|safe}};
+                    var average1 = {{average|safe}};
+
+                    //document.write(records);
+                    //document.write(average1['Hackerrank Algorithm Score']);
+                    var data = new google.visualization.DataTable();
+                    data.addColumn('string', 'students');
+                    data.addColumn('number', 'Score');
+                    data.addColumn('number', 'Average');
+
+                    var result = '';
+                    var x = 1;
+                    /*for (x in records.keys())
+                    {
+                      document.write(records[x]);
+                    }*/
+
+                    for ( var i= 0; i < records.length; i++)
+                    {
+                      data.addRow([records[i].Name, records[i]['Hackerrank Algorithm Score'],average1['Hackerrank Algorithm Score']]);
+                    }
+
+
+                var options = {
+                  title : 'Average score comparison ',
+                  seriesType: 'bars',
+                  colors: ['gray','black'],
+                  series: {1: {type: 'line'}}
+                };
+
+                var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
+                chart.draw(data, options);
+              }
+              </script>
+          </div>
+        </div>
+        </div>
+        </div>
+        </section>
+        </div>
+        <div class="container">
+     <section id="footer">
+    <div class="row text-center">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="panel panel-primary">
+          <div class="panel panel-heading"><b>Project Euler - Number of problems solved</b></div>
+          <div class="panel panel-body" id ="chart_div2">
+              <!--Load the AJAX API-->
+                <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                <script type="text/javascript">
+                  google.charts.load('current', {'packages':['corechart']});
+                  google.charts.setOnLoadCallback(drawVisualization);
+
+
+                  function drawVisualization() {
+                    // Some raw data (not necessarily accurate)
+                     // Create the data table.
+                    var records = {{reports|safe}};
+                    var average1 = {{average|safe}};
+
+                    //document.write(records);
+                    //document.write(average1['Hackerrank Algorithm Score']);
+                    var data = new google.visualization.DataTable();
+                    data.addColumn('string', 'students');
+                    data.addColumn('number', 'Score');
+                    data.addColumn('number', 'Average');
+
+                    var result = '';
+                    var x = 1;
+                    /*for (x in records.keys())
+                    {
+                      document.write(records[x]);
+                    }*/
+
+                    for ( var i= 0; i < records.length; i++)
+                    {
+                      data.addRow([records[i].Name, records[i]['Project Euler - Number of problems solved'],average1['Project Euler - Number of problems solved']]);
+                    }
+
+
+                var options = {
+                  title : 'Average score comparison ',
+                  seriesType: 'bars',
+                  colors: ['#429e6e','#9aa09d'],
+                  series: {1: {type: 'line'}}
+                };
+
+                var chart = new google.visualization.ComboChart(document.getElementById('chart_div2'));
+                chart.draw(data, options);
+              }
+              </script>
+          </div>
+        </div>
+        </div>
+        </div>
+        </section>
+        </div>
+
+         <div class="container">
+     <section id="footer">
+    <div class="row text-center">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="panel panel-primary">
+          <div class="panel panel-heading"><b>Hackerrank Data Structure Score</b></div>
+          <div class="panel panel-body" id ="chart_div3">
+              <!--Load the AJAX API-->
+                <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                <script type="text/javascript">
+                  google.charts.load('current', {'packages':['corechart']});
+                  google.charts.setOnLoadCallback(drawVisualization);
+
+
+                  function drawVisualization() {
+                    // Some raw data (not necessarily accurate)
+                     // Create the data table.
+                    var records = {{reports|safe}};
+                    var average1 = {{average|safe}};
+
+                    //document.write(records);
+                    //document.write(average1['Hackerrank Algorithm Score']);
+                    var data = new google.visualization.DataTable();
+                    data.addColumn('string', 'students');
+                    data.addColumn('number', 'Score');
+                    data.addColumn('number', 'Average');
+
+                    var result = '';
+                    var x = 1;
+                    /*for (x in records.keys())
+                    {
+                      document.write(records[x]);
+                    }*/
+
+                    for ( var i= 0; i < records.length; i++)
+                    {
+                      data.addRow([records[i].Name, records[i]['Hackerrank Data Structure Score'],average1['Hackerrank Data Structure Score']]);
+                    }
+
+
+                var options = {
+                  title : 'Average score comparison ',
+                  seriesType: 'bars',
+                  colors: ['pink','blue','cyan'],
+                  series: {1: {type: 'line'}}
+                };
+
+                var chart = new google.visualization.ComboChart(document.getElementById('chart_div3'));
+                chart.draw(data, options);
+              }
+              </script>
+          </div>
+        </div>
+        </div>
+        </div>
+        </section>
+        </div>
+
+        <div class="container">
+     <section id="footer">
+    <div class="row text-center">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="panel panel-primary">
+          <div class="panel panel-heading"><b>Hackerrank Python Score</b></div>
+          <div class="panel panel-body" id ="chart_div4">
+              <!--Load the AJAX API-->
+                <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                <script type="text/javascript">
+                  google.charts.load('current', {'packages':['corechart']});
+                  google.charts.setOnLoadCallback(drawVisualization);
+
+
+                  function drawVisualization() {
+                    // Some raw data (not necessarily accurate)
+                     // Create the data table.
+                    var records = {{reports|safe}};
+                    var average1 = {{average|safe}};
+
+                    //document.write(records);
+                    //document.write(average1['Hackerrank Algorithm Score']);
+                    var data = new google.visualization.DataTable();
+                    data.addColumn('string', 'students');
+                    data.addColumn('number', 'Score');
+                    data.addColumn('number', 'Average');
+
+                    var result = '';
+                    var x = 1;
+                    /*for (x in records.keys())
+                    {
+                      document.write(records[x]);
+                    }*/
+
+                    for ( var i= 0; i < records.length; i++)
+                    {
+                      data.addRow([records[i].Name, records[i]['Hackerrank Python Score'],average1['Hackerrank Python Score']]);
+                    }
+
+
+                var options = {
+                  title : 'Average score comparison ',
+                  seriesType: 'bars',
+                  colors: ['#c65151','#5ec651'],
+                  series: {1: {type: 'line'}}
+                };
+
+                var chart = new google.visualization.ComboChart(document.getElementById('chart_div4'));
+                chart.draw(data, options);
+              }
+              </script>
+          </div>
+        </div>
+        </div>
+        </div>
+        </section>
+        </div>
+
+         <div class="container">
+     <section id="footer">
+    <div class="row text-center">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="panel panel-primary">
+          <div class="panel panel-heading"><b>Rosalind Info - Number of problems solved</b></div>
+          <div class="panel panel-body" id ="chart_div5">
+              <!--Load the AJAX API-->
+                <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                <script type="text/javascript">
+                  google.charts.load('current', {'packages':['corechart']});
+                  google.charts.setOnLoadCallback(drawVisualization);
+
+
+                  function drawVisualization() {
+                    // Some raw data (not necessarily accurate)
+                     // Create the data table.
+                    var records = {{reports|safe}};
+                    var average1 = {{average|safe}};
+
+                    //document.write(records);
+                    //document.write(average1['Hackerrank Algorithm Score']);
+                    var data = new google.visualization.DataTable();
+                    data.addColumn('string', 'students');
+                    data.addColumn('number', 'Score');
+                    data.addColumn('number', 'Average');
+
+                    var result = '';
+                    var x = 1;
+                    /*for (x in records.keys())
+                    {
+                      document.write(records[x]);
+                    }*/
+
+                    for ( var i= 0; i < records.length; i++)
+                    {
+                      data.addRow([records[i].Name, records[i]['Rosalind Info - Number of problems solved'],average1['Rosalind Info - Number of problems solved']]);
+                    }
+
+
+                var options = {
+                  title : 'Average score comparison ',
+                  seriesType: 'bars',
+                  colors: ['#5ec651','black'],
+                  series: {1: {type: 'line'}}
+                };
+
+                var chart = new google.visualization.ComboChart(document.getElementById('chart_div5'));
+                chart.draw(data, options);
+              }
+              </script>
+          </div>
+        </div>
+        </div>
+        </div>
+        </section>
+        </div>
+        {% endblock %}
+    <div class="container">
+    <script type="text/javascript" src="//code.jquery.com/jquery-latest.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/i18n/defaults-*.min.js"></script>
+
+</div>
+</form>
+	</body>
+</html>

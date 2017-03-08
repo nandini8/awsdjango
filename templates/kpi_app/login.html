@@ -1,0 +1,50 @@
+<!--login.html-->
+
+{# Load the tag library #}
+{% load bootstrap3 %}
+{% load staticfiles %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Log in</title>
+</head>
+<body style="background-color: #6c6c6c">
+
+	<div class="row" style="padding: 80px"></div>
+
+	<div class="row">
+		<div class="col-md-4"></div>
+
+		<div class="col-md-4">
+			<div class="panel panel-primary">
+				<div class="panel-heading" style="background-color: #286dd2">
+					<center><img height= "75px" width="350px" src="{% static 'kpi_app/logo_solivar.jpg' %}"></center>
+				</div>
+				<div class="panel-body" >
+					<div class="row text-center" style="padding-left: 30px; padding-right: 30px;">
+						<h4><b>Predective Key Performance Indicator System</b></h4>
+					</div>
+					<div class="row text-center" style="background-color: #f7f7f7; padding-top: 10px;">
+						<h5><b>Log in with your Gmail id</b></h5>
+					</div>
+					<div class="row" style="padding-bottom: 10px; padding-top: 20px; background-color: #f7f7f7;">
+						<center><a href="{% url 'social:begin' 'google-oauth2' %}?next=/KPI/home/" class="btn btn-danger btn-lg" style="background-color: #bb1225">Log In</a></center>
+					</div>
+				</div>	
+			</div>
+		</div>
+		<div class="col-md-4"></div>
+	</div>
+
+
+
+</body>
+</html>, 

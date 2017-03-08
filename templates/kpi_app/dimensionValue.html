@@ -1,0 +1,17 @@
+<!--form.html-->
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Dimension Value Setup</title>
+</head>
+<body>
+	<form action="" method="POST" enctype="multipart/form-data">
+		{% csrf_token %}
+		<table>
+			{{ form.as_table}}
+		</table>
+		<input type="Submit" name="Submit" value="Create"/>
+	</form>
+
+</body>
+</html>

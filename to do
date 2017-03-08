@@ -1,0 +1,20 @@
+to do
+charts - add 2 more
+add valid data in database
+add roles and privileges model
+crud for data loader
+company logo and organizations' logo
+
+{% for x in report_dict.Scores %}
+						 		<th>{{ x }}</th>
+						  	{% endfor %}
+						  	<tr>
+						  	{{report_dict}}
+						  	{% for value in report_dict %}
+						 		<tr>
+						 		<td>{{ value }}</td>
+						 		</tr>
+						  	{% endfor %}
+							</tr>
+web: gunicorn KPI_project.wsgi --timeout 15 --keep-alive 5 --log-level debug
+
