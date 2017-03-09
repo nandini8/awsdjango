@@ -27,7 +27,7 @@ def populate_user_role():
 	for x in user_obj:
 		u = UserRole.objects.get_or_create(user_id=x, role_id=Role.objects.get(id=6))
 		print(u)
-	user_role_data = [
+	'''user_role_data = [
 						{'id': 1, 'user_id': User.objects.get(id=1), 'role_id':Role.objects.get(id=1) },
 						{'id': 2, 'user_id': User.objects.get(id=2), 'role_id':Role.objects.get(id=1) },
 						{'id': 3, 'user_id': User.objects.get(id=3), 'role_id':Role.objects.get(id=4) },
@@ -35,7 +35,7 @@ def populate_user_role():
 					]
 
 	for x in user_role_data:
-		u = UserRole.objects.get_or_create(id = x['id'], user_id=x['user_id'], role_id=x['role_id'])
+		u = UserRole.objects.get_or_create(id = x['id'], user_id=x['user_id'], role_id=x['role_id'])'''
 
 
 def populate_privileges():
