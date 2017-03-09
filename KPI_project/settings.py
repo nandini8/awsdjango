@@ -101,6 +101,19 @@ DATABASES = {
         'PORT': '3306',
     }
 }
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': 'kpi_database',
+        'USER': 'root',
+        'PASSWORD': 'mysql',
+        'HOST': 'localhost',
+        'PORT': '3306',
+    }
+}
 # Register database schemes in URLs.
 '''urlparse.uses_netloc.append('mysql')
 
