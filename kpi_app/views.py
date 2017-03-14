@@ -75,7 +75,11 @@ def tab3(request):
 			if user_obj:
 				#context_dict_1 = getData(user_obj)
 				#report_dict = reports.getreports(user_obj, request)
-				return render(request,"kpi_app/tab3.html", {'context_dict1' : context_dict1, 'role': role}) #, 'report_dict': report_dict[0], 'headers': report_dict[1] })
+				report_dict, header_dict = reports.getreportsBeforeApply(user_obj,request)
+				getavg = json.dumps(reports.get_avg(user_obj,request))
+				report_data = json.dumps(report_dict)
+				header_data = json.dumps(header_dict)
+				return render(request,"kpi_app/tab3.html", {'context_dict1' : context_dict1, 'role': role, 'reports': report_data, 'headers': header_data, 'average' : getavg})
 		except ObjectDoesNotExist:
 			logout(request)
 			return redirect('/')
@@ -99,7 +103,12 @@ def tab4(request):
 	else:
 		try:
 			if user_obj:
-				return render(request,"kpi_app/tab4.html", {'context_dict1' : context_dict1, 'role': role}) #, 'report_dict': report_dict[0], 'headers': report_dict[1] })
+				report_dict, header_dict = reports.getreportsBeforeApply(user_obj,request)
+				attendance_dict, header_data = list(), list()
+				for attendance in report_dict:
+					attendance_dict.append({'Name':attendance['Name'], 'Attendance':attendance['Attendance']})
+				attendance_data = json.dumps(attendance_dict)
+				return render(request,"kpi_app/tab4.html", {'context_dict1' : context_dict1, 'role': role, 'reports': attendance_dict, 'reports_chart':attendance_data})
 		except ObjectDoesNotExist:
 			logout(request)
 			return redirect('/')
@@ -122,7 +131,10 @@ def charts(request):
 		try:
 			#context_dict1=getData(user_obj)
 			if user_obj:
-				return render(request,"kpi_app/charts.html", {'context_dict1': context_dict1, 'role':role}) #, 'reports': report_data, 'headers': header_data})
+				report_dict = reports.getreportsBeforeApply(user_obj,request)
+				report_data = json.dumps(report_dict[0])
+				header_data = json.dumps(report_dict[1])
+				return render(request,"kpi_app/charts.html", {'context_dict1': context_dict1, 'role':role, 'reports': report_data, 'headers': header_data})
 		except ObjectDoesNotExist:
 			logout(request)
 			return redirect('/')
