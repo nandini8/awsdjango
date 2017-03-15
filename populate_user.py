@@ -15,6 +15,7 @@ def populate():
 				{'id': 3, 'name': 'SahilChanchad', 'email': 'chanchadsahil@gmail.com', 'company_obj':Company.objects.get(id=3)},
 				{'id': 4,'name': 'NandiniSoni', 'email': 'nandini.soni8@gmail.com', 'company_obj':Company.objects.get(id=3)},
 				{'id': 5,'name': 'Venkateshtadinada', 'email': 'venkatesh@solivar.com', 'company_obj':Company.objects.get(id=3)},
+				{'id': 6,'name': 'Preethi', 'email': 'preethi@solivarindia.com', 'company_obj':Company.objects.get(id=3)},
 				]
 	for x in user_data:
 		print(x)
@@ -33,4 +34,4 @@ def populatePythonclassUser():
 if __name__ == '__main__':
 	print('Starting script')
 	populate()
-	#populatePythonclassUser()
+	#populatePythonclassUser()preethi@solivarindia.com
