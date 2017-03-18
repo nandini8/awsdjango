@@ -31,6 +31,8 @@ def populatePythonclassUser():
 		#print(u)
 	u = User.objects.get_or_create(user_name='Venkatesh', company_name=company_obj, email='venkatesh@solivar.com')[0]
 	#print(u)
+
+	
 if __name__ == '__main__':
 	print('Starting script')
 	populate()
