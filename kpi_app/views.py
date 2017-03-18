@@ -140,77 +140,6 @@ def charts(request):
 			return redirect('/')
 	return render(request,"kpi_app/charts.html", {'context_dict1': context_dict1, 'role':role, 'reports': report_data, 'headers': header_data})
 
-'''@login_required(login_url='/')
-def companyCrud(request):
-	
-		email = request.user.email
-		user_obj = User.objects.get(email=email)
-
-		if request.method == 'POST':
-			form = CompanyForm(request.POST, request.FILES)
-			if form.is_valid():
-				form.save()
-				return HttpResponse('Data Saved')
-		else:
-			form = CompanyForm()
-		args = {}
-		args.update(csrf(request))
-		args['form'] = form
-		return render_to_response('kpi_app/company.html', args)
-
-@login_required(login_url='/')
-def userCrud(request):
-		email = request.user.email
-		user_obj = User.objects.get(email=email)
-
-
-		if request.method == 'POST':
-			form = UserForm(request.POST, request.FILES)
-			if form.is_valid():
-				form.save()
-				return HttpResponse('Data Saved')
-		else:
-			form = UserForm()
-		args = {}
-		args.update(csrf(request))
-		args['form'] = form
-		return render_to_response('kpi_app/user.html', args)
-
-@login_required(login_url='/')	
-def dimensionValueCrud(request):
-		email = request.user.email
-		user_obj = User.objects.get(email=email)
-
-		if request.method == 'POST':
-			form = DimensionValueForm(request.POST, request.FILES)
-			if form.is_valid():
-				form.save()
-				return HttpResponse('Data Saved')
-		else:
-			form = DimensionValueForm()
-		args = {}
-		args.update(csrf(request))
-		args['form'] = form
-		return render_to_response('kpi_app/dimensionValue.html', args)
-
-
-@login_required(login_url='/')
-def dimensionCrud(request):
-		email = request.user.email
-		user_obj = User.objects.get(email=email)
-
-		if request.method == 'POST':
-			form = DimensionForm(request.POST, request.FILES)
-			if form.is_valid():
-				form.save()
-				return HttpResponse('Data Saved')
-		else:
-			form = DimensionForm()
-		args = {}
-		args.update(csrf(request))
-		args['form'] = form
-		return render_to_response('kpi_app/dimension.html', args)
-'''
 
 @login_required(login_url='/')
 def uploadFile(request):
@@ -238,6 +167,10 @@ def getData(user_obj):
 	dimval_obj_level2 = DimensionValue.objects.filter(parent_id__in = dimval_obj_level1, dim_type_id=dim_obj )
 	dimval_obj_level3 = DimensionValue.objects.filter(parent_id__in = dimval_obj_level2,  dim_type_id=dim_obj)
 	MetricData_date_obj = MetricData.objects.all().aggregate(Max('date_associated'))
+	print(dimval_obj_level1)
+	for x in dimval_obj_level2:
+		print(x.id)
+	print(dimval_obj_level3)
 	c1,c2,c3 = (list(),list(),list())
 	for i in dimval_obj_level1:
 		if i.dim_name not in c1:
@@ -331,3 +264,75 @@ def userAuthentication(request):
 
 
 #select  id, sum(numerator) as numerator , sum(denominator) as denominator,sum(numerator) * 100 / sum(denominator) as percentage from kpi_app_metricdata where dim_1_id in (select id from kpi_app_dimensionvalue where parent_id in (select id from ))
+
+'''@login_required(login_url='/')
+def companyCrud(request):
+	
+		email = request.user.email
+		user_obj = User.objects.get(email=email)
+
+		if request.method == 'POST':
+			form = CompanyForm(request.POST, request.FILES)
+			if form.is_valid():
+				form.save()
+				return HttpResponse('Data Saved')
+		else:
+			form = CompanyForm()
+		args = {}
+		args.update(csrf(request))
+		args['form'] = form
+		return render_to_response('kpi_app/company.html', args)
+
+@login_required(login_url='/')
+def userCrud(request):
+		email = request.user.email
+		user_obj = User.objects.get(email=email)
+
+
+		if request.method == 'POST':
+			form = UserForm(request.POST, request.FILES)
+			if form.is_valid():
+				form.save()
+				return HttpResponse('Data Saved')
+		else:
+			form = UserForm()
+		args = {}
+		args.update(csrf(request))
+		args['form'] = form
+		return render_to_response('kpi_app/user.html', args)
+
+@login_required(login_url='/')	
+def dimensionValueCrud(request):
+		email = request.user.email
+		user_obj = User.objects.get(email=email)
+
+		if request.method == 'POST':
+			form = DimensionValueForm(request.POST, request.FILES)
+			if form.is_valid():
+				form.save()
+				return HttpResponse('Data Saved')
+		else:
+			form = DimensionValueForm()
+		args = {}
+		args.update(csrf(request))
+		args['form'] = form
+		return render_to_response('kpi_app/dimensionValue.html', args)
+
+
+@login_required(login_url='/')
+def dimensionCrud(request):
+		email = request.user.email
+		user_obj = User.objects.get(email=email)
+
+		if request.method == 'POST':
+			form = DimensionForm(request.POST, request.FILES)
+			if form.is_valid():
+				form.save()
+				return HttpResponse('Data Saved')
+		else:
+			form = DimensionForm()
+		args = {}
+		args.update(csrf(request))
+		args['form'] = form
+		return render_to_response('kpi_app/dimension.html', args)
+'''

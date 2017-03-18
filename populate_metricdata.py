@@ -11,6 +11,7 @@ django.setup()
 from kpi_app.models import *
 
 def populate():
+	MetricData.objects.all().delete()
 	subjects_list, students_list = list(), list()
 	x = list()
 	company_obj = Company.objects.get(id=1)
@@ -59,10 +60,10 @@ def populate():
 
 
 				for student in students_list:
-					#print("\t\t\t", student['StudentName'])
+					print("\t\t\t", student)
 					num = random.randrange(min1, max1)
 					
-					m = MetricData.objects.get_or_create(dim_1=subject, attr_1=student,
+					m = MetricData.objects.get_or_create(dim_1=bca_obj, dim_2=sem, dim_3=subject, attr_1=student,
 						attr_2= exam_type,
 						date_associated=exam_date, metric_id=metric_obj,
 						numerator=num, denominator=max1, company_name=company_obj)[0]
@@ -71,7 +72,6 @@ def populate():
 
 
 def populate_pythonClass():
-	MetricData.objects.all().delete()
 	metric_obj = Metric.objects.get_or_create(id=1,metric_name='Score', metric_type='count', company_name=Company.objects.get(company_name='Python Class'))[0]
 
 	company_obj = Company.objects.get(company_name='Python class')

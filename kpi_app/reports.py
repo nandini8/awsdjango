@@ -6,28 +6,17 @@ from django.db import connection
 from kpi_app.models import *
 from django.db.models import Q
 
-def filter(request):
 
-	filter1_option = request.POST['filter1']
-	filter2_option = request.POST['filter2']
-	filter3_option = request.POST['filter3']
-	filter4_option = request.POST['filter4']
-	filter5_option = request.POST['filter5']
-
-	dimv_obj_list = DimensionValue.objects.filter(Q(dim_name = filter1_option) | Q(dim_name = filter2_option) | Q(dim_name = filter3_option))
-	dimv_obj_dict = {'dim_1': '', 'dim_2':'', 'dim_3':'', 'year': filter4_option, 'month': filter5_option}
-	for obj in dimv_obj_list:
-		if obj.level == 1:
-			dimv_obj_dict['dim_1'] = str(obj.id)
-		elif obj.level == 2:
-			dimv_obj_dict['dim_2'] = str(obj.id)
-		else:
-			dimv_obj_dict['dim_3'] = str(obj.id)
-
-	return(dimv_obj_dict)
-	#return (filter1_option, filter2_option, filter3_option, filter4_option, filter5_option)
 
 def getreports(user_obj, request):
+	company_obj = user_obj.company_name
+	if company_obj.company_name == 'Python Class':
+		report_data, headers = getreports1(user_obj, request)
+	elif company_obj.company_name == 'Xaviers':
+		report_data, headers = AllStudentsAllExams()
+	return report_data, headers
+
+def getreports1(user_obj, request):
 	dimv_obj_dict = filter(request)
 	#print(dimv_obj_dict)
 	company_obj = Company.objects.get(id=user_obj.company_name.id)
@@ -82,6 +71,51 @@ def getreports(user_obj, request):
 					'Rosalind Info - Number of problems solved'
 					]
 	return report_data, headers
+
+def filter(request):
+
+	filter1_option = request.POST['filter1']
+	filter2_option = request.POST['filter2']
+	filter3_option = request.POST['filter3']
+	filter4_option = request.POST['filter4']
+	filter5_option = request.POST['filter5']
+
+	dimv_obj_list = DimensionValue.objects.filter(Q(dim_name = filter1_option) | Q(id = DimensionValue.objects.get(dim_name = filter2_option, parent_id = DimensionValue.objects.get(dim_name = filter1_option).id).id) | Q(id = DimensionValue.objects.get(dim_name = filter3_option).id))
+	dimv_obj_dict = {'dim_1': '', 'dim_2':'', 'dim_3':'', 'year': filter4_option, 'month': filter5_option}
+	for obj in dimv_obj_list:
+		if obj.level == 1:
+			dimv_obj_dict['dim_1'] = str(obj.id)
+		elif obj.level == 2:
+			dimv_obj_dict['dim_2'] = str(obj.id)
+		else:
+			dimv_obj_dict['dim_3'] = str(obj.id)
+
+	return(dimv_obj_dict)
+	#return (filter1_option, filter2_option, filter3_option, filter4_option, filter5_option)
+
+def getreports2(company_obj, request):
+	dimv_obj_dict = filter(request)
+	print(dimv_obj_dict)
+	str1 = 'select a.attr_name, sum(numerator) as numerator, sum(denominator) as denominator,\
+	Sum(m.numerator) * 100 / Sum(m.denominator) as percentage  from kpi_app_metricdata as m inner join \
+	kpi_app_attributevalue as a on m.attr_1_id = a.id  where company_name_id = "' + str(company_obj.id) +'"\
+	and month(date_associated) = if("'+ dimv_obj_dict['month'] +'", "'+dimv_obj_dict['month']+'"\
+	, month(date_associated)) and dim_1_id = if("'+ dimv_obj_dict['dim_1'] +'", "'+dimv_obj_dict['dim_1']+'", dim_1_id)\
+	and dim_2_id = if("'+ dimv_obj_dict['dim_2'] +'", "'+dimv_obj_dict['dim_2']+'", dim_2_id)\
+	and dim_3_id = if("'+ dimv_obj_dict['dim_3'] +'", "'+dimv_obj_dict['dim_3']+'", dim_3_id) group by a.attr_name'
+
+	print(str1)
+	report_data = list()
+	c = connection.cursor()
+	c.execute(str1)
+	rows = c.fetchall()
+	for row in rows:
+		d = {"Student": row[0], "Marks": row[1], "Max": row[2], "Percentage": row[3]}
+		report_data.append(d)
+	headers = ["Student","Marks","Max","Percentage"]
+	return report_data, headers
+
+
 
 
 def getreportsBeforeApply(user_obj,request):
@@ -154,3 +188,37 @@ def get_avg(user_obj,request):
 		#print(round(int(rows)),x.dim_name)
 		l.update({x.dim_name:round(int(rows))})
 	return(l)
+
+
+def AllStudentsAllExams():
+	report_data = list()
+	d=dict()
+	print('{:>4} {:<15} {:<10} {:<10} {:<10} {:>10} {:>10} {:>15}'.format("Num","Student","Sem","Subject",
+		"Exam_type","Marks","Max","Percentage"))
+	id = 0
+	company_obj = Company.objects.get(company_name = 'Xaviers')
+	metric_obj = MetricData.objects.filter(company_name = company_obj)
+	for m in metric_obj:
+		parent_obj = m.dim_3.parent
+		subject =  ''.join(x[0] for x in m.dim_3.dim_name.split())				#creating abbreviations for subjects
+		id = id + 1
+		#print('{:>4} {:<15} {:<10} {:<10} {:<10} {:>10} {:>10} {:15.2f}'.format(m.id, m.attr_1, parent_obj.dim_name, subject, m.attr_2, m.numerator
+		#	,m.denominator,(m.numerator * 100) / m.denominator))
+		d = {'Num': id,'Student' : m.attr_1, 'Sem' : parent_obj.dim_name, 'Subject' : subject, 'Exam_type': m.attr_2, 'Marks' :m.numerator,
+		'Max': m.denominator, 'Percentage':float((m.numerator * 100) / m.denominator)}	
+		report_data.append(d) 
+	headers = ["Num", "Student","Sem","Subject","Exam_type","Marks","Max","Percentage"]
+	return report_data, headers
+
+def AllStudents(company_obj):
+	report_data = list()
+	c = connection.cursor()
+	#str1 = 'SELECT attr_1_id, Sum(numerator) as numerator, Sum(denominator) as denominator,Sum(numerator) * 100 / Sum(denominator) as percentage from kpi_app_metricdata where company_name_id = "' + str(company_obj.id) +'" GROUP BY attr_1_id '
+	str1 = 'select m.attr_1_id, a.attr_name, Sum(m.numerator) as numerator, Sum(m.denominator) as denominator,Sum(m.numerator) * 100 / Sum(m.denominator) as percentage from  kpi_app_metricdata as m, kpi_app_attributevalue as a where m.attr_1_id = a.id and company_name_id = "' + str(company_obj.id) +'" GROUP BY m.attr_1_id' 
+	c.execute(str1)
+	rows = c.fetchall()
+	for row in rows:
+		d = {"ID": row[0], "Student": row[1], "Marks": row[2], "Max": row[3], "Percentage": row[4]}
+		report_data.append(d)
+	headers = ["ID", "Student","Marks","Max","Percentage"]
+	return report_data, headers
