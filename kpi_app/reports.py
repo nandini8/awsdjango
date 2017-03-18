@@ -204,8 +204,8 @@ def AllStudentsAllExams():
 		id = id + 1
 		#print('{:>4} {:<15} {:<10} {:<10} {:<10} {:>10} {:>10} {:15.2f}'.format(m.id, m.attr_1, parent_obj.dim_name, subject, m.attr_2, m.numerator
 		#	,m.denominator,(m.numerator * 100) / m.denominator))
-		d = {'Num': id,'Student' : m.attr_1, 'Sem' : parent_obj.dim_name, 'Subject' : subject, 'Exam_type': m.attr_2, 'Marks' :m.numerator,
-		'Max': m.denominator, 'Percentage':float((m.numerator * 100) / m.denominator)}	
+		d = {'Num': id,'Student' : m.attr_1.attr_name, 'Sem' : parent_obj.dim_name, 'Subject' : subject, 'Exam_type': m.attr_2.attr_name, 'Marks' :int(m.numerator),
+		'Max':int(m.denominator), 'Percentage':int(float((m.numerator * 100) / m.denominator))}	
 		report_data.append(d) 
 	headers = ["Num", "Student","Sem","Subject","Exam_type","Marks","Max","Percentage"]
 	return report_data, headers

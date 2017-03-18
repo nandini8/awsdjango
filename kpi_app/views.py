@@ -52,7 +52,7 @@ def logout(request):
 	auth_logout(request)
 	return redirect('/')
 
-@login_required(login_url='/')	
+'''@login_required(login_url='/')	
 def tab3(request):
 	email = request.user.email
 	user_obj = User.objects.get(email=email)
@@ -84,36 +84,111 @@ def tab3(request):
 			logout(request)
 			return redirect('/')
 	return render(request,"kpi_app/tab3.html", {'context_dict1': context_dict1, 'role':role, 'reports': report_data, 'headers': header_data, 'average' : getavg})
+'''
+@login_required(login_url='/')	
+def tab3(request):
+	email = request.user.email
+	user_obj = User.objects.get(email=email)
+	company_obj = user_obj.company_name
+	role = Role.objects.filter(id=UserRole.objects.get(user_id=user_obj.id).role_id_id)
+	if company_obj.company_name == 'Xaviers':
+		context_dict1 = getData(user_obj)
+		if request.method == 'POST':
+			report_dict, header_dict = reports.getreports(user_obj, request)
+			report_data = json.dumps(report_dict)
+			header_data = json.dumps(header_dict)
+		else:
+			try:
+				if user_obj:
+					report_dict, header_dict = reports.getreports(user_obj, request)
+					report_data = json.dumps(report_dict)
+					header_data = json.dumps(header_dict)
+					return render(request,"kpi_app/Xtab3.html", {'context_dict1' : context_dict1, 'role': role, 'report_dict':report_data, 'header_dict': header_data })
+			except ObjectDoesNotExist:
+				logout(request)
+				return redirect('/')
+		
+	elif company_obj.company_name == 'Python Class':
+		context_dict1 = getData(user_obj)
+		if request.method == 'POST':
+			report_dict, header_dict = reports.getreports(user_obj, request)
+			getavg = json.dumps(reports.get_avg(user_obj,request))
+			report_data = json.dumps(report_dict)
+			header_data = json.dumps(header_dict)
+			#context_dict_1 = getData(user_obj)
+			#print(getavg)
+		else:
+			#email = request.user.email
+			#user_obj = User.objects.get(email=email)
+			#role = Role.objects.filter(id=UserRole.objects.get(user_id=user_obj.id).role_id_id)
+			try:
+				if user_obj:
+					#context_dict_1 = getData(user_obj)
+					#report_dict = reports.getreports(user_obj, request)
+					report_dict, header_dict = reports.getreportsBeforeApply(user_obj,request)
+					getavg = json.dumps(reports.get_avg(user_obj,request))
+					report_data = json.dumps(report_dict)
+					header_data = json.dumps(header_dict)
+					return render(request,"kpi_app/tab3.html", {'context_dict1' : context_dict1, 'role': role, 'reports': report_data, 'headers': header_data, 'average' : getavg})
+			except ObjectDoesNotExist:
+				logout(request)
+				return redirect('/')
+		
+	if company_obj.company_name == 'Xaviers':
+		return render(request,"kpi_app/Xtab3.html", {'context_dict1': context_dict1, 'role':role,'report_dict':report_data, 'header_dict': header_data })
+	elif company_obj.company_name == 'Python Class':
+		return render(request,"kpi_app/tab3.html", {'context_dict1': context_dict1, 'role':role, 'reports': attendance_dict, 'reports_chart':attendance_data}) 
+
 
 
 @login_required(login_url='/')
 def tab4(request):
 	email = request.user.email
 	user_obj = User.objects.get(email=email)
+	company_obj = user_obj.company_name
 	role = Role.objects.filter(id=UserRole.objects.get(user_id=user_obj.id).role_id_id)
+	if company_obj.company_name == 'Xaviers':
+		context_dict1 = getData(user_obj)
+		if request.method == 'POST':
+			report_dict, header_dict = reports.getreports(user_obj, request)
+			report_data = json.dumps(report_dict)
+			header_data = json.dumps(header_dict)
+		else:
+			try:
+				if user_obj:
+					report_dict, header_dict = reports.getreports(user_obj, request)
+					report_data = json.dumps(report_dict)
+					header_data = json.dumps(header_dict)
+					return render(request,"kpi_app/Xtab4.html", {'context_dict1' : context_dict1, 'role': role, 'report_dict':report_data, 'header_dict': header_data })
+			except ObjectDoesNotExist:
+				logout(request)
+				return redirect('/')
+		
+	elif company_obj.company_name == 'Python Class':
+		context_dict1 = getData(user_obj)
+		if request.method == 'POST':
+			report_dict, header_dict = reports.getreports(user_obj, request)
+			attendance_dict, header_data = list(), list()
+			for attendance in report_dict:
+				attendance_dict.append({'Name':attendance['Name'], 'Attendance':attendance['Attendance']})
+			attendance_data = json.dumps(attendance_dict)
 
-	context_dict1 = getData(user_obj)
-	if request.method == 'POST':
-		report_dict, header_dict = reports.getreports(user_obj, request)
-		attendance_dict, header_data = list(), list()
-		for attendance in report_dict:
-			attendance_dict.append({'Name':attendance['Name'], 'Attendance':attendance['Attendance']})
-		attendance_data = json.dumps(attendance_dict)
-
-	else:
-		try:
-			if user_obj:
-				report_dict, header_dict = reports.getreportsBeforeApply(user_obj,request)
-				attendance_dict, header_data = list(), list()
-				for attendance in report_dict:
-					attendance_dict.append({'Name':attendance['Name'], 'Attendance':attendance['Attendance']})
-				attendance_data = json.dumps(attendance_dict)
-				return render(request,"kpi_app/tab4.html", {'context_dict1' : context_dict1, 'role': role, 'reports': attendance_dict, 'reports_chart':attendance_data})
-		except ObjectDoesNotExist:
-			logout(request)
-			return redirect('/')
-	return render(request,"kpi_app/tab4.html", {'context_dict1': context_dict1, 'role':role, 'reports': attendance_dict, 'reports_chart':attendance_data})
-
+		else:
+			try:
+				if user_obj:
+					report_dict, header_dict = reports.getreportsBeforeApply(user_obj,request)
+					attendance_dict, header_data = list(), list()
+					for attendance in report_dict:
+						attendance_dict.append({'Name':attendance['Name'], 'Attendance':attendance['Attendance']})
+					attendance_data = json.dumps(attendance_dict)
+					return render(request,"kpi_app/tab4.html", {'context_dict1' : context_dict1, 'role': role, 'reports': attendance_dict, 'reports_chart':attendance_data})
+			except ObjectDoesNotExist:
+				logout(request)
+				return redirect('/')
+	if company_obj.company_name == 'Xaviers':
+		return render(request,"kpi_app/Xtab4.html", {'context_dict1': context_dict1, 'role':role,'report_dict':report_data, 'header_dict': header_data })
+	elif company_obj.company_name == 'Python Class':
+		return render(request,"kpi_app/tab4.html", {'context_dict1': context_dict1, 'role':role, 'reports': attendance_dict, 'reports_chart':attendance_data}) 
 
 
 @login_required(login_url='/')	
@@ -185,6 +260,7 @@ def getData(user_obj):
 			c3.append(i.dim_name)
 
 	date = MetricData_date_obj['date_associated__max']
+	print(date)
 
 	context_dict = {'filter1': company_obj.filter1_dimValue, 'filter2': company_obj.filter2_dimValue,
 					 'filter3': company_obj.filter3_dimValue, 'tab3': company_obj.tab3_name,
