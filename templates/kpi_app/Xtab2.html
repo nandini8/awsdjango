@@ -18,7 +18,7 @@
           <div class="panel panel-body" id ="chart_div">
               <!--Load the AJAX API-->
                 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-                    <script type="text/javascript">
+                   <script type="text/javascript">
                   google.charts.load('current', {'packages':['corechart']});
                   google.charts.setOnLoadCallback(drawVisualization);
 
@@ -43,6 +43,7 @@
                      var distinct = [];
                      var scores = [];
                      var temp = 0;
+                     var semandsub= [];
 
                     /*for(var i= 0; i < records.length; i++)
                     {
@@ -50,27 +51,26 @@
                     }*/
                     for ( var i= 0; i < records.length; i++)
                     { 
+                     if(records[i].Sem == "Sem I" && !(distinct.includes(records[i].Subject)))
+                     {
+                      
+                      distinct.push(records[i].Subject);
+                                              
+                  
+                     }
                      
-
-                      if (!(distinct.includes(records[i].Sem)))
-                    {
-                      distinct.push(records[i].Sem);
-
-                        
-                      }
-
+                      
                     }
+
                    for ( var i= 0; i < distinct.length; i++)
                     { 
                       temp=0;                      
                       for ( var j= 0; j < records.length; j++)
                       {
 
-                        if (records[j].Sem == distinct[i])
+                        if (records[j].Subject == distinct[i])
                         {
                             temp += records[j].Marks;
-                
-
                           
                         }
                       }
@@ -81,8 +81,11 @@
                       
                     }
 
+                    
+
                     for ( var i= 0; i < scores.length; i++)
                     {
+
                      data.addRow([scores[i].key, scores[i].value]);                      
                     }
 
@@ -91,7 +94,7 @@
 
 
                 var options = {
-                  title : "BCA",
+                  title : "Sem II",
                   seriesType: 'bars',
                   colors: ['#429e8e','#9aa09d'],
                   series: {1: {type: 'line'}}
@@ -116,7 +119,7 @@
           <div class="panel panel-body" id ="chart_div1">
               <!--Load the AJAX API-->
                 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-                    <script type="text/javascript">
+                   <script type="text/javascript">
                   google.charts.load('current', {'packages':['corechart']});
                   google.charts.setOnLoadCallback(drawVisualization);
 
@@ -141,6 +144,7 @@
                      var distinct = [];
                      var scores = [];
                      var temp = 0;
+                     var semandsub= [];
 
                     /*for(var i= 0; i < records.length; i++)
                     {
@@ -148,27 +152,26 @@
                     }*/
                     for ( var i= 0; i < records.length; i++)
                     { 
+                     if(records[i].Sem == "Sem II" && !(distinct.includes(records[i].Subject)))
+                     {
+                      
+                      distinct.push(records[i].Subject);
+                                              
+                  
+                     }
                      
-
-                      if (!(distinct.includes(records[i].Sem)))
-                    {
-                      distinct.push(records[i].Sem);
-
-                        
-                      }
-
+                      
                     }
+
                    for ( var i= 0; i < distinct.length; i++)
                     { 
                       temp=0;                      
                       for ( var j= 0; j < records.length; j++)
                       {
 
-                        if (records[j].Sem == distinct[i])
+                        if (records[j].Subject == distinct[i])
                         {
                             temp += records[j].Marks;
-                
-
                           
                         }
                       }
@@ -179,8 +182,11 @@
                       
                     }
 
+                    
+
                     for ( var i= 0; i < scores.length; i++)
                     {
+
                      data.addRow([scores[i].key, scores[i].value]);                      
                     }
 
@@ -189,7 +195,7 @@
 
 
                 var options = {
-                  title : "BBA",
+                  title : "Sem II",
                   seriesType: 'bars',
                   colors: ['#429e8e','#9aa09d'],
                   series: {1: {type: 'line'}}
@@ -239,6 +245,7 @@
                      var distinct = [];
                      var scores = [];
                      var temp = 0;
+                     var semandsub= [];
 
                     /*for(var i= 0; i < records.length; i++)
                     {
@@ -246,27 +253,26 @@
                     }*/
                     for ( var i= 0; i < records.length; i++)
                     { 
+                     if(records[i].Sem == "Sem III" && !(distinct.includes(records[i].Subject)))
+                     {
+                      
+                      distinct.push(records[i].Subject);
+                                              
+                  
+                     }
                      
-
-                      if (!(distinct.includes(records[i].Sem)))
-                    {
-                      distinct.push(records[i].Sem);
-
-                        
-                      }
-
+                      
                     }
+
                    for ( var i= 0; i < distinct.length; i++)
                     { 
                       temp=0;                      
                       for ( var j= 0; j < records.length; j++)
                       {
 
-                        if (records[j].Sem == distinct[i])
+                        if (records[j].Subject == distinct[i])
                         {
                             temp += records[j].Marks;
-                
-
                           
                         }
                       }
@@ -277,8 +283,11 @@
                       
                     }
 
+                    
+
                     for ( var i= 0; i < scores.length; i++)
                     {
+
                      data.addRow([scores[i].key, scores[i].value]);                      
                     }
 
@@ -287,7 +296,7 @@
 
 
                 var options = {
-                  title : "BCOM",
+                  title : "Sem III",
                   seriesType: 'bars',
                   colors: ['#429e8e','#9aa09d'],
                   series: {1: {type: 'line'}}
