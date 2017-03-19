@@ -80,7 +80,10 @@ def filter(request):
 	filter4_option = request.POST['filter4']
 	filter5_option = request.POST['filter5']
 
-	dimv_obj_list = DimensionValue.objects.filter(Q(dim_name = filter1_option) | Q(id = DimensionValue.objects.get(dim_name = filter2_option, parent_id = DimensionValue.objects.get(dim_name = filter1_option).id).id) | Q(id = DimensionValue.objects.get(dim_name = filter3_option).id))
+	if filter2_option != 'all':
+		dimv_obj_list = DimensionValue.objects.filter(Q(dim_name = filter1_option) | Q(id = DimensionValue.objects.get(dim_name = filter2_option, parent_id = DimensionValue.objects.get(dim_name = filter1_option).id).id) | Q(id = DimensionValue.objects.get(dim_name = filter3_option).id))
+	else:
+		dimv_obj_list = DimensionValue.objects.filter(Q(dim_name = filter1_option) | Q(dim_name = filter2_option) | Q(dim_name = filter3_option))
 	dimv_obj_dict = {'dim_1': '', 'dim_2':'', 'dim_3':'', 'year': filter4_option, 'month': filter5_option}
 	for obj in dimv_obj_list:
 		if obj.level == 1:
