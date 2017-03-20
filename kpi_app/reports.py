@@ -5,6 +5,7 @@ from django.db.models import Max, Sum
 from django.db import connection
 from kpi_app.models import *
 from django.db.models import Q
+import collections
 
 
 
@@ -13,7 +14,6 @@ def getreports(user_obj, company_obj, request):
 		report_data, headers = getreports1(user_obj, request)
 	elif company_obj.company_name == 'Xaviers':
 		report_data, headers = AllStudentsAllExams(request)
-		report_data, headers = AllStudentsAllExams()
 	elif company_obj.company_name == 'Roche':
 		report_data, headers =getReportsForRoche(user_obj,request)
 	return report_data, headers
@@ -252,28 +252,25 @@ def AllStudents(company_obj):
 
 
 def getReportsForRoche(user_obj,request):
-	#dimv_obj_dict = filter(request)
-	#print(dimv_obj_dict)
 	company_obj = Company.objects.get(id=user_obj.company_name.id)
-	#print(company_obj)
-	#attr_obj = Attribute.objects.filter(company_name_id=company_obj)[0]
-	#attrv_obj = AttributeValue.objects.filter(attr_type_id = attr_obj)
-	metric_obj = Metric.objects.filter(company_name_id = company_obj)
-	#General query not completed yet
-	#str1 = 'select id, metric_id, numerator from kpi_app_metricdata where month(date_associated) = if("'+ dimv_obj_dict['month'] +'", "'+dimv_obj_dict['month']+'", month(date_associated)) and dim_1_id = if("'+ dimv_obj_dict['dim_1'] +'", "'+dimv_obj_dict['dim_1']+'", dim_1_id) or dim_2_id = if("'+ dimv_obj_dict['dim_2'] +'", "'+dimv_obj_dict['dim_2']+'", dim_2_id) or dim_3_id = if("'+ dimv_obj_dict['dim_3'] +'", "'+dimv_obj_dict['dim_3']+'", dim_3_id)'
-	str1 = 'select id,date_associated, metric_id_id, numerator from kpi_app_metricdata where company_name_id = ' + str(company_obj.id)
+	str1 = 'select dim_1_id, metric_id_id, sum(numerator) from kpi_app_metricdata where company_name_id = ' + str(company_obj.id) +' group by dim_1_id, metric_id_id;'
 	print(str1)
-	MetricData_obj = MetricData.objects.raw(str1)
-	Order_to_Batch_Creation = dict()
-	Batch_Creation_to_Packaging = dict()
-	Packaging_to_QA_Release = dict()
-	Order_Creation_to_QA_Release = dict()
-	maindict = {'Order to Batch Creation': [], 'Batch Creation to Packaging': [], 'Packaging to QA Release': [],'Order Creation to QA Release': []}
-	for y in MetricData_obj:
-		metric_obj = Metric.objects.get(id = y.metric_id_id)
-		dim_val_obj = DimensionValue.objects.get(id = y.dim_1_id)
-		maindict[metric_obj.metric_name].append({'Event Date': y.date_associated ,'Product':dim_val_obj.dim_name, 'Value': y.numerator})
+	c = connection.cursor()
+	c.execute(str1)
+	row = c.fetchall()
+	#Order_to_Batch_Creation = dict()
+	#Batch_Creation_to_Packaging = dict()
+	#Packaging_to_QA_Release = dict()
+	#Order_Creation_to_QA_Release = dict()
+	#maindict = {'Order to Batch Creation': [], 'Batch Creation to Packaging': [], 'Packaging to QA Release': [],'Order Creation to QA Release': []}
+	maindict = list()
+	for y in row:
+		metric_obj = Metric.objects.get(id = y[0])
+		dim_val_obj = DimensionValue.objects.get(id = y[1])
+		maindict.append(collections.OrderedDict({'Product':dim_val_obj.dim_name, 'Value': int(y[2]), 'metric_name':metric_obj.metric_name}))
 	headers = []
+	for x in maindict:
+		print(x)
 	return maindict, headers
 
 	'''for y in MetricData_obj:

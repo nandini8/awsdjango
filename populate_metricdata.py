@@ -185,10 +185,11 @@ def populate_metric():
 			elif row['Event Date'] == '#NUM!' or row['Event Date'] == '#N/A':
 				row['Event Date'] = None
 			for x in metric_obj:
-				dim_val_obj = DimensionValue.objects.get(dim_name = row['Product'])
+				dim_val_obj1= DimensionValue.objects.get(dim_name = row['Product Family'])
+				dim_val_obj2 = DimensionValue.objects.get(dim_name = row['Product'])
 				if row[x.metric_name] == '#N/A' or row[x.metric_name] == '#NUM!':
 					row[x.metric_name] = 0
-				metric_data_obj = MetricData.objects.get_or_create(dim_1=dim_val_obj, metric_id=x, company_name=company_obj, date_associated=row['Event Date'], numerator=row[x.metric_name])[0]
+				metric_data_obj = MetricData.objects.get_or_create(dim_1= dim_val_obj1, dim_2 = dim_val_obj2, metric_id=x, company_name=company_obj, date_associated=row['Event Date'], numerator=row[x.metric_name])[0]
 				print(metric_data_obj)
 
 

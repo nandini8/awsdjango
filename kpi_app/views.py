@@ -42,13 +42,6 @@ def home(request):
 	else:
 		try:
 			if user_obj:
-				report_dict = reports.getreportsBeforeApply(user_obj,request)
-				return render(request,"kpi_app/home.html", {'context_dict1' : context_dict_1, 'role': role, 'report_dict': report_dict[0], 'headers': report_dict[1]})
-		report_dict = reports.getreports(user_obj, company_obj, request)
-		#context_dict_1 = getData(user_obj)
-	else:
-		try:
-			if user_obj:
 				#context_dict_1 = getData(user_obj)
 				report_dict = reports.getreports(user_obj, company_obj, request)
 				#report_dict = reports.getreportsBeforeApply(user_obj,request)
