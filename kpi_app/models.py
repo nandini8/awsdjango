@@ -134,7 +134,7 @@ class MetricData(models.Model):
 	attr_1 = models.ForeignKey(AttributeValue, related_name = 'attr_1', null=True)
 	attr_2 = models.ForeignKey(AttributeValue, related_name = 'attr_2', null=True)
 	attr_3 = models.ForeignKey(AttributeValue, related_name = 'attr_3',default=None, null=True)
-	date_associated = models.DateField()
+	date_associated = models.DateField(null=True)
 	metric_id = models.ForeignKey(Metric)
 	numerator = models.DecimalField(max_digits=10, decimal_places=2)
 	denominator = models.DecimalField(max_digits=10, decimal_places=2, null=True)
@@ -145,4 +145,4 @@ class MetricData(models.Model):
 	loaded_by = models.CharField(max_length=50)
 
 	def __str__(self):
-		return self.attr_1.attr_name
+		return self.dim_1.dim_name

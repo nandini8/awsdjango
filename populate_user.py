@@ -9,7 +9,7 @@ django.setup()
 from kpi_app.models import User, Company, Attribute, AttributeValue
 
 def populate():
-	User.objects.all().delete()
+	#sUser.objects.all().delete()
 	user_data = [{'id': 1, 'name': 'Nandini', 'email': 'nandini@solivarindia.com', 'company_obj':Company.objects.get(id=1)},
 				{'id': 2, 'name': 'Sahil', 'email': 'sahil@solivarindia.com', 'company_obj':Company.objects.get(id=1)},
 				{'id': 3, 'name': 'SahilChanchad', 'email': 'chanchadsahil@gmail.com', 'company_obj':Company.objects.get(id=3)},

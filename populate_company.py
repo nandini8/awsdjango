@@ -15,7 +15,7 @@ def populate():
 					'id': 4, 'company_name': 'Roche', 'tab3':'Tab3', 'tab4': 'Tab4', 'filter1': 'Key', 'filter2': 'Product Family', 'filter3': 'Product'}
 					]
 
-	Company.objects.all().delete()
+	#Company.objects.all().delete()
 
 	
 	for x in company_data:
