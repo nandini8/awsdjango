@@ -36,27 +36,16 @@
                     data.addColumn('number', 'Score');
                     var result = '';
                     var x = 1;
-                    /*for (x in records.keys())
-                    {
-                      document.write(records[x]);
-                    }*/
                      var distinct = [];
                      var scores = [];
                      var temp = 0;
                      var semandsub= [];
-
-                    /*for(var i= 0; i < records.length; i++)
-                    {
-                      data.addRow([records[i].Subject, records[i].Marks]);
-                    }*/
                     for ( var i= 0; i < records.length; i++)
                     { 
                      if(records[i].Sem == "Sem I" && !(distinct.includes(records[i].Subject)))
                      {
                       
                       distinct.push(records[i].Subject);
-                                              
-                  
                      }
                      
                       
@@ -94,7 +83,7 @@
 
 
                 var options = {
-                  title : "Sem II",
+                  title : "Sem I",
                   seriesType: 'bars',
                   colors: ['#429e8e','#9aa09d'],
                   series: {1: {type: 'line'}}
@@ -115,7 +104,7 @@
     <div class="row text-center">
     <div class="col-lg-12 col-md-12 col-sm-12">
         <div class="panel panel-primary">
-          <div class="panel panel-heading"><b>BBA</b></div>
+          <div class="panel panel-heading"><b>BCA</b></div>
           <div class="panel panel-body" id ="chart_div1">
               <!--Load the AJAX API-->
                 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -216,7 +205,7 @@
     <div class="row text-center">
     <div class="col-lg-12 col-md-12 col-sm-12">
         <div class="panel panel-primary">
-          <div class="panel panel-heading"><b>BCOM</b></div>
+          <div class="panel panel-heading"><b>BCA</b></div>
           <div class="panel panel-body" id ="chart_div2">
               <!--Load the AJAX API-->
                 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>

@@ -13,7 +13,7 @@ def getreports(user_obj, request):
 	if company_obj.company_name == 'Python Class':
 		report_data, headers = getreports1(user_obj, request)
 	elif company_obj.company_name == 'Xaviers':
-		report_data, headers = AllStudentsAllExams()
+		report_data, headers = AllStudentsAllExams(request)
 	return report_data, headers
 
 def getreports1(user_obj, request):
@@ -81,7 +81,7 @@ def filter(request):
 	filter5_option = request.POST['filter5']
 
 	if filter2_option != 'all':
-		dimv_obj_list = DimensionValue.objects.filter(Q(dim_name = filter1_option) | Q(id = DimensionValue.objects.get(dim_name = filter2_option, parent_id = DimensionValue.objects.get(dim_name = filter1_option).id).id) | Q(id = DimensionValue.objects.get(dim_name = filter3_option).id))
+		dimv_obj_list = DimensionValue.objects.filter(Q(dim_name = filter1_option) | Q(id = DimensionValue.objects.get(dim_name = filter2_option, parent_id = DimensionValue.objects.get(dim_name = filter1_option).id).id) | Q(dim_name = filter3_option))
 	else:
 		dimv_obj_list = DimensionValue.objects.filter(Q(dim_name = filter1_option) | Q(dim_name = filter2_option) | Q(dim_name = filter3_option))
 	dimv_obj_dict = {'dim_1': '', 'dim_2':'', 'dim_3':'', 'year': filter4_option, 'month': filter5_option}
@@ -98,7 +98,6 @@ def filter(request):
 
 def getreports2(company_obj, request):
 	dimv_obj_dict = filter(request)
-	print(dimv_obj_dict)
 	str1 = 'select a.attr_name, sum(numerator) as numerator, sum(denominator) as denominator,\
 	Sum(m.numerator) * 100 / Sum(m.denominator) as percentage  from kpi_app_metricdata as m inner join \
 	kpi_app_attributevalue as a on m.attr_1_id = a.id  where company_name_id = "' + str(company_obj.id) +'"\
@@ -117,9 +116,6 @@ def getreports2(company_obj, request):
 		report_data.append(d)
 	headers = ["Student","Marks","Max","Percentage"]
 	return report_data, headers
-
-
-
 
 def getreportsBeforeApply(user_obj,request):
 	company_obj = Company.objects.get(id=user_obj.company_name.id)
@@ -192,24 +188,50 @@ def get_avg(user_obj,request):
 		l.update({x.dim_name:round(int(rows))})
 	return(l)
 
-
-def AllStudentsAllExams():
+def AllStudentsAllExams(request):
 	report_data = list()
 	d=dict()
 	print('{:>4} {:<15} {:<10} {:<10} {:<10} {:>10} {:>10} {:>15}'.format("Num","Student","Sem","Subject",
 		"Exam_type","Marks","Max","Percentage"))
 	id = 0
+	dimv_obj_dict = dict()
+	if request.method == 'POST':
+		dimv_obj_dict = filter(request)
+		print(dimv_obj_dict)
+	
 	company_obj = Company.objects.get(company_name = 'Xaviers')
-	metric_obj = MetricData.objects.filter(company_name = company_obj)
-	for m in metric_obj:
-		parent_obj = m.dim_3.parent
-		subject =  ''.join(x[0] for x in m.dim_3.dim_name.split())				#creating abbreviations for subjects
-		id = id + 1
-		#print('{:>4} {:<15} {:<10} {:<10} {:<10} {:>10} {:>10} {:15.2f}'.format(m.id, m.attr_1, parent_obj.dim_name, subject, m.attr_2, m.numerator
-		#	,m.denominator,(m.numerator * 100) / m.denominator))
-		d = {'Num': id,'Student' : m.attr_1.attr_name, 'Sem' : parent_obj.dim_name, 'Subject' : subject, 'Exam_type': m.attr_2.attr_name, 'Marks' :int(m.numerator),
-		'Max':int(m.denominator), 'Percentage':int(float((m.numerator * 100) / m.denominator))}	
-		report_data.append(d) 
+	if dimv_obj_dict:
+		str1 =  'select a.attr_name, sum(numerator) as numerator, sum(denominator) as denominator,\
+		Sum(m.numerator) * 100 / Sum(m.denominator) as percentage, dim_1_id, dim_2_id, dim_3_id, attr_2_id  from kpi_app_metricdata as m inner join \
+		kpi_app_attributevalue as a on m.attr_1_id = a.id  where company_name_id = "' + str(company_obj.id) +'"\
+		and month(date_associated) = if("'+ dimv_obj_dict['month'] +'", "'+dimv_obj_dict['month']+'"\
+		, month(date_associated)) and dim_1_id = if("'+ dimv_obj_dict['dim_1'] +'", "'+dimv_obj_dict['dim_1']+'", dim_1_id)\
+		and dim_2_id = if("'+ dimv_obj_dict['dim_2'] +'", "'+dimv_obj_dict['dim_2']+'", dim_2_id)\
+		and dim_3_id = if("'+ dimv_obj_dict['dim_3'] +'", "'+dimv_obj_dict['dim_3']+'", dim_3_id)\
+		and m.attr_2_id = "33" group by a.attr_name, dim_1_id, dim_2_id, dim_3_id, attr_2_id'
+
+		print(str1)
+		b = connection.cursor()
+		b.execute(str1)
+		metric_obj = b.fetchall()
+		for m in metric_obj:
+			parent_obj = DimensionValue.objects.get(id = m[5])
+			subject =  ''.join(x[0] for x in DimensionValue.objects.get(id = m[6]).dim_name.split()) 				#creating abbreviations for subjects
+			exam_type = AttributeValue.objects.get(id = m[7]).attr_name
+			id = id + 1
+			d = {'Num': id,'Student' : m[0], 'Sem' : parent_obj.dim_name, 'Subject' : subject, 'Exam_type': exam_type, 'Marks' :int(m[1]),
+			'Max':int(m[2]), 'Percentage':int(m[3])}	
+			report_data.append(d)
+	else:
+		metric_obj = MetricData.objects.filter(company_name = company_obj)
+		print("else")
+		for m in metric_obj:
+			parent_obj = m.dim_3.parent
+			subject =  ''.join(x[0] for x in m.dim_3.dim_name.split()) 				#creating abbreviations for subjects
+			id = id + 1
+			d = {'Num': id,'Student' : m.attr_1.attr_name, 'Sem' : parent_obj.dim_name, 'Subject' : subject, 'Exam_type': m.attr_2.attr_name, 'Marks' :int(m.numerator),
+			'Max':int(m.denominator), 'Percentage':int( float(m.numerator / m.denominator) * 100)}	
+			report_data.append(d) 
 	headers = ["Num", "Student","Sem","Subject","Exam_type","Marks","Max","Percentage"]
 	return report_data, headers
 

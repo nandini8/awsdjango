@@ -48,7 +48,7 @@
                     {
                       data.addRow([records[i].Subject, records[i].Marks]);
                     }*/
-                    for ( var i= 0; i < records.length; i++)
+                    /*for ( var i= 0; i < records.length; i++)
                     { 
                      
 
@@ -76,6 +76,36 @@
                                       value: temp,
                                   });
                       
+                    }*/
+
+                    for ( var i= 0; i < records.length; i++)
+                    { 
+                     
+
+                      if (!(distinct.includes(records[i].Student)))
+                    {
+                      distinct.push(records[i].Student);
+                        
+                      }
+
+                    }
+                   for ( var i= 0; i < distinct.length; i++)
+                    { 
+                      temp=0;                      
+                      for ( var j= 0; j < records.length; j++)
+                      {
+
+                        if (records[j].Student == distinct[i])
+                        {
+                            temp += records[j].Marks;
+                          
+                        }
+                      }
+                      scores.push({
+                                      key:  distinct[i] ,
+                                      value: temp,
+                                  });
+                      
                     }
 
                     for ( var i= 0; i < scores.length; i++)
@@ -88,7 +118,7 @@
 
 
                 var options = {
-                  title : "BCA",
+                  title : records[0].Subject,
                   seriesType: 'bars',
                   colors: ['#429e8e','#9aa09d'],
                   series: {1: {type: 'line'}}
