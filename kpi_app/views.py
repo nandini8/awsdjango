@@ -47,9 +47,10 @@ def home(request):
 				#report_dict = reports.getreportsBeforeApply(user_obj,request)
 
 				return render(request,pagePath, {'context_dict1' : context_dict_1, 'role': role, 'report_dict': report_dict[0], 'headers': report_dict[1]})
-		except ObjectDoesNotExist:
-			logout(request)
-			return redirect('/')
+		except Exception as ex:
+		    template = "An exception of type {0} occurred. Arguments:\n{1!r}"
+		    message = template.format(type(ex).__name__, ex.args)
+		    print (message)
 	return render(request,pagePath, {'context_dict1' : context_dict_1, 'role': role, 'report_dict': report_dict[0], 'headers': report_dict[1]})
 
 def logout(request):

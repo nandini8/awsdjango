@@ -265,12 +265,11 @@ def getReportsForRoche(user_obj,request):
 	#maindict = {'Order to Batch Creation': [], 'Batch Creation to Packaging': [], 'Packaging to QA Release': [],'Order Creation to QA Release': []}
 	maindict = list()
 	for y in row:
-		metric_obj = Metric.objects.get(id = y[0])
-		dim_val_obj = DimensionValue.objects.get(id = y[1])
-		maindict.append(collections.OrderedDict({'Product':dim_val_obj.dim_name, 'Value': int(y[2]), 'metric_name':metric_obj.metric_name}))
+		print(y[0],y[1])
+		metric_obj = Metric.objects.get(id = y[1])
+		dim_val_obj = DimensionValue.objects.get(id = y[0])
+		maindict.append(collections.OrderedDict({'Value': int(y[2]), 'Product':dim_val_obj.dim_name,  'metric_name':metric_obj.metric_name}))
 	headers = []
-	for x in maindict:
-		print(x)
 	return maindict, headers
 
 	'''for y in MetricData_obj:

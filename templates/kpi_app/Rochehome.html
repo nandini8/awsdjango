@@ -11,10 +11,9 @@
 					<div class="panel panel-body table-responsive">
 						<table class="table table-default table-hover table-default table-striped">	  
 						<tr>
-						<th class = 'text-center'>Event Date</th>
+						<th class = 'text-center'>Product Family</th>
 							
-						  	<th class= 'text-center'>Product Family</th>
-						<th class="text-center">Order to Batch Creation</th>
+						  	<th class= 'text-center'>Average</th>
 							
 						  	
 						</tr>
@@ -44,12 +43,11 @@
 					<div class="panel panel-body table-responsive">
 						<table class="table table-default table-hover table-default table-striped">
 							<tr>
-							<th class = 'text-center'>Event Date</th>
-					
-						  	<th class= 'text-center'>Product</th>
-									<th class="text-center">Batch Creation to Packaging</th>
+						<th class = 'text-center'>Product Family</th>
 							
-						  		
+						  	<th class= 'text-center'>Average</th>
+							
+						  	
 						</tr>
 							
 						  	{% for v in report_dict %}
@@ -63,7 +61,7 @@
 						 			{% endfor %}
 						 			{% endif %}
 						 		</tr>
-						 	{% endfor %}
+						 	{% endfor %}	
 							
 						</table>
 					</div>
@@ -78,12 +76,11 @@
 					<div class="panel panel-body table-responsive">
 						<table class="table table-default table-hover table-default table-striped">
 							<tr>
-							<th class = 'text-center'>Event Date</th>
+						<th class = 'text-center'>Product Family</th>
 							
-						  	<th class= 'text-center'>Product</th>
-							<th class="text-center">Packaging to QA Release</th>
+						  	<th class= 'text-center'>Average</th>
 							
-						  		
+						  	
 						</tr>
 							
 						  	{% for v in report_dict %}
@@ -92,13 +89,12 @@
 						 			{% if v.metric_name == 'Packaging to QA Release' %}
 						 			{% for x,y in v.items %}
 						 			{% if y != 'Packaging to QA Release' %}
-
 						 			<td>{{ y }}</td>
 						 			{% endif %}
 						 			{% endfor %}
 						 			{% endif %}
 						 		</tr>
-						 	{% endfor %}
+						 	{% endfor %}	
 							
 						</table>
 					</div>
@@ -113,10 +109,9 @@
 					<div class="panel panel-body table-responsive">
 						<table class="table table-default table-hover table-default table-striped">
 							<tr>
-							<th class = 'text-center'>Event Date</th>
+						<th class = 'text-center'>Product Family</th>
 							
-						  	<th class= 'text-center'>Product</th>
-							<th class="text-center">Order Creation to QA Release</th>
+						  	<th class= 'text-center'>Average</th>
 							
 						  	
 						</tr>
@@ -132,8 +127,7 @@
 						 			{% endfor %}
 						 			{% endif %}
 						 		</tr>
-						 	{% endfor %}
-							
+						 	{% endfor %}	
 						</table>
 					</div>
 				</div>
