@@ -53,8 +53,28 @@ def populate():
 			#for y in dimensions:
 			#DimensionValue.objects.create(dim_type_id=dim_obj, dim_name=y, parent=dv_obj, level=2)
 
+def populate_roche():
+	company_obj = Company.objects.get(company_name='Roche')
+	dim_obj = Dimension.objects.get_or_create(dim_type='Product', company_name=company_obj)[0]
+	with open('data/DataForRoche/DataForRoche.csv', 'r') as csvfile:
+		dimension = csv.DictReader(csvfile)
+		for row in dimension:
+			print(row)
+			dim_value_obj = DimensionValue(id=row['DimId'])
+			dim_value_obj.dim_type_id = dim_obj
+			dim_value_obj.dim_name = row['DimName']
+			dim_value_obj.created_at = timezone.now()
+			dim_value_obj.parent = DimensionValue.objects.get(id=row['ParentId'])
+			dim_value_obj.level = row['Level']
+
+			dim_value_obj.save()
+			print(dim_value_obj)
+
+
+
 
 
 if __name__== '__main__':
 	print("Populating dimension values")
-	populate()
+	#populate()
+	populate_roche()

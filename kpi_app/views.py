@@ -28,8 +28,15 @@ def login_page(request):
 def home(request):
 	email = request.user.email
 	user_obj = User.objects.get(email=email)
+	company_obj = Company.objects.get(id = user_obj.company_name.id)
 	role = Role.objects.filter(id=UserRole.objects.get(user_id=user_obj.id).role_id_id)
 	context_dict_1 = getData(user_obj)
+	if company_obj.company_name == 'Xaviers':
+		pagePath = 'kpi_app/home.html'
+	elif company_obj.company_name == 'Python Class':
+		pagePath = 'kpi_app/home.html'
+	elif company_obj.company_name == 'Roche':
+		pagePath = 'kpi_app/Rochehome.html'
 	if request.method == 'POST':
 		report_dict = reports.getreports(user_obj, request)
 	else:
@@ -37,10 +44,20 @@ def home(request):
 			if user_obj:
 				report_dict = reports.getreportsBeforeApply(user_obj,request)
 				return render(request,"kpi_app/home.html", {'context_dict1' : context_dict_1, 'role': role, 'report_dict': report_dict[0], 'headers': report_dict[1]})
+		report_dict = reports.getreports(user_obj, company_obj, request)
+		#context_dict_1 = getData(user_obj)
+	else:
+		try:
+			if user_obj:
+				#context_dict_1 = getData(user_obj)
+				report_dict = reports.getreports(user_obj, company_obj, request)
+				#report_dict = reports.getreportsBeforeApply(user_obj,request)
+
+				return render(request,pagePath, {'context_dict1' : context_dict_1, 'role': role, 'report_dict': report_dict[0], 'headers': report_dict[1]})
 		except ObjectDoesNotExist:
 			logout(request)
 			return redirect('/')
-	return render(request,"kpi_app/home.html", {'context_dict1' : context_dict_1, 'role': role, 'report_dict': report_dict[0], 'headers': report_dict[1]})
+	return render(request,pagePath, {'context_dict1' : context_dict_1, 'role': role, 'report_dict': report_dict[0], 'headers': report_dict[1]})
 
 def logout(request):
 	auth_logout(request)

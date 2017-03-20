@@ -170,12 +170,31 @@ def populate_pythonClass():
 			#print(record, number_of_records_entered[record])
 			#my_item = next((item for item in sortedRecords if item['Email Address'] == record and item['Date for Saturday class'] == max(number_of_days)), None)
 
+def populate_metric():
+	metrics = ['Order to Batch Creation','Batch Creation to Packaging','Packaging to QA Release','Order Creation to QA Release']
+	for i in metrics:
+		metric_obj = Metric.objects.get_or_create(metric_name=i, metric_type='Count', company_name=Company.objects.get(company_name='Roche'))[0]
+	company_obj = Company.objects.get(company_name= 'Roche')
+	metric_obj = Metric.objects.filter(company_name=company_obj)
+	#dim_val_obj = DimensionValue.objects.filter(dim_type_id=Dimension.objects.get(company_name='Roche').id,level = 2)
+	with open('data/DataForRoche/MetricData.csv', 'r') as csvfile:
+		datafile = csv.DictReader(csvfile)
+		for row in datafile:
+			if '-' in row['Event Date']:
+				row['Event Date'] = datetime.datetime.strptime(row['Event Date'], "%d-%b-%y")
+			elif row['Event Date'] == '#NUM!' or row['Event Date'] == '#N/A':
+				row['Event Date'] = None
+			for x in metric_obj:
+				dim_val_obj = DimensionValue.objects.get(dim_name = row['Product'])
+				if row[x.metric_name] == '#N/A' or row[x.metric_name] == '#NUM!':
+					row[x.metric_name] = 0
+				metric_data_obj = MetricData.objects.get_or_create(dim_1=dim_val_obj, metric_id=x, company_name=company_obj, date_associated=row['Event Date'], numerator=row[x.metric_name])[0]
+				print(metric_data_obj)
 
-		
-
-			
 
 if __name__ == '__main__':
 	print("Starting to populate data")
-	populate()
+	#populate()
 	#populate_pythonClass()
+	populate_metric()
+
