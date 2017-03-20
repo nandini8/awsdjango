@@ -26,27 +26,32 @@ def login_page(request):
 
 @login_required(login_url='/')	
 def home(request):
-	#context_dict_1, report_dict, role = dict(), dict(), list()
 	email = request.user.email
 	user_obj = User.objects.get(email=email)
-	#print("User id",user_obj.id)
+	company_obj = Company.objects.get(id = user_obj.company_name.id)
 	role = Role.objects.filter(id=UserRole.objects.get(user_id=user_obj.id).role_id_id)
-	#report_dict = reports.getreports(user_obj, request)
 	context_dict_1 = getData(user_obj)
+	if company_obj.company_name == 'Xaviers':
+		pagePath = 'kpi_app/home.html'
+	elif company_obj.company_name == 'Python Class':
+		pagePath = 'kpi_app/home.html'
+	elif company_obj.company_name == 'Roche':
+		pagePath = 'kpi_app/Rochehome.html'
 	if request.method == 'POST':
-		report_dict = reports.getreports(user_obj, request)
+		report_dict = reports.getreports(user_obj, company_obj, request)
 		#context_dict_1 = getData(user_obj)
 	else:
 		try:
 			if user_obj:
 				#context_dict_1 = getData(user_obj)
-				#report_dict = reports.getreports(user_obj, request)
+				report_dict = reports.getreports(user_obj, company_obj, request)
 				#report_dict = reports.getreportsBeforeApply(user_obj,request)
-				return render(request,"kpi_app/home.html", {'context_dict1' : context_dict_1, 'role': role,})# 'report_dict': report_dict[0], 'headers': report_dict[1]})
+
+				return render(request,pagePath, {'context_dict1' : context_dict_1, 'role': role, 'report_dict': report_dict[0], 'headers': report_dict[1]})
 		except ObjectDoesNotExist:
 			logout(request)
 			return redirect('/')
-	return render(request,"kpi_app/home.html", {'context_dict1' : context_dict_1, 'role': role, 'report_dict': report_dict[0], 'headers': report_dict[1]})
+	return render(request,pagePath, {'context_dict1' : context_dict_1, 'role': role, 'report_dict': report_dict[0], 'headers': report_dict[1]})
 
 def logout(request):
 	auth_logout(request)
@@ -264,10 +269,6 @@ def getData(user_obj):
 	dimval_obj_level2 = DimensionValue.objects.filter(parent_id__in = dimval_obj_level1, dim_type_id=dim_obj )
 	dimval_obj_level3 = DimensionValue.objects.filter(parent_id__in = dimval_obj_level2,  dim_type_id=dim_obj)
 	MetricData_date_obj = MetricData.objects.all().aggregate(Max('date_associated'))
-	print(dimval_obj_level1)
-	for x in dimval_obj_level2:
-		print(x.id)
-	print(dimval_obj_level3)
 	c1,c2,c3 = (list(),list(),list())
 	for i in dimval_obj_level1:
 		if i.dim_name not in c1:
@@ -282,7 +283,6 @@ def getData(user_obj):
 			c3.append(i.dim_name)
 
 	date = MetricData_date_obj['date_associated__max']
-	print(date)
 
 	context_dict = {'filter1': company_obj.filter1_dimValue, 'filter2': company_obj.filter2_dimValue,
 					 'filter3': company_obj.filter3_dimValue, 'tab3': company_obj.tab3_name,

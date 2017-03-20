@@ -8,12 +8,13 @@ from django.db.models import Q
 
 
 
-def getreports(user_obj, request):
-	company_obj = user_obj.company_name
+def getreports(user_obj, company_obj, request):
 	if company_obj.company_name == 'Python Class':
 		report_data, headers = getreports1(user_obj, request)
 	elif company_obj.company_name == 'Xaviers':
 		report_data, headers = AllStudentsAllExams()
+	elif company_obj.company_name == 'Roche':
+		report_data, headers =getReportsForRoche(user_obj,request)
 	return report_data, headers
 
 def getreports1(user_obj, request):
@@ -225,3 +226,42 @@ def AllStudents(company_obj):
 		report_data.append(d)
 	headers = ["ID", "Student","Marks","Max","Percentage"]
 	return report_data, headers
+
+
+def getReportsForRoche(user_obj,request):
+	#dimv_obj_dict = filter(request)
+	#print(dimv_obj_dict)
+	company_obj = Company.objects.get(id=user_obj.company_name.id)
+	#print(company_obj)
+	#attr_obj = Attribute.objects.filter(company_name_id=company_obj)[0]
+	#attrv_obj = AttributeValue.objects.filter(attr_type_id = attr_obj)
+	metric_obj = Metric.objects.filter(company_name_id = company_obj)
+	#General query not completed yet
+	#str1 = 'select id, metric_id, numerator from kpi_app_metricdata where month(date_associated) = if("'+ dimv_obj_dict['month'] +'", "'+dimv_obj_dict['month']+'", month(date_associated)) and dim_1_id = if("'+ dimv_obj_dict['dim_1'] +'", "'+dimv_obj_dict['dim_1']+'", dim_1_id) or dim_2_id = if("'+ dimv_obj_dict['dim_2'] +'", "'+dimv_obj_dict['dim_2']+'", dim_2_id) or dim_3_id = if("'+ dimv_obj_dict['dim_3'] +'", "'+dimv_obj_dict['dim_3']+'", dim_3_id)'
+	str1 = 'select id,date_associated, metric_id_id, numerator from kpi_app_metricdata where company_name_id = ' + str(company_obj.id)
+	print(str1)
+	MetricData_obj = MetricData.objects.raw(str1)
+	Order_to_Batch_Creation = dict()
+	Batch_Creation_to_Packaging = dict()
+	Packaging_to_QA_Release = dict()
+	Order_Creation_to_QA_Release = dict()
+	maindict = {'Order to Batch Creation': [], 'Batch Creation to Packaging': [], 'Packaging to QA Release': [],'Order Creation to QA Release': []}
+	for y in MetricData_obj:
+		metric_obj = Metric.objects.get(id = y.metric_id_id)
+		dim_val_obj = DimensionValue.objects.get(id = y.dim_1_id)
+		maindict[metric_obj.metric_name].append({'Event Date': y.date_associated ,'Product':dim_val_obj.dim_name, 'Value': y.numerator})
+	headers = []
+	return maindict, headers
+
+	'''for y in MetricData_obj:
+		metric_obj = Metric.objects.filter(id = y.metric_id_id)
+		dim_val_obj = DimensionValue.objects.get(id = y.dim_1_id)
+		if metric_obj.metric_name == "Order to Batch Creation":
+			Order_to_Batch_Creation.update({'Product':dim_val_obj.dim_name, 'Value': y.numerator})
+		elif metric_obj.metric_name == "Batch Creation to Packaging":
+			Batch_Creation_to_Packaging.update({'Product':dim_val_obj.dim_name, 'Value': y.numerator})
+		elif metric_obj.metric_name == "Packaging to QA Release":
+			Packaging_to_QA_Release.update({'Product':dim_val_obj.dim_name, 'Value': y.numerator})
+		elif metric_obj.metric_name == "Order Creation to QA Release":
+			Order_Creation_to_QA_Release.update({'Product':dim_val_obj.dim_name, 'Value': y.numerator})'''
+	#print(report_data)
