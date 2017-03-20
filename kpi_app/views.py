@@ -13,7 +13,7 @@ from .forms import UploadFileForm
 from django.contrib.auth.decorators import login_required
 import csv, json
 from kpi_app import upload_data , reports
-from django.db.models import Max
+from django.db.models import Max, Min
 
 
 
@@ -38,14 +38,13 @@ def home(request):
 	elif company_obj.company_name == 'Roche':
 		pagePath = 'kpi_app/Rochehome.html'
 	if request.method == 'POST':
-		report_dict = reports.getreports(user_obj, request)
+		report_dict = reports.getreports(user_obj, company_obj,request)
 	else:
 		try:
 			if user_obj:
 				#context_dict_1 = getData(user_obj)
 				report_dict = reports.getreports(user_obj, company_obj, request)
 				#report_dict = reports.getreportsBeforeApply(user_obj,request)
-
 				return render(request,pagePath, {'context_dict1' : context_dict_1, 'role': role, 'report_dict': report_dict[0], 'headers': report_dict[1]})
 		except Exception as ex:
 		    template = "An exception of type {0} occurred. Arguments:\n{1!r}"
@@ -234,7 +233,8 @@ def getData(user_obj):
 	dimval_obj_level1 = DimensionValue.objects.filter(parent_id = DimensionValue.objects.get(dim_name= "root"), dim_type_id=dim_obj)
 	dimval_obj_level2 = DimensionValue.objects.filter(parent_id__in = dimval_obj_level1, dim_type_id=dim_obj )
 	dimval_obj_level3 = DimensionValue.objects.filter(parent_id__in = dimval_obj_level2,  dim_type_id=dim_obj)
-	MetricData_date_obj = MetricData.objects.all().aggregate(Max('date_associated'))
+	MetricData_date_obj = MetricData.objects.filter(company_name = company_obj).aggregate(Max('date_associated'))
+	MetricData_date_obj1 = MetricData.objects.filter(company_name = company_obj).aggregate(Min('date_associated'))
 	c1,c2,c3 = (list(),list(),list())
 	for i in dimval_obj_level1:
 		if i.dim_name not in c1:
@@ -248,11 +248,12 @@ def getData(user_obj):
 		if i.dim_name not in c3:
 			c3.append(i.dim_name)
 
-	date = MetricData_date_obj['date_associated__max']
-
+	max_date = MetricData_date_obj['date_associated__max']
+	min_date = MetricData_date_obj1['date_associated__min']
+	print(max_date, min_date)
 	context_dict = {'filter1': company_obj.filter1_dimValue, 'filter2': company_obj.filter2_dimValue,
 					 'filter3': company_obj.filter3_dimValue, 'tab3': company_obj.tab3_name,
-					  'tab4': company_obj.tab4_name, 'combo1' : c1, 'combo2': c2, 'combo3' : c3, 'years': range(2017, date.year+1), 'months' : range(1,date.month + 1) }
+					  'tab4': company_obj.tab4_name, 'combo1' : c1, 'combo2': c2, 'combo3' : c3, 'years': range(min_date.year, max_date.year+1), 'months' : range(1,13) }
 	return context_dict
 
 

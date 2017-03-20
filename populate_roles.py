@@ -33,6 +33,7 @@ def populate_user_role():
 						{'id': 1, 'user_id': User.objects.get(id=1), 'role_id':Role.objects.get(id=1) },
 						{'id': 2, 'user_id': User.objects.get(id=2), 'role_id':Role.objects.get(id=1) },
 						{'id': 3, 'user_id': User.objects.get(id=7), 'role_id':Role.objects.get(id=1) },
+						{'id': 4, 'user_id': User.objects.get(id=8), 'role_id':Role.objects.get(id=1) },
 					]
 
 	for x in user_role_data:

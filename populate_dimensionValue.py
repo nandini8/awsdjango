@@ -9,7 +9,7 @@ django.setup()
 
 from kpi_app.models import Dimension, DimensionValue, Company
 def populate():
-	DimensionValue.objects.all().delete()
+	#DimensionValue.objects.all().delete()
 
 	company_obj = Company.objects.get(company_name='Xaviers')
 	dim_obj = Dimension.objects.get_or_create(id = 1, dim_type='Subject', company_name=company_obj)[0]
