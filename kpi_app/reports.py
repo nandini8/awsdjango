@@ -283,6 +283,6 @@ def getReportsForRoche(user_obj,request):
 	for y in row:
 		metric_obj = Metric.objects.get(id = y[1])
 		dim_val_obj = DimensionValue.objects.get(id = y[0])
-		maindict.append(collections.OrderedDict({'ProductF':dim_val_obj.dim_name,'Value': int(y[2]), 'metric_name':metric_obj.metric_name}))
+		maindict.append(collections.OrderedDict({'Product':dim_val_obj.dim_name,'Value': int(y[2]), 'metric_name':metric_obj.metric_name}))
 	headers = []
 	return maindict, headers
