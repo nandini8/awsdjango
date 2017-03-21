@@ -55,6 +55,7 @@ def populate():
 			#DimensionValue.objects.create(dim_type_id=dim_obj, dim_name=y, parent=dv_obj, level=2)
 
 def populate_roche():
+	DimensionValue.objects.all().delete()
 	company_obj = Company.objects.get(company_name='Roche')
 	dim_obj = Dimension.objects.get_or_create(dim_type='Product', company_name=company_obj)[0]
 	with open('data/DataForRoche/DataForRoche.csv', 'r') as csvfile:
