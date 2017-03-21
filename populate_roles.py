@@ -9,7 +9,7 @@ django.setup()
 from kpi_app.models import Company, Role, User, UserRole, Privilege, RolePrivilege
 
 def populate_role():
-	#Role.objects.all().delete()
+	Role.objects.all().delete()
 	company_obj = Company.objects.get(id=1)
 	role_data = [{'id': 1, 'name': 'admin', 'company_obj':Company.objects.get(id=1)},
 				{'id': 2, 'name': 'data_loader', 'company_obj':Company.objects.get(id=1)},
