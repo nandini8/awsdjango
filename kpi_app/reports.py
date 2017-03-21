@@ -11,7 +11,10 @@ import collections
 
 def getreports(user_obj, company_obj, request):
 	if company_obj.company_name == 'Python Class':
-		report_data, headers = getreports1(user_obj, request)
+		if request.method == 'POST':
+			report_data, headers = getreports1(user_obj, request)
+		else:
+			report_data, headers = getreportsBeforeApply(user_obj, request)
 	elif company_obj.company_name == 'Xaviers':
 		report_data, headers = AllStudentsAllExams(request)
 	elif company_obj.company_name == 'Roche':
@@ -153,6 +156,7 @@ def getreportsBeforeApply(user_obj,request):
 					#m_obj = MetricData.objects.filter(attr_1_id = temp_av.id, dim_1_id = temp_dv.id).aggregate(Max('numerator'))
 					#scores[temp_dv.dim_name] = int(m_obj['numerator__max'])
 		report_data.append(scores)
+		#print(report_data)
 	#print(report_data)
 		
 	headers = [ 'Name', 'Attendance','Hackerrank Algorithm Score',

@@ -23,11 +23,12 @@ def populate():
 		dimension = csv.DictReader(csvfile)
 		for row in dimension:
 			print(row)
-			dim_value_obj = DimensionValue(id=row['DimId'])
+			dim_value_obj = DimensionValue()
 			dim_value_obj.dim_type_id = dim_obj
 			dim_value_obj.dim_name = row['DimName']
 			dim_value_obj.parent = DimensionValue.objects.get(id=row['ParentId'])
 			dim_value_obj.level = row['Level']
+			dim_value_obj.created_at = timezone.now()
 
 			dim_value_obj.save()
 
@@ -60,7 +61,7 @@ def populate_roche():
 		dimension = csv.DictReader(csvfile)
 		for row in dimension:
 			print(row)
-			dim_value_obj = DimensionValue(id=row['DimId'])
+			dim_value_obj = DimensionValue()
 			dim_value_obj.dim_type_id = dim_obj
 			dim_value_obj.dim_name = row['DimName']
 			dim_value_obj.created_at = timezone.now()
@@ -76,5 +77,5 @@ def populate_roche():
 
 if __name__== '__main__':
 	print("Populating dimension values")
-	#populate()
+	populate()
 	populate_roche()
