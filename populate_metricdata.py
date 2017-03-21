@@ -179,18 +179,20 @@ def populate_metric():
 	#dim_val_obj = DimensionValue.objects.filter(dim_type_id=Dimension.objects.get(company_name='Roche').id,level = 2)
 	with open('data/DataForRoche/MetricData.csv', 'r') as csvfile:
 		datafile = csv.DictReader(csvfile)
+		count = 0
 		for row in datafile:
 			if '-' in row['Event Date']:
 				row['Event Date'] = datetime.datetime.strptime(row['Event Date'], "%d-%b-%y")
 			elif row['Event Date'] == '#NUM!' or row['Event Date'] == '#N/A':
 				row['Event Date'] = None
 			for x in metric_obj:
+				count += 1
 				dim_val_obj1= DimensionValue.objects.get(dim_name = row['Product Family'])
 				dim_val_obj2 = DimensionValue.objects.get(dim_name = row['Product'])
 				if row[x.metric_name] == '#N/A' or row[x.metric_name] == '#NUM!':
 					row[x.metric_name] = 0
-				metric_data_obj = MetricData.objects.get_or_create(dim_1= dim_val_obj1, dim_2 = dim_val_obj2, metric_id=x, company_name=company_obj, date_associated=row['Event Date'], numerator=row[x.metric_name])[0]
-				print(metric_data_obj)
+				metric_data_obj = MetricData.objects.create(dim_1= dim_val_obj1, dim_2 = dim_val_obj2, metric_id=x, company_name=company_obj, date_associated=row['Event Date'], numerator=row[x.metric_name])
+				print(metric_data_obj,count)
 
 
 if __name__ == '__main__':

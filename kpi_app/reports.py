@@ -108,7 +108,6 @@ def getreports2(company_obj, request):
 	and dim_2_id = if("'+ dimv_obj_dict['dim_2'] +'", "'+dimv_obj_dict['dim_2']+'", dim_2_id)\
 	and dim_3_id = if("'+ dimv_obj_dict['dim_3'] +'", "'+dimv_obj_dict['dim_3']+'", dim_3_id) group by a.attr_name'
 
-	print(str1)
 	report_data = list()
 	c = connection.cursor()
 	c.execute(str1)
@@ -199,7 +198,6 @@ def AllStudentsAllExams(request):
 	dimv_obj_dict = dict()
 	if request.method == 'POST':
 		dimv_obj_dict = filter(request)
-		print(dimv_obj_dict)
 	
 	company_obj = Company.objects.get(company_name = 'Xaviers')
 	if dimv_obj_dict:
@@ -212,7 +210,6 @@ def AllStudentsAllExams(request):
 		and dim_3_id = if("'+ dimv_obj_dict['dim_3'] +'", "'+dimv_obj_dict['dim_3']+'", dim_3_id)\
 		and m.attr_2_id = "33" group by a.attr_name, dim_1_id, dim_2_id, dim_3_id, attr_2_id'
 
-		print(str1)
 		b = connection.cursor()
 		b.execute(str1)
 		metric_obj = b.fetchall()
@@ -258,7 +255,6 @@ def getReportsForRoche(user_obj,request):
 
 	if request.method == 'POST':
 		dimv_obj_dict = filter(request)
-		print(dimv_obj_dict)
 		str1 = 'select dim_1_id, metric_id_id, sum(numerator) from kpi_app_metricdata where company_name_id = ' + str(company_obj.id) +'\
 		and month(date_associated) = if("'+ dimv_obj_dict['month'] +'", "'+dimv_obj_dict['month']+'"\
 		, month(date_associated))\
@@ -269,7 +265,6 @@ def getReportsForRoche(user_obj,request):
 		 group by dim_1_id, metric_id_id;'
 	else:
 		str1 = 'select dim_1_id, metric_id_id, sum(numerator) from kpi_app_metricdata where company_name_id = ' + str(company_obj.id) +' group by dim_1_id, metric_id_id;'
-	print(str1)
 	c = connection.cursor()
 	c.execute(str1)
 	row = c.fetchall()
@@ -280,22 +275,8 @@ def getReportsForRoche(user_obj,request):
 	#maindict = {'Order to Batch Creation': [], 'Batch Creation to Packaging': [], 'Packaging to QA Release': [],'Order Creation to QA Release': []}
 	maindict = list()
 	for y in row:
-		print(y[0],y[1])
 		metric_obj = Metric.objects.get(id = y[1])
 		dim_val_obj = DimensionValue.objects.get(id = y[0])
-		maindict.append(collections.OrderedDict({'Value': int(y[2]), 'Product':dim_val_obj.dim_name,  'metric_name':metric_obj.metric_name}))
+		maindict.append(collections.OrderedDict({'Product':dim_val_obj.dim_name,'Value': int(y[2]), 'metric_name':metric_obj.metric_name}))
 	headers = []
 	return maindict, headers
-
-	'''for y in MetricData_obj:
-		metric_obj = Metric.objects.filter(id = y.metric_id_id)
-		dim_val_obj = DimensionValue.objects.get(id = y.dim_1_id)
-		if metric_obj.metric_name == "Order to Batch Creation":
-			Order_to_Batch_Creation.update({'Product':dim_val_obj.dim_name, 'Value': y.numerator})
-		elif metric_obj.metric_name == "Batch Creation to Packaging":
-			Batch_Creation_to_Packaging.update({'Product':dim_val_obj.dim_name, 'Value': y.numerator})
-		elif metric_obj.metric_name == "Packaging to QA Release":
-			Packaging_to_QA_Release.update({'Product':dim_val_obj.dim_name, 'Value': y.numerator})
-		elif metric_obj.metric_name == "Order Creation to QA Release":
-			Order_Creation_to_QA_Release.update({'Product':dim_val_obj.dim_name, 'Value': y.numerator})'''
-	#print(report_data)
