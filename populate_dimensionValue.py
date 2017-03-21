@@ -9,7 +9,7 @@ django.setup()
 
 from kpi_app.models import Dimension, DimensionValue, Company
 def populate():
-	#DimensionValue.objects.all().delete()
+	DimensionValue.objects.all().delete()
 
 	company_obj = Company.objects.get(company_name='Xaviers')
 	dim_obj = Dimension.objects.get_or_create(id = 1, dim_type='Subject', company_name=company_obj)[0]
@@ -23,7 +23,7 @@ def populate():
 		dimension = csv.DictReader(csvfile)
 		for row in dimension:
 			print(row)
-			dim_value_obj = DimensionValue()
+			dim_value_obj = DimensionValue(row['DimId'])
 			dim_value_obj.dim_type_id = dim_obj
 			dim_value_obj.dim_name = row['DimName']
 			dim_value_obj.parent = DimensionValue.objects.get(id=row['ParentId'])
@@ -55,17 +55,15 @@ def populate():
 			#DimensionValue.objects.create(dim_type_id=dim_obj, dim_name=y, parent=dv_obj, level=2)
 
 def populate_roche():
-	Dimension.objects.all().delete()
 	DimensionValue.objects.all().delete()
 	company_obj = Company.objects.get(company_name='Roche')
-	dim_obj = Dimension.objects.get_or_create(dim_type='Product', company_name=company_obj)
+	dim_obj = Dimension.objects.get_or_create(dim_type='Product', company_name=company_obj)[0]
 	dim_value_obj = DimensionValue.objects.get_or_create(id=1, dim_type_id=dim_obj, dim_name='Root', parent=None, level=0)[0]
-	print(dim_obj)
 	with open('data/DataForRoche/DataForRoche.csv', 'r') as csvfile:
 		dimension = csv.DictReader(csvfile)
 		for row in dimension:
 			print(row)
-			dim_value_obj = DimensionValue()
+			dim_value_obj = DimensionValue(row['DimId'])
 			dim_value_obj.dim_type_id = dim_obj
 			dim_value_obj.dim_name = row['DimName']
 			dim_value_obj.created_at = timezone.now()
