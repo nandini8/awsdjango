@@ -77,5 +77,5 @@ def populate_roche():
 
 if __name__== '__main__':
 	print("Populating dimension values")
-	populate()
+	#populate()
 	populate_roche()
