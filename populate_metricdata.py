@@ -171,6 +171,7 @@ def populate_pythonClass():
 			#my_item = next((item for item in sortedRecords if item['Email Address'] == record and item['Date for Saturday class'] == max(number_of_days)), None)
 
 def populate_metric():
+	MetricData.objects.all().delete()
 	metrics = ['Order to Batch Creation','Batch Creation to Packaging','Packaging to QA Release','Order Creation to QA Release']
 	for i in metrics:
 		metric_obj = Metric.objects.get_or_create(metric_name=i, metric_type='Count', company_name=Company.objects.get(company_name='Roche'))[0]
