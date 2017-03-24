@@ -85,10 +85,17 @@ def filter(request):
 	filter4_option = request.POST['filter4']
 	filter5_option = request.POST['filter5']
 
-	if filter2_option != 'all':
-		dimv_obj_list = DimensionValue.objects.filter(Q(dim_name = filter1_option) | Q(id = DimensionValue.objects.get(dim_name = filter2_option, parent_id = DimensionValue.objects.get(dim_name = filter1_option).id).id) | Q(dim_name = filter3_option))
-	else:
-		dimv_obj_list = DimensionValue.objects.filter(Q(dim_name = filter1_option) | Q(dim_name = filter2_option) | Q(dim_name = filter3_option))
+	try:
+		if filter2_option != 'all':
+			dimv_obj_list = DimensionValue.objects.filter(Q(dim_name = filter1_option) | Q(id = DimensionValue.objects.get(dim_name = filter2_option, parent_id = DimensionValue.objects.get(dim_name = filter1_option).id).id) | Q(dim_name = filter3_option))
+		else:
+			dimv_obj_list = DimensionValue.objects.filter(Q(dim_name = filter1_option) | Q(dim_name = filter2_option) | Q(dim_name = filter3_option))
+	except Exception as ex:
+		dimv_obj_list = []
+		template = "An exception of type {0} occurred. Arguments:\n{1!r}"
+		message = template.format(type(ex).__name__, ex.args)
+		print (message)
+
 	dimv_obj_dict = {'dim_1': '', 'dim_2':'', 'dim_3':'', 'year': filter4_option, 'month': filter5_option}
 	for obj in dimv_obj_list:
 		if obj.level == 1:
@@ -272,11 +279,6 @@ def getReportsForRoche(user_obj,request):
 	c = connection.cursor()
 	c.execute(str1)
 	row = c.fetchall()
-	#Order_to_Batch_Creation = dict()
-	#Batch_Creation_to_Packaging = dict()
-	#Packaging_to_QA_Release = dict()
-	#Order_Creation_to_QA_Release = dict()
-	#maindict = {'Order to Batch Creation': [], 'Batch Creation to Packaging': [], 'Packaging to QA Release': [],'Order Creation to QA Release': []}
 	maindict = list()
 	for y in row:
 		metric_obj = Metric.objects.get(id = y[1])

@@ -221,7 +221,7 @@ def charts(request):
 					report_dict, header_dict = reports.getreports(user_obj,company_obj ,request)
 					report_data = json.dumps(report_dict)
 					header_data = json.dumps(header_dict)
-					return render(request,pagePath, {'context_dict1' : context_dict1, 'role': role, 'report_dict':report_data, 'header_dict': header_data })
+					return render(request,pagePath, {'context_dict1' : context_dict1, 'role': role, 'reports':report_data, 'headers': header_data })
 			except ObjectDoesNotExist:
 				logout(request)
 				return redirect('/')

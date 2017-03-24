@@ -12,7 +12,7 @@ from kpi_app.models import Company
 def populate():
 	company_data = [{'id': 1, 'company_name': 'Xaviers', 'tab3':'Semester', 'tab4': 'Subject', 'filter1': 'Degree', 'filter2': 'Semester', 'filter3': 'Subject'},
 					{'id': 3, 'company_name': 'Python Class', 'tab3':'Student', 'tab4': 'Attendance', 'filter1': 'Problems', 'filter2': 'NA', 'filter3': 'NA',
-					'id': 4, 'company_name': 'Roche', 'tab3':'Tab3', 'tab4': 'Tab4', 'filter1': 'Product Famil', 'filter2': 'Product', 'filter3': 'NA'}
+					'id': 4, 'company_name': 'Roche', 'tab3':'Tab3', 'tab4': 'Tab4', 'filter1': 'Product Family', 'filter2': 'Product', 'filter3': 'NA'}
 					]
 
 	#Company.objects.all().delete()
