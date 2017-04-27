@@ -266,7 +266,7 @@ def getReportsForRoche(user_obj,request):
 
 	if request.method == 'POST':
 		dimv_obj_dict = filter(request)
-		str1 = 'select dim_1_id, metric_id_id, sum(numerator) from kpi_app_metricdata where company_name_id = ' + str(company_obj.id) +'\
+		str1 = 'select dim_1_id, metric_id_id, avg(numerator) from kpi_app_metricdata where company_name_id = ' + str(company_obj.id) +'\
 		and month(date_associated) = if("'+ dimv_obj_dict['month'] +'", "'+dimv_obj_dict['month']+'"\
 		, month(date_associated))\
 		and year(date_associated) = if("'+ dimv_obj_dict['year'] +'", "'+dimv_obj_dict['year']+'"\
@@ -275,7 +275,7 @@ def getReportsForRoche(user_obj,request):
 		 and dim_2_id = if("'+ dimv_obj_dict['dim_2'] +'", "'+dimv_obj_dict['dim_2']+'", dim_2_id)\
 		 group by dim_1_id, metric_id_id;'
 	else:
-		str1 = 'select dim_1_id, metric_id_id, sum(numerator) from kpi_app_metricdata where company_name_id = ' + str(company_obj.id) +' group by dim_1_id, metric_id_id;'
+		str1 = 'select dim_1_id, metric_id_id, avg(numerator) from kpi_app_metricdata where company_name_id = ' + str(company_obj.id) +' group by dim_1_id, metric_id_id;'
 	c = connection.cursor()
 	c.execute(str1)
 	row = c.fetchall()
