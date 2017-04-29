@@ -14,14 +14,20 @@
 							<tr>
 								<td><b>Name</b></td>
 								<td colspan="3"><b>Attendance</b></td>
-							</tr> 
+							</tr>
+
+              {% if not reports %}
+                <tr>
+                  <td colspan="3">No Data Available</td>
+                </tr>
+              {% else %}
 							{% for elements in reports %}
 									<tr>
 										<td>{{elements.Name}}<td>
                     <td>{{elements.Attendance}}</td>
 									</tr>
 								{% endfor %}
-
+              {% endif %}
 							</table>
 						</div>
 					</div>

@@ -39,9 +39,11 @@ def getreports1(user_obj, request):
 	#General query not completed yet
 	str1 = 'select id, attr_1_id, numerator from kpi_app_metricdata where month(date_associated) = if("'+ dimv_obj_dict['month'] +'", "'+dimv_obj_dict['month']+'", month(date_associated)) and dim_1_id = if("'+ dimv_obj_dict['dim_1'] +'", "'+dimv_obj_dict['dim_1']+'", dim_1_id) or dim_2_id = if("'+ dimv_obj_dict['dim_2'] +'", "'+dimv_obj_dict['dim_2']+'", dim_2_id) or dim_3_id = if("'+ dimv_obj_dict['dim_3'] +'", "'+dimv_obj_dict['dim_3']+'", dim_3_id)'
 	MetricData_obj = MetricData.objects.raw(str1)
-	print(len(list(MetricData_obj)))
+	#print(len(list(MetricData_obj)))
+	report_data = list()
+	headers = list()
 	if len(list(MetricData_obj)) == 0:
-		pass
+		return report_data, headers
 	else:
 		report_data = list()
 		for x in attrv_obj:
