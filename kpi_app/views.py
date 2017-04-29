@@ -271,7 +271,7 @@ def getData(user_obj):
 
 	max_date = MetricData_date_obj['date_associated__max']
 	min_date = MetricData_date_obj1['date_associated__min']
-	print(max_date, min_date)
+	print(max_date, min_date, c1)
 	context_dict = {'filter1': company_obj.filter1_dimValue, 'filter2': company_obj.filter2_dimValue,
 					 'filter3': company_obj.filter3_dimValue, 'tab3': company_obj.tab3_name,
 					  'tab4': company_obj.tab4_name, 'combo1' : c1, 'combo2': c2, 'combo3' : c3, 'years': range(min_date.year, max_date.year+1), 'months' : range(1,13) }
