@@ -139,7 +139,7 @@ def tab4(request):
 	elif company_obj.company_name == 'Python Class':
 		context_dict1 = getData(user_obj)
 		if request.method == 'POST':
-			report_dict, header_dict = reports.getreports(user_obj, request)
+			report_dict, header_dict = reports.getreports(user_obj, company_obj, request)
 			attendance_dict, header_data = list(), list()
 			for attendance in report_dict:
 				attendance_dict.append({'Name':attendance['Name'], 'Attendance':attendance['Attendance']})

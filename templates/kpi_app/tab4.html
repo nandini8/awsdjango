@@ -17,9 +17,8 @@
 							</tr> 
 							{% for elements in reports %}
 									<tr>
-										{% for value in elements.values %}
-										<td>{{value}}<td>
-										{% endfor %}
+										<td>{{elements.Name}}<td>
+                    <td>{{elements.Attendance}}</td>
 									</tr>
 								{% endfor %}
 
