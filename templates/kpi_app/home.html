@@ -159,10 +159,15 @@
 					<div class="panel panel-body table-responsive">
 						<table class="table table-default table-hover table-default table-striped">
 							<th></th>
+							{% if not report_dict %}
+				                <tr>
+				                  <td colspan="3">No Data Available</td>
+				                </tr>
+				              {% else %}
 							{% for x in headers %}
 						 		<th>{{ x }}</th>
 						  	{% endfor %}
-						  	
+						  	 
 						  	{% for value in report_dict %}
 						 		<tr>
 						 		<td></td>
@@ -175,7 +180,7 @@
 						 		{% endfor %}
 						 		</tr>
 						  	{% endfor %}
-							
+							{% endif %}
 						</table>
 					</div>
 				</div>
