@@ -38,44 +38,46 @@ def getreports1(user_obj, request):
 
 	#General query not completed yet
 	str1 = 'select id, attr_1_id, numerator from kpi_app_metricdata where month(date_associated) = if("'+ dimv_obj_dict['month'] +'", "'+dimv_obj_dict['month']+'", month(date_associated)) and dim_1_id = if("'+ dimv_obj_dict['dim_1'] +'", "'+dimv_obj_dict['dim_1']+'", dim_1_id) or dim_2_id = if("'+ dimv_obj_dict['dim_2'] +'", "'+dimv_obj_dict['dim_2']+'", dim_2_id) or dim_3_id = if("'+ dimv_obj_dict['dim_3'] +'", "'+dimv_obj_dict['dim_3']+'", dim_3_id)'
-	#print(str1)
 	MetricData_obj = MetricData.objects.raw(str1)
-
-	report_data = list()
-	for x in attrv_obj:
-		scores = dict()
-		scores.update({ 'Name': "", 'Attendance': 0,'Hackerrank Algorithm Score':0,
-					'Hackerrank Python Score':0,
-					'Hackerrank Data Structure Score':0,
-					'Project Euler - Number of problems solved':0,
-					'Rosalind Info - Number of problems solved':0
-					})
-		name = x.attr_name
-		for y in MetricData_obj:
-			temp_av = AttributeValue.objects.get(attr_name = y.attr_1)
-			if temp_av.attr_name == name:
-				scores['Name'] = name
-				#print(attendance)
-				temp_dv = DimensionValue.objects.get(id=y.dim_1_id)
-				if temp_dv.dim_name == 'Attendance': # and int(y.numerator) > 0 :
-					attendance = get_attendance(temp_av, dimv_obj_dict['month'])
-					scores[temp_dv.dim_name]= int(attendance)
-				else:
-					#scores['Attendance'] = int(attendance)
-					#print(scores['Name'],scores['Attendance'])
-					scores[temp_dv.dim_name]= int(y.numerator)
-					#m_obj = MetricData.objects.filter(attr_1_id = temp_av.id, dim_1_id = temp_dv.id).aggregate(Max('numerator'))
-					#scores[temp_dv.dim_name] = int(m_obj['numerator__max'])
-		report_data.append(scores)
-	#print(report_data)
-		
-	headers = [ 'Name', 'Attendance','Hackerrank Algorithm Score',
-					'Hackerrank Python Score',
-					'Hackerrank Data Structure Score',
-					'Project Euler - Number of problems solved',
-					'Rosalind Info - Number of problems solved'
-					]
-	return report_data, headers
+	print(len(list(MetricData_obj)))
+	if len(list(MetricData_obj)) == 0:
+		pass
+	else:
+		report_data = list()
+		for x in attrv_obj:
+			scores = dict()
+			scores.update({ 'Name': "", 'Attendance': 0,'Hackerrank Algorithm Score':0,
+						'Hackerrank Python Score':0,
+						'Hackerrank Data Structure Score':0,
+						'Project Euler - Number of problems solved':0,
+						'Rosalind Info - Number of problems solved':0
+						})
+			name = x.attr_name
+			for y in MetricData_obj:
+				temp_av = AttributeValue.objects.get(attr_name = y.attr_1)
+				if temp_av.attr_name == name:
+					scores['Name'] = name
+					#print(attendance)
+					temp_dv = DimensionValue.objects.get(id=y.dim_1_id)
+					if temp_dv.dim_name == 'Attendance': # and int(y.numerator) > 0 :
+						attendance = get_attendance(temp_av, dimv_obj_dict['month'])
+						scores[temp_dv.dim_name]= int(attendance)
+					else:
+						#scores['Attendance'] = int(attendance)
+						#print(scores['Name'],scores['Attendance'])
+						scores[temp_dv.dim_name]= int(y.numerator)
+						#m_obj = MetricData.objects.filter(attr_1_id = temp_av.id, dim_1_id = temp_dv.id).aggregate(Max('numerator'))
+						#scores[temp_dv.dim_name] = int(m_obj['numerator__max'])
+			report_data.append(scores)
+		#print(report_data)
+			
+		headers = [ 'Name', 'Attendance','Hackerrank Algorithm Score',
+						'Hackerrank Python Score',
+						'Hackerrank Data Structure Score',
+						'Project Euler - Number of problems solved',
+						'Rosalind Info - Number of problems solved'
+						]
+		return report_data, headers
 
 def filter(request):
 
@@ -184,7 +186,6 @@ def get_attendance(temp_av, month):
 	c = connection.cursor()
 	c.execute(str1)
 	rows = c.fetchone()[0]
-	#print(rows)
 	return rows * 100 / max_date
 
 def get_avg(user_obj,request):
