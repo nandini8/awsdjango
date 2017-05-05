@@ -84,6 +84,7 @@ def populate_pythonClass():
 		records_from_file = csv.DictReader(csvfile)
 		records = list(records_from_file)
 		for row in records:
+			print(row)
 			if '/' in row['Date for Saturday class']:
 					row['Date for Saturday class'] = datetime.datetime.strptime(row['Date for Saturday class'], '%m/%d/%Y')
 			else:
@@ -106,23 +107,24 @@ def populate_pythonClass():
 					rec['Did you attend the class?'] = 'No'
 					individual_student.append(rec)
 				#print(individual_student[-1]['Date for Saturday class'])
-			print(individual_student)
+			#print(individual_student)
 			list_to_be_entered.append(individual_student)
 
 		for rows in list_to_be_entered:
+			#print(list_to_be_entered)
 			for row in rows:
 				attrv_obj = AttributeValue.objects.get(attr_name = row['Email Address'])
 				for x in dim1_obj:
 					if x.dim_name == 'Attendance':
 						if row['Did you attend the class?'] == "Yes" :
 							metric_data_obj = MetricData.objects.get_or_create(dim_1=x, attr_1=attrv_obj, metric_id=metric_obj, company_name=company_obj, date_associated=row['Date for Saturday class'], numerator=1)[0]
-							print(attrv_obj,x.dim_name)
+							#print(attrv_obj,x.dim_name,row['Date for Saturday class'])
 						else:
 							metric_data_obj = MetricData.objects.get_or_create(dim_1=x, attr_1=attrv_obj, metric_id=metric_obj, company_name=company_obj, date_associated=row['Date for Saturday class'], numerator=0)[0]
-							print(attrv_obj,x.dim_name)
+							#print(attrv_obj,x.dim_name,row['Date for Saturday class'])
 					else:
 						metric_data_obj = MetricData.objects.get_or_create(dim_1=x, attr_1=attrv_obj, metric_id=metric_obj, company_name=company_obj, date_associated=row['Date for Saturday class'], numerator=row[x.dim_name])[0]
-						print(attrv_obj,x.dim_name)
+						#print(attrv_obj,x.dim_name,row['Date for Saturday class'] )
 	#print(type(Attribute.objects.get(company_name=company_obj)))
 	#print(attr1_values)
 	'''values = quickstart.main()
