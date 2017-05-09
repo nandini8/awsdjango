@@ -23,7 +23,7 @@ def populate():
 				{'id': 11,'name': 'Alekhya', 'email': 'ganugapatisaialekhya@gmail.com', 'company_obj':Company.objects.get(id=3)},
 				{'id': 12,'name': 'Ajay', 'email': 'g.ajaykumar3684@gmail.com', 'company_obj':Company.objects.get(id=3)},
 				{'id': 13,'name': 'Sravya', 'email': 'sravyamalla203@gmail.com', 'company_obj':Company.objects.get(id=3)},
-				{'id': 13,'name': 'Vennela', 'email': 'vennela.gonuguntla@gmail.com', 'company_obj':Company.objects.get(id=3)},
+				{'id': 14,'name': 'Vennela', 'email': 'vennela.gonuguntla@gmail.com', 'company_obj':Company.objects.get(id=3)},
 				]
 	for x in user_data:
 		print(x)

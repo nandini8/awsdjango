@@ -85,25 +85,25 @@ def populate_pythonClass():
 		records = list(records_from_file)
 		for row in records:
 			print(row)
-			if '/' in row['Date for Saturday class']:
-					row['Date for Saturday class'] = datetime.datetime.strptime(row['Date for Saturday class'], '%m/%d/%Y')
+			if '/' in row['Date for Today\'s class']:
+					row['Date for Today\'s class'] = datetime.datetime.strptime(row['Date for Today\'s class'], '%m/%d/%Y')
 			else:
-				date = row['Date for Saturday class'].replace('th', "")
-				row['Date for Saturday class'] = datetime.datetime.strptime(date, '%b %d %Y')
+				date = row['Date for Today\'s class'].replace('th', "")
+				row['Date for Today\'s class'] = datetime.datetime.strptime(date, '%b %d %Y')
 
-		sortedRecords =  sorted(records, key=lambda k: [k['Email Address'], k['Date for Saturday class'] ])
-		number_of_days = sorted(set(record['Date for Saturday class'] for record in sortedRecords))
+		sortedRecords =  sorted(records, key=lambda k: [k['Email Address'], k['Date for Today\'s class'] ])
+		number_of_days = sorted(set(record['Date for Today\'s class'] for record in sortedRecords))
 
 		list_to_be_entered = list()
 		for key, group in groupby(sortedRecords, lambda x: x['Email Address']):
 			individual_student = [x for x in group]
-			number_of_days_entered = sorted(set(record['Date for Saturday class'] for record in individual_student))
+			number_of_days_entered = sorted(set(record['Date for Today\'s class'] for record in individual_student))
 			if len(individual_student) < len(number_of_days):
 				missing_days = sorted(set(number_of_days).difference(set(number_of_days_entered)))
 				#print(missing_days)
 				for i in missing_days:
 					rec = copy.copy(individual_student[-1])
-					rec['Date for Saturday class'] = i
+					rec['Date for Today\'s class'] = i
 					rec['Did you attend the class?'] = 'No'
 					individual_student.append(rec)
 				#print(individual_student[-1]['Date for Saturday class'])
@@ -117,13 +117,13 @@ def populate_pythonClass():
 				for x in dim1_obj:
 					if x.dim_name == 'Attendance':
 						if row['Did you attend the class?'] == "Yes" :
-							metric_data_obj = MetricData.objects.get_or_create(dim_1=x, attr_1=attrv_obj, metric_id=metric_obj, company_name=company_obj, date_associated=row['Date for Saturday class'], numerator=1)[0]
+							metric_data_obj = MetricData.objects.get_or_create(dim_1=x, attr_1=attrv_obj, metric_id=metric_obj, company_name=company_obj, date_associated=row['Date for Today\'s class'], numerator=1)[0]
 							#print(attrv_obj,x.dim_name,row['Date for Saturday class'])
 						else:
-							metric_data_obj = MetricData.objects.get_or_create(dim_1=x, attr_1=attrv_obj, metric_id=metric_obj, company_name=company_obj, date_associated=row['Date for Saturday class'], numerator=0)[0]
+							metric_data_obj = MetricData.objects.get_or_create(dim_1=x, attr_1=attrv_obj, metric_id=metric_obj, company_name=company_obj, date_associated=row['Date for Today\'s class'], numerator=0)[0]
 							#print(attrv_obj,x.dim_name,row['Date for Saturday class'])
 					else:
-						metric_data_obj = MetricData.objects.get_or_create(dim_1=x, attr_1=attrv_obj, metric_id=metric_obj, company_name=company_obj, date_associated=row['Date for Saturday class'], numerator=row[x.dim_name])[0]
+						metric_data_obj = MetricData.objects.get_or_create(dim_1=x, attr_1=attrv_obj, metric_id=metric_obj, company_name=company_obj, date_associated=row['Date for Today\'s class'], numerator=row[x.dim_name])[0]
 						#print(attrv_obj,x.dim_name,row['Date for Saturday class'] )
 	#print(type(Attribute.objects.get(company_name=company_obj)))
 	#print(attr1_values)
