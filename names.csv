@@ -1,4 +1,4 @@
-Timestamp,Email Address,Name,Date for Saturday class,Did you attend the class?,Did you complete the assignments given for this week?,Comments on the assigment given,Hackerrank Algorithm Score,Hackerrank Python Score,Hackerrank Data Structure Score,Project Euler - Number of problems solved,Rosalind Info - Number of problems solved,Describe how the week was,Any suggestions or comments
+Timestamp,Email Address,Name,Date for Today's class,Did you attend the class?,Did you complete the assignments given for this week?,Comments on the assigment given,Hackerrank Algorithm Score,Hackerrank Python Score,Hackerrank Data Structure Score,Project Euler - Number of problems solved,Rosalind Info - Number of problems solved,Describe how the Today's class was,Any suggestions or comments
 1/23/2017 5:34:33,srinikita.b@gmail.com,Sri nikhitha,1/21/2017,No,No,Didn't attend the class so don't know,20,500,20,3,1,Good,Every thing is good and fine
 1/23/2017 7:49:05,sahil@solivarindia.com,sahil,1/21/2017,Yes,Yes,-,1237.95,648.05,0,0,6,-,-
 1/23/2017 9:56:12,nandini@solivarindia.com,Nandini,1/21/2017,Yes,Yes,Completed Rosalind problems and read the second chapter of Problem solving with algorithms and data structures,1187.86,657.93,0,0,6,Good,No comments
@@ -58,3 +58,9 @@ Timestamp,Email Address,Name,Date for Saturday class,Did you attend the class?,D
 5/5/2017 3:21:09,keerthikrishnacp@gmail.com,Keerthi Krishna Chivukula,Mar 4th 2017,Yes,Yes,no,176,835,0,20,12,Nice,no
 5/5/2017 3:21:25,ganugapatisaialekhya@gmail.com,Alekhya Ganugapati,Mar 4th 2017,Yes,Yes,no,366,1071,0,22,15,Its good.,no
 5/5/2017 3:42:36,vennela.gonuguntla@gmail.com,Vennela Gonuguntla,Mar 4th 2017,Yes,Yes,none,450,1170,0,22,8,nice,no
+5/8/2017 3:40:57,ganugapatisaialekhya@gmail.com,Alekhya Ganugapati,5/8/2017,Yes,Yes,nothin,366,1071,0,22,9,nice,nice
+5/8/2017 3:41:46,vennela.gonuguntla@gmail.com,Vennela Gonuguntla,5/8/2017,Yes,Yes,good,450,1200,0,25,8,great,none
+5/8/2017 3:41:59,keerthikrishnacp@gmail.com,Keerthi Krishna Chivukula,5/8/2017,Yes,Yes,nice,174,835,0,28,12,Nice,nothing
+5/8/2017 10:44:17,g.ajaykumar3684@gmail.com,G.Ajaykumar,5/8/2017,Yes,Yes,good,136,1022,10,6,7,good,no
+5/8/2017 20:31:48,chetanavinuthna@gmail.com,Chetana Vinuthna Karra,5/8/2017,Yes,Yes,nothing,141,737,0,12,5,Good,Nothing
+5/9/2017 3:03:13,keerthikrishnacp@gmail.com,Keer,5/9/2017,Yes,Yes,no,176,835,0,28,13,nice,no
