@@ -15,6 +15,7 @@ def getreports(user_obj, company_obj, request):
 			report_data, headers = getreports1(user_obj, request)
 		else:
 			report_data, headers = getreportsBeforeApply(user_obj, request)
+			print(3)
 	elif company_obj.company_name == 'Xaviers':
 		report_data, headers = AllStudentsAllExams(request)
 	elif company_obj.company_name == 'Roche':
@@ -37,7 +38,7 @@ def getreports1(user_obj, request):
 
 
 	#General query not completed yet
-	str1 = 'select id, attr_1_id, numerator from kpi_app_metricdata where month(date_associated) = if("'+ dimv_obj_dict['month'] +'", "'+dimv_obj_dict['month']+'", month(date_associated)) and dim_1_id = if("'+ dimv_obj_dict['dim_1'] +'", "'+dimv_obj_dict['dim_1']+'", dim_1_id) or dim_2_id = if("'+ dimv_obj_dict['dim_2'] +'", "'+dimv_obj_dict['dim_2']+'", dim_2_id) or dim_3_id = if("'+ dimv_obj_dict['dim_3'] +'", "'+dimv_obj_dict['dim_3']+'", dim_3_id)'
+	str1 = 'select id, attr_1_id, numerator from kpi_app_metricdata where month(date_associated) = if("'+ dimv_obj_dict['month'] +'", "'+dimv_obj_dict['month']+'", month((select max(date_associated) from kpi_app_metricdata))) and dim_1_id = if("'+ dimv_obj_dict['dim_1'] +'", "'+dimv_obj_dict['dim_1']+'", dim_1_id) or dim_2_id = if("'+ dimv_obj_dict['dim_2'] +'", "'+dimv_obj_dict['dim_2']+'", dim_2_id) or dim_3_id = if("'+ dimv_obj_dict['dim_3'] +'", "'+dimv_obj_dict['dim_3']+'", dim_3_id)'
 	MetricData_obj = MetricData.objects.raw(str1)
 	#print(len(list(MetricData_obj)))
 	report_data = list()
@@ -56,6 +57,7 @@ def getreports1(user_obj, request):
 						})
 			name = x.attr_name
 			for y in MetricData_obj:
+				print(y)
 				temp_av = AttributeValue.objects.get(attr_name = y.attr_1)
 				if temp_av.attr_name == name:
 					scores['Name'] = name
@@ -138,7 +140,7 @@ def getreportsBeforeApply(user_obj,request):
 	attr_obj = Attribute.objects.filter(company_name_id=company_obj)[0]
 	attrv_obj = AttributeValue.objects.filter(attr_type_id = attr_obj)
 
-	str1 = "select id, attr_1_id, numerator from kpi_app_metricdata where company_name_id = " + str(company_obj.id)
+	str1 = "select id, attr_1_id, numerator from kpi_app_metricdata where date_associated = (select max(date_associated) from kpi_app_metricdata) and company_name_id = " + str(company_obj.id)
 	#print(str1)
 	MetricData_obj = MetricData.objects.raw(str1)
 	report_data = list()
@@ -152,6 +154,7 @@ def getreportsBeforeApply(user_obj,request):
 					})
 		name = x.attr_name
 		for y in MetricData_obj:
+			print(y)
 			temp_av = AttributeValue.objects.get(attr_name = y.attr_1)
 			if temp_av.attr_name == name:
 				scores['Name'] = name

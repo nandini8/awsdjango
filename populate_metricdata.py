@@ -84,7 +84,7 @@ def populate_pythonClass():
 		records_from_file = csv.DictReader(csvfile)
 		records = list(records_from_file)
 		for row in records:
-			print(row)
+			#print(row)
 			if '/' in row['Date for Today\'s class']:
 					row['Date for Today\'s class'] = datetime.datetime.strptime(row['Date for Today\'s class'], '%m/%d/%Y')
 			else:
@@ -113,6 +113,7 @@ def populate_pythonClass():
 		for rows in list_to_be_entered:
 			#print(list_to_be_entered)
 			for row in rows:
+				print(row)
 				attrv_obj = AttributeValue.objects.get(attr_name = row['Email Address'])
 				for x in dim1_obj:
 					if x.dim_name == 'Attendance':

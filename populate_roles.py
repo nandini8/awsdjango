@@ -23,13 +23,16 @@ def populate_role():
 		u = Role.objects.get_or_create(id = x['id'], role_name=x['name'], company_name=x['company_obj'])
 	
 def populate_user_role():
-	#UserRole.objects.all().delete()
+	UserRole.objects.all().delete()
 	user_obj = User.objects.filter(company_name=Company.objects.get(company_name='Python Class'))
+	s=0
 	for x in user_obj:
+		s += 1
+		print(s)
 		u = UserRole.objects.get_or_create(user_id=x, role_id=Role.objects.get(id=6))
 		print(u)
 
-	user_role_data = [
+	'''user_role_data = [
 						{'id': 1, 'user_id': User.objects.get(id=1), 'role_id':Role.objects.get(id=1) },
 						{'id': 2, 'user_id': User.objects.get(id=2), 'role_id':Role.objects.get(id=1) },
 						{'id': 3, 'user_id': User.objects.get(id=7), 'role_id':Role.objects.get(id=1) },
@@ -37,9 +40,12 @@ def populate_user_role():
 						{'id': 5, 'user_id': User.objects.get(id=5), 'role_id':Role.objects.get(id=7) },
 					]
 
+	s=0
 	for x in user_role_data:
+		s += 1
+		print(s)
 		u = UserRole.objects.get_or_create(id = x['id'], user_id=x['user_id'], role_id=x['role_id'])
-		print(u)
+		print(u)'''
 
 
 def populate_privileges():

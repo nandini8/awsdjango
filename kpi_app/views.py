@@ -26,6 +26,7 @@ def login_page(request):
 
 @login_required(login_url='/')	
 def home(request):
+	print(1)
 	email = request.user.email
 	user_obj = User.objects.get(email=email)
 	company_obj = Company.objects.get(id = user_obj.company_name.id)
@@ -35,6 +36,7 @@ def home(request):
 		pagePath = 'kpi_app/home.html'
 	elif company_obj.company_name == 'Python Class':
 		pagePath = 'kpi_app/home.html'
+		print(2)
 	elif company_obj.company_name == 'Roche':
 		pagePath = 'kpi_app/Rochehome.html'
 	if request.method == 'POST':

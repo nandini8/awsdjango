@@ -1,6 +1,6 @@
 #populate_user.py
 
-import os
+import os, csv
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "KPI_project.settings")
 
 import django
@@ -26,9 +26,21 @@ def populate():
 				{'id': 14,'name': 'Vennela', 'email': 'vennela.gonuguntla@gmail.com', 'company_obj':Company.objects.get(id=3)},
 				{'id': 15,'name': 'Nikhitha Goli', 'email': 'nikhithagolinikki86@gmail.com', 'company_obj':Company.objects.get(id=3)},
 				]
-	for x in user_data:
-		print(x)
-		u = User.objects.get_or_create(id = x['id'], user_name=x['name'], company_name=x['company_obj'], email=x['email'])[0]
+		    
+	#for x in user_data:
+		#print(x)
+		#u = User.objects.get_or_create(user_name=x['name'], company_name=x['company_obj'], email=x['email'])[0]
+
+	with open('data/pythonStudents.csv', 'r') as csvfile:
+		students = csv.DictReader(csvfile)
+		u = User.objects.get_or_create(user_name="Venkateshtadinada", company_name=Company.objects.get(id=3), email="venkatesh@solivar.com")[0]
+		s=0
+		for row in students:
+			print(row)
+			s +=1
+			print(s)
+			u = User.objects.get_or_create(user_name=row['Name'], company_name=Company.objects.get(id=3), email=row['Email Address'])[0]
+
 
 def populatePythonclassUser():
 	company_obj = Company.objects.get(company_name='Python Class')

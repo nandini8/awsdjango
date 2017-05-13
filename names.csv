@@ -1,4 +1,4 @@
-Timestamp,Email Address,Name,Date for Today's class,Did you attend the class?,Did you complete the assignments given for this week?,Comments on the assigment given,Hackerrank Algorithm Score,Hackerrank Python Score,Hackerrank Data Structure Score,Project Euler - Number of problems solved,Rosalind Info - Number of problems solved,Describe how the Today's class was,Any suggestions or comments
+Timestamp,Email Address,Name,Date for Today's class,Did you attend the class?,Did you complete the assignments given.,Comments on the assigment given,Hackerrank Algorithm Score,Hackerrank Python Score,Hackerrank Data Structure Score,Project Euler - Number of problems solved,Rosalind Info - Number of problems solved,Describe how the Today's class was,Any suggestions or comments
 1/23/2017 5:34:33,srinikita.b@gmail.com,Sri nikhitha,1/21/2017,No,No,Didn't attend the class so don't know,20,500,20,3,1,Good,Every thing is good and fine
 1/23/2017 7:49:05,sahil@solivarindia.com,sahil,1/21/2017,Yes,Yes,-,1237.95,648.05,0,0,6,-,-
 1/23/2017 9:56:12,nandini@solivarindia.com,Nandini,1/21/2017,Yes,Yes,Completed Rosalind problems and read the second chapter of Problem solving with algorithms and data structures,1187.86,657.93,0,0,6,Good,No comments
@@ -64,3 +64,37 @@ Timestamp,Email Address,Name,Date for Today's class,Did you attend the class?,Di
 5/8/2017 10:44:17,g.ajaykumar3684@gmail.com,G.Ajaykumar,5/8/2017,Yes,Yes,good,136,1022,10,6,7,good,no
 5/8/2017 20:31:48,chetanavinuthna@gmail.com,Chetana Vinuthna Karra,5/8/2017,Yes,Yes,nothing,141,737,0,12,5,Good,Nothing
 5/9/2017 3:03:13,keerthikrishnacp@gmail.com,Keer,5/9/2017,Yes,Yes,no,176,835,0,28,13,nice,no
+5/9/2017 3:21:37,chetanavinuthna@gmail.com,Chetana Vinuthna Karra,5/9/2017,Yes,Yes,Nothing,141,737,0,12,5,good,Nothing
+5/9/2017 3:22:49,nikhithagolinikki86@gmail.com,Nikhitha Goli,5/9/2017,Yes,No,no,325,855,0,19,7,good,no
+5/9/2017 9:59:04,g.ajaykumar3684@gmail.com,G.Ajaykumar,5/9/2017,Yes,Yes,good,136,1100,10,6,7,interesting,no
+5/9/2017 22:08:16,ganugapatisaialekhya@gmail.com,Alekhya Ganugapati,5/9/2017,Yes,Yes,nice,366,1071,0,22,10,interesting,none
+5/10/2017 3:42:54,keerthikrishnacp@gmail.com,ke,5/10/2017,Yes,Yes,-,176,835,0,28,15,nice,-
+5/10/2017 4:30:21,ganugapatisaialekhya@gmail.com,Alekhya Ganugapati,5/10/1996,Yes,Yes,-,366,1071,0,23,15,interesting,-
+5/10/2017 4:30:59,vennela.gonuguntla@gmail.com,Vennela.Gonuguntla,9/5/2017,Yes,Yes,good,450,1200,0,25,14,good,none
+5/10/2017 4:32:30,vennela.gonuguntla@gmail.com,Vennela.Gonuguntla,10/5/2017,Yes,Yes,none,450,1200,0,25,14,good,none
+5/10/2017 11:05:39,g.ajaykumar3684@gmail.com,G.Ajaykumar,5/10/2017,Yes,Yes,good,136,1100,10,8,8,good,no
+5/12/2017 2:31:50,gkalyanchakravarthi@gvptc.edu.in,G KALYAN CHAKRAVARTHI,5/12/2017,Yes,Yes,They are solvable but taking much time as we are not familiar with syntaxs,0,85,0,1,6,Today's class was very good and we are able to follow all the concepts and is easy to work for the rest of the programs,Continue in the same way
+5/12/2017 2:32:37,meet_jaya200@gvpce.ac.in,B.Jaya Lakshmi,5/12/2017,Yes,Yes,ok,0,55,0,2,2,good,good
+5/12/2017 2:34:46,venuillinda@gvpce.ac.in,venugopal i v s,5/12/2017,Yes,Yes,Assignments are very good,0,65,0,1,3,Excellent,No comments
+5/12/2017 2:35:52,chellurivvd@gmail.com,VVD Prasad Chelluri,5/12/2017,Yes,Yes,Going through the syntax's is making me feel confident,0,79653,0,0,3,good,none
+5/12/2017 2:36:22,jyotsna.meegada@gvpce.ac.in,jyotsna Chandra,12/5/2017,Yes,Yes,good,0,65,0,1,3,good,no
+5/12/2017 2:36:50,msantosh@gvpcew.ac.in,Santhosh Maddila,5/12/2017,Yes,Yes,-,0,79654,0,1,4,Morning session was good.,-
+5/12/2017 2:36:57,sandhyaranikk@gvpce.ac.in,SandhyaRaniKK,5/12/2017,Yes,Yes,Good,0,85,0,2,5,very interactive,good
+5/12/2017 2:39:03,respvv@gvpce.ac.in,PVVR CHANDRASEKHAR,5/12/2017,Yes,Yes,NOTHING SPECIFIC,31,59,0,0,4,VERY INFORMATIVE,NOTHING
+5/12/2017 2:43:07,deepthim@gvpcew.ac.in,deepthi marada,5/12/2017,Yes,No,STILL WORKING ON THEM,0,0,0,0,0,conceptual,I need some time to catch up.
+5/12/2017 2:43:30,sitha_kumari@gvpce.ac.in,sita kumari ch,5/12/2017,Yes,Yes,ok time required to complete th e tasks perfectly,0,85,0,2,5,satisfied,no comments
+5/12/2017 2:44:35,usharani@gvpce.ac.in,G.Usharani,5/12/2017,Yes,Yes,good Examples,0,85,0,2,6,good,no suggestions
+5/12/2017 2:47:21,umadevi@gvpce.ac.in,Dr. D.Uma Devi,5/12/2017,Yes,Yes,good examples,0,85,0,2,6,very good,no suggestions
+5/12/2017 2:51:36,hariniauphd@gmail.com,Dr.D.N.D.Harini,5/12/2017,Yes,Yes,good,0,85,0,2,6,interactive and informative,nothing
+5/12/2017 2:53:54,pranalinib@gvpce.ac.in,Badisa Pranalini,5/12/2017,Yes,Yes,study drill is good,0,85,0,2,4,It is good,no suggestions
+5/12/2017 2:53:58,nagatej09@gvpce.ac.in,D.Nagatej,5/12/2017,Yes,Yes,good,0,75,0,1,0,good,nil
+5/12/2017 2:54:34,mkishore@gvpce.ac.in,M Kishore,5/12/2017,Yes,Yes,"As i am new to Python language, request you to give some time to complete the assignments.",0,55,0,0,4,Explanation is good,No comments
+5/12/2017 2:56:21,srikanthvarma@gvpce.ac.in,Srikanth Varma,5/12/2017,Yes,Yes,Hacker rank questions were good,0,85,0,1,5,good,nil
+5/12/2017 2:56:39,vishnutej@gvpce.ac.in,Vishnu Tej,5/12/2017,Yes,No,Completed 18 problems,0,165,0,1,5,its was good,the class was interesting...
+5/12/2017 2:57:37,girishkumar.nistala@gmail.com,N S S S GIRISH KUMAR,5/12/2017,Yes,No,I MUST BE MUCH QUICK EFFICIENT,0,125,0,1,5,GOOD AND INTERACTIVE,"PLEASE CONTINUE AS IT WAS AND PROVIDE SOME TIME IN CLASS FOR SOLVING SOME PROBLEMS IN HACKERRANK, PROJECT EULER & ROSALIND ABOUT THE TOPICS DISCUSSED SO THAT THE EXAMPLE COVERAGE WILL BE HAPPENED."
+5/12/2017 2:58:34,sireesha.kadiri9@gmail.com,Sireesha kadiri,5/12/2017,Yes,Yes,nothing,0,85,0,0,6,good,good
+5/12/2017 3:02:38,hindu.gundala@gmail.com,G.V.Hindumathi,12/5/2017,Yes,Yes,need some practice to learn all new concepts,0,213,0,4,6,its really intresting,no comments
+5/12/2017 3:06:01,lateefa786@gmail.com,Lateefa Shaik,5/12/2017,Yes,No,16 exercises finished ..i need to finish 4 more exercises.,0,125,0,3,5,Excellent Class ,No 
+5/12/2017 3:06:33,vinya593@gmail.com,Lokeswari Vinya,12/5/2017,Yes,Yes,assignments are very clear,0,85,10,1,5,"Good sir,i have learnt basic concepts like syntax etc,without the others help by your lecture i have solved hacker ranker problems on String....i have enjoyed ","everything good,but only one thing is that after your lecture please give time for practice so that we will be confident...."
+5/12/2017 3:07:41,jarugullapavani@gmail.com,Pavani J,5/12/2017,Yes,Yes,I need to spend more time  to solve the assignment as i am new to python,0,65,0,1,4,good,Every thing is fine sir.
+5/12/2017 3:09:19,tulasi@gvpce.ac.in,tulasi,5/12/2017,Yes,Yes,no comments,0,95,0,0,5,morning session was very interesting compared to the afternoon session,no comments
