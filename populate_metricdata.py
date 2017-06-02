@@ -113,7 +113,7 @@ def populate_pythonClass():
 		for rows in list_to_be_entered:
 			#print(list_to_be_entered)
 			for row in rows:
-				print(row)
+				print(row['Email Address'])
 				attrv_obj = AttributeValue.objects.get(attr_name = row['Email Address'])
 				for x in dim1_obj:
 					if x.dim_name == 'Attendance':
