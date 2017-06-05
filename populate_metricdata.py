@@ -115,6 +115,7 @@ def populate_pythonClass():
 			for row in rows:
 				print(row['Email Address'])
 				attrv_obj = AttributeValue.objects.get(attr_name = row['Email Address'])
+				print("n",attrv_obj)
 				for x in dim1_obj:
 					if x.dim_name == 'Attendance':
 						if row['Did you attend the class?'] == "Yes" :
