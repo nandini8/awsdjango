@@ -72,7 +72,7 @@ def populate():
 
 
 def populate_pythonClass():
-	MetricData.objects.all().delete()
+	#MetricData.objects.all().delete()
 	metric_obj = Metric.objects.get_or_create(id=1,metric_name='Score', metric_type='count', company_name=Company.objects.get(company_name='Python Class'))[0]
 
 	company_obj = Company.objects.get(company_name='Python class')

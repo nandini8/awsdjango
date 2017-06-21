@@ -58,7 +58,7 @@ def populate_attributeValue():
 	attr_obj = Attribute.objects.get(id=3)
 	with open('data/pythonStudents.csv', 'r') as csvfile:
 		students = csv.DictReader(csvfile)
-		for row in students:
+		for row in students:#
 			print(row)
 			attr_value_obj = AttributeValue()
 			attr_value_obj.attr_type_id = attr_obj
