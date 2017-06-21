@@ -18,7 +18,7 @@ def populate_attribute():
 		u = Attribute.objects.get_or_create(id = x['id'], attr_type=x['attr_type'], company_name=x['company_obj'])
 
 def populate_attributeValue():
-	#AttributeValue.objects.all().delete()
+	AttributeValue.objects.all().delete()
 	attr_value_data = [
 						{'id': 31, 'attr_type_id': Attribute.objects.get(id=1), 'attr_name': 'Oral'},
 						{'id': 32, 'attr_type_id': Attribute.objects.get(id=1), 'attr_name': 'Practical'},
