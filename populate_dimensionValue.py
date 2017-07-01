@@ -11,7 +11,7 @@ from kpi_app.models import Dimension, DimensionValue, Company
 def populate():
 	DimensionValue.objects.all().delete()
 
-	company_obj = Company.objects.get(company_name='Xaviers')
+	'''company_obj = Company.objects.get(company_name='Xaviers')
 	dim_obj = Dimension.objects.get_or_create(id = 1, dim_type='Subject', company_name=company_obj)[0]
 
 	print(dim_obj)
@@ -32,7 +32,7 @@ def populate():
 
 			dim_value_obj.save()
 
-	#values = quickstart.main()
+	#values = quickstart.main()'''
 
 	dim_obj = Dimension.objects.get_or_create(id=2, dim_type='Student', company_name=Company.objects.get(company_name='Python Class'))[0]
 	dim_root= DimensionValue.objects.get(dim_name='Root')

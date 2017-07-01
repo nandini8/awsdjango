@@ -22,7 +22,7 @@ def populate_role():
 	for x in role_data:
 		u = Role.objects.get_or_create(id = x['id'], role_name=x['name'], company_name=x['company_obj'])
 	
-def populate_user_role():
+def populate_user_role_for_python():
 	UserRole.objects.all().delete()
 	user_obj = User.objects.filter(company_name=Company.objects.get(company_name='Python Class'))
 	s=0
@@ -47,6 +47,15 @@ def populate_user_role():
 		u = UserRole.objects.get_or_create(id = x['id'], user_id=x['user_id'], role_id=x['role_id'])
 		print(u)'''
 
+def populate_user_role_for_roche():
+	UserRole.objects.all().delete()
+	user_obj = User.objects.filter(company_name=Company.objects.get(company_name='Roche'))
+	s=0
+	for x in user_obj:
+		s += 1
+		print(s)
+		u = UserRole.objects.get_or_create(user_id=x, role_id=Role.objects.get(id=7))
+		print(u)
 
 def populate_privileges():
 	#Privilege.objects.all().delete()
@@ -99,6 +108,7 @@ def populate_role_privilege():
 if __name__ == '__main__':
 	print('Starting script')
 	populate_role()
-	populate_user_role()
+	populate_user_role_for_python()
+	populate_user_role_for_roche()
 	#populate_privileges()
 	#populate_role_privilege()

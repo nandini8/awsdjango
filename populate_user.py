@@ -50,8 +50,19 @@ def populatePythonclassUser():
 	u = User.objects.get_or_create(user_name='Venkatesh', company_name=company_obj, email='venkatesh@solivar.com')[0]
 	#print(u)
 
-	
+def populateRocheUsers():
+	with open('data/RocheUsers.csv', 'r') as csvfile:
+		students = csv.DictReader(csvfile)
+		#u = User.objects.get_or_create(user_name="Venkateshtadinada", company_name=Company.objects.get(id=3), email="venkatesh@solivar.com")[0]
+		s=0
+		for row in students:
+			print(row)
+			s +=1
+			print(s)
+			u = User.objects.get_or_create(user_name=row['Name'], company_name=Company.objects.get(id=4), email=row['Email Address'])[0]
+
 if __name__ == '__main__':
 	print('Starting script')
 	populate()
-	#populatePythonclassUser()preethi@solivarindia.com
+	#populatePythonclassUser()
+	populateRocheUsers()

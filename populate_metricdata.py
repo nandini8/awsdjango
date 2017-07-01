@@ -127,54 +127,7 @@ def populate_pythonClass():
 					else:
 						metric_data_obj = MetricData.objects.get_or_create(dim_1=x, attr_1=attrv_obj, metric_id=metric_obj, company_name=company_obj, date_associated=row['Date for Today\'s class'], numerator=row[x.dim_name])[0]
 						#print(attrv_obj,x.dim_name,row['Date for Saturday class'] )
-	#print(type(Attribute.objects.get(company_name=company_obj)))
-	#print(attr1_values)
-	'''values = quickstart.main()
-	for x in values:
-		for y in dim1_obj:
-			for z in attr1_values:
-				if x[1] == z.attr_name:
-					num=0
-					print(num)
-					if '/' in x[3]:
-						date_obj = datetime.datetime.strptime(x[3], '%m/%d/%Y')
-					else:
-						date = x[3].replace('th', "")
-						date_obj = datetime.datetime.strptime(date, '%b %d %Y')
-					print(date_obj)
-					if y.dim_name == 'Hackerrank Algorithm Score':
-						num = x[7]
-					elif y.dim_name == 'Hackerrank Python Score':
-						num = x[8]
-					elif y.dim_name == 'Hackerrank Data Structure Score':
-						num = x[9]
-					elif y.dim_name == 'Project Euler - Number of problems solved':
-						num = x[10]
-					elif y.dim_name == 'Rosalind Info - Number of problems solved':
-						num = x[11]
-					#metric_data_obj = MetricData.objects.get_or_create(dim_1=y, attr_1=z, metric_id=metric_obj, company_name=company_obj, date_associated=x[3], numerator=num)[0]
-					metric_data_obj = MetricData.objects.get_or_create(dim_1=y, attr_1=z, metric_id=metric_obj, company_name=company_obj, date_associated=date_obj, numerator=num)[0]
-					#print(metric_data_obj)
-	Metric.objects.all().delete()
-	metric_obj = Metric.objects.get_or_create(id=1,metric_name='Score', metric_type='count', company_name=Company.objects.get(company_name='Python Class'))[0]
-	company_obj = Company.objects.get(company_name = 'Python Class')
-	dim_obj = Dimension.objects.get(company_name=company_obj)
-	dim1_obj = DimensionValue.objects.filter(dim_type_id=dim_obj, level=1)'''
 	
-
-		#for x in list_to_be_entered:
-			#for y in x:
-				#print(y["Email Address"], y["Date for Saturday class"])
-			#print(len(x))
-
-		#print(number_of_days)
-		#print(number_of_records_entered, number_of_days)
-		#for records in sortedRecords:
-			#if records['Date for Saturday class'] in number_of_days:
-				#print(records['Email Address'])
-			#print(record, number_of_records_entered[record])
-			#my_item = next((item for item in sortedRecords if item['Email Address'] == record and item['Date for Saturday class'] == max(number_of_days)), None)
-
 def populate_metric():
 	MetricData.objects.all().delete()
 	metrics = ['Order to Batch Creation','Batch Creation to Packaging','Packaging to QA Release','Order Creation to QA Release']
