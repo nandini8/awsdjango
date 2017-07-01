@@ -27,9 +27,6 @@ def populate():
 				{'id': 15,'name': 'Nikhitha Goli', 'email': 'nikhithagolinikki86@gmail.com', 'company_obj':Company.objects.get(id=3)},
 				]
 		    
-	#for x in user_data:
-		#print(x)
-		#u = User.objects.get_or_create(user_name=x['name'], company_name=x['company_obj'], email=x['email'])[0]
 
 	with open('data/pythonStudents.csv', 'r') as csvfile:
 		students = csv.DictReader(csvfile)
