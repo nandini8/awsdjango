@@ -128,7 +128,7 @@ def populate_pythonClass():
 						metric_data_obj = MetricData.objects.get_or_create(dim_1=x, attr_1=attrv_obj, metric_id=metric_obj, company_name=company_obj, date_associated=row['Date for Today\'s class'], numerator=row[x.dim_name])[0]
 						#print(attrv_obj,x.dim_name,row['Date for Saturday class'] )
 	
-def populate_metric():
+def populate_metric_for_roche():
 	MetricData.objects.all().delete()
 	metrics = ['Order to Batch Creation','Batch Creation to Packaging','Packaging to QA Release','Order Creation to QA Release']
 	for i in metrics:
@@ -157,6 +157,6 @@ def populate_metric():
 if __name__ == '__main__':
 	print("Starting to populate data")
 	#populate()
-	populate_pythonClass()
-	#populate_metric()
+	#populate_pythonClass()
+	populate_metric_for_roche()
 
