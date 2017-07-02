@@ -30,7 +30,7 @@ def populate():
 
 	with open('data/pythonStudents.csv', 'r') as csvfile:
 		students = csv.DictReader(csvfile)
-		u = User.objects.get_or_create(user_name="Venkateshtadinada", company_name=Company.objects.get(id=3), email="venkatesh@solivar.com")[0]
+		#u = User.objects.get_or_create(user_name="Venkateshtadinada", company_name=Company.objects.get(id=3), email="venkatesh@solivar.com")[0]
 		s=0
 		for row in students:
 			print(row)
