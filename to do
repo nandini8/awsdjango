@@ -19,29 +19,16 @@ company logo and organizations' logo
 web: gunicorn KPI_project.wsgi --timeout 15 --keep-alive 5 --log-level debug
 
 
-  02_populate:
-    command: "python populate_company.py"
-  03_populate:
-    command: "python populate_attribute.py"
-  04_populate:
-    command: "python populate_user.py"
-  05_populate:
-    command: "python populate_roles.py"
-  06_populate:
-    command: "python populate_dimensionValue.py"
-  07_populate:
-    command: "python populate_metricdata.py"
-
-
- 01_migrate:
-    command: "python populate_user.py"
+container_commands:
+  01_migrate:
+    command: "python3 populate_user.py"
     leader_only: true
   02_migrate:
-    command: "python populate_roles.py"
+    command: "python3 populate_roles.py"
     leader_only: true
   03_migrate:
-    command: "python populate_attribute.py"
-    leader_only: true  
+    command: "python3 populate_dimensionValue.py"
+    leader_only: true
   04_migrate:
-    command: "python populate_metricdata.py"
+    command: "python3 populate_metricdata.py"
     leader_only: true
